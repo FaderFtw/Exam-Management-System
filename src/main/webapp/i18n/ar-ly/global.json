@@ -8,6 +8,7 @@
       "entities": {
         "main": "الكيانات",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "adminAuthority": "Authorities",
         "classroom": "Classroom",
         "department": "Department",
         "exam": "Exam",
