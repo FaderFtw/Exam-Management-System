@@ -1,0 +1,30 @@
+{
+  "examManagerApp": {
+    "report": {
+      "home": {
+        "title": "Reports",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Report",
+        "createOrEditLabel": "Créer ou éditer un Report",
+        "notFound": "Aucun Report trouvé"
+      },
+      "created": "Un nouveau Report a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Report avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Report avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Report {{ id }} ?"
+      },
+      "detail": {
+        "title": "Report"
+      },
+      "id": "ID",
+      "name": "Name",
+      "createdDate": "Created Date",
+      "content": "Content",
+      "professor": "Professor",
+      "examSession": "Exam Session",
+      "department": "Department",
+      "institute": "Institute"
+    }
+  }
+}

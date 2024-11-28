@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "professorDetails": {
+      "home": {
+        "title": "Professor Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Professor Details",
+        "createOrEditLabel": "Create or edit a Professor Details",
+        "notFound": "No Professor Details found"
+      },
+      "created": "A new Professor Details is created with identifier {{ param }}",
+      "updated": "A Professor Details is updated with identifier {{ param }}",
+      "deleted": "A Professor Details is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Professor Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Professor Details"
+      },
+      "id": "ID",
+      "rank": "Rank",
+      "user": "User",
+      "supervisedExams": "Supervised Exams",
+      "report": "Report",
+      "timetable": "Timetable"
+    }
+  }
+}

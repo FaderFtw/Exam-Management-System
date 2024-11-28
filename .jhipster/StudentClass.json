@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20241128173249"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "studentCount",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "StudentClass",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "major",
+      "relationshipName": "major",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,119 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-professor-details-heading"
+        data-cy="ProfessorDetailsCreateUpdateHeading"
+        jhiTranslate="examManagerApp.professorDetails.home.createOrEditLabel"
+      >
+        Créer ou éditer un Professor Details
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.professorDetails.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let rankRef = editForm.get('rank')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_rank" jhiTranslate="examManagerApp.professorDetails.rank">Rank</label>
+          <select class="form-control" name="rank" formControlName="rank" id="field_rank" data-cy="rank">
+            <option [ngValue]="null">{{ 'examManagerApp.Rank.null' | translate }}</option>
+            @for (rank of rankValues; track $index) {
+              <option [value]="rank">{{ 'examManagerApp.Rank.' + rank | translate }}</option>
+            }
+          </select>
+          @if (rankRef.invalid && (rankRef.dirty || rankRef.touched)) {
+            <div>
+              @if (editForm.get('rank')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" jhiTranslate="examManagerApp.professorDetails.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_supervisedExams" jhiTranslate="examManagerApp.professorDetails.supervisedExams">Supervised Exams</label>
+          <select
+            class="form-control"
+            id="field_supervisedExams"
+            data-cy="supervisedExams"
+            multiple
+            name="supervisedExams"
+            formControlName="supervisedExams"
+            [compareWith]="compareExam"
+          >
+            @for (examOption of examsSharedCollection; track $index) {
+              <option [ngValue]="examOption">{{ examOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_report" jhiTranslate="examManagerApp.professorDetails.report">Report</label>
+          <select
+            class="form-control"
+            id="field_report"
+            data-cy="report"
+            name="report"
+            formControlName="report"
+            [compareWith]="compareReport"
+          >
+            <option [ngValue]="null"></option>
+            @for (reportOption of reportsSharedCollection; track $index) {
+              <option [ngValue]="reportOption">{{ reportOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_timetable" jhiTranslate="examManagerApp.professorDetails.timetable">Timetable</label>
+          <select
+            class="form-control"
+            id="field_timetable"
+            data-cy="timetable"
+            name="timetable"
+            formControlName="timetable"
+            [compareWith]="compareTimetable"
+          >
+            <option [ngValue]="null"></option>
+            @for (timetableOption of timetablesSharedCollection; track $index) {
+              <option [ngValue]="timetableOption">{{ timetableOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

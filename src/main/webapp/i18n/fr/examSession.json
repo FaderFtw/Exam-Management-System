@@ -1,0 +1,34 @@
+{
+  "examManagerApp": {
+    "examSession": {
+      "home": {
+        "title": "ExamSessions",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Exam Session",
+        "createOrEditLabel": "Créer ou éditer un Exam Session",
+        "notFound": "Aucun Exam Session trouvé"
+      },
+      "created": "Un nouveau Exam Session a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Exam Session avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Exam Session avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Exam Session {{ id }} ?"
+      },
+      "detail": {
+        "title": "Exam Session"
+      },
+      "id": "ID",
+      "name": "Name",
+      "sessionCode": "Session Code",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "allowParallelStudies": "Allow Parallel Studies",
+      "allowOwnClassSupervision": "Allow Own Class Supervision",
+      "allowCombineClasses": "Allow Combine Classes",
+      "sessionType": "Session Type",
+      "departments": "Departments",
+      "exam": "Exam",
+      "report": "Report"
+    }
+  }
+}

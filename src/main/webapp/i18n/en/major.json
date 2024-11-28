@@ -1,0 +1,26 @@
+{
+  "examManagerApp": {
+    "major": {
+      "home": {
+        "title": "Majors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Major",
+        "createOrEditLabel": "Create or edit a Major",
+        "notFound": "No Majors found"
+      },
+      "created": "A new Major is created with identifier {{ param }}",
+      "updated": "A Major is updated with identifier {{ param }}",
+      "deleted": "A Major is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Major {{ id }}?"
+      },
+      "detail": {
+        "title": "Major"
+      },
+      "id": "ID",
+      "name": "Name",
+      "department": "Department",
+      "studentClass": "Student Class"
+    }
+  }
+}

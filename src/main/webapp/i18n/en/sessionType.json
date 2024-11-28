@@ -1,0 +1,25 @@
+{
+  "examManagerApp": {
+    "sessionType": {
+      "home": {
+        "title": "Session Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Session Type",
+        "createOrEditLabel": "Create or edit a Session Type",
+        "notFound": "No Session Types found"
+      },
+      "created": "A new Session Type is created with identifier {{ param }}",
+      "updated": "A Session Type is updated with identifier {{ param }}",
+      "deleted": "A Session Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Session Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Session Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "examSession": "Exam Session"
+    }
+  }
+}

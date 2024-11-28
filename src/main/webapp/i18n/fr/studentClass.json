@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "studentClass": {
+      "home": {
+        "title": "StudentClasses",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Student Class",
+        "createOrEditLabel": "Créer ou éditer un Student Class",
+        "notFound": "Aucun Student Class trouvé"
+      },
+      "created": "Un nouveau Student Class a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Student Class avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Student Class avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Student Class {{ id }} ?"
+      },
+      "detail": {
+        "title": "Student Class"
+      },
+      "id": "ID",
+      "name": "Name",
+      "studentCount": "Student Count",
+      "major": "Major",
+      "exam": "Exam",
+      "teachingSession": "Teaching Session"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "timetable": {
+      "home": {
+        "title": "Timetables",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Timetable",
+        "createOrEditLabel": "Create or edit a Timetable",
+        "notFound": "No Timetables found"
+      },
+      "created": "A new Timetable is created with identifier {{ param }}",
+      "updated": "A Timetable is updated with identifier {{ param }}",
+      "deleted": "A Timetable is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Timetable {{ id }}?"
+      },
+      "detail": {
+        "title": "Timetable"
+      },
+      "id": "ID",
+      "name": "Name",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "professor": "Professor",
+      "teachingSession": "Teaching Session"
+    }
+  }
+}

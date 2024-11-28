@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity ExamSession.
+    -->
+    <changeSet id="20241128173243-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="session_type_id"
+                                 baseTableName="exam_session"
+                                 constraintName="fk_exam_session__session_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="session_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="exam_session_id"
+                                 baseTableName="rel_exam_session__departments"
+                                 constraintName="fk_rel_exam_session__departments__exam_session_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam_session"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="departments_id"
+                                 baseTableName="rel_exam_session__departments"
+                                 constraintName="fk_rel_exam_session__departments__departments_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="exam_id"
+                                 baseTableName="exam_session"
+                                 constraintName="fk_exam_session__exam_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="report_id"
+                                 baseTableName="exam_session"
+                                 constraintName="fk_exam_session__report_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="report"
+                                 />
+    </changeSet>
+</databaseChangeLog>

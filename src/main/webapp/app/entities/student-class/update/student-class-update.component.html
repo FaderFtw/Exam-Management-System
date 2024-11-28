@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-student-class-heading"
+        data-cy="StudentClassCreateUpdateHeading"
+        jhiTranslate="examManagerApp.studentClass.home.createOrEditLabel"
+      >
+        Créer ou éditer un Student Class
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.studentClass.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.studentClass.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_studentCount" jhiTranslate="examManagerApp.studentClass.studentCount">Student Count</label>
+          <input
+            type="number"
+            class="form-control"
+            name="studentCount"
+            id="field_studentCount"
+            data-cy="studentCount"
+            formControlName="studentCount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_exam" jhiTranslate="examManagerApp.studentClass.exam">Exam</label>
+          <select class="form-control" id="field_exam" data-cy="exam" name="exam" formControlName="exam" [compareWith]="compareExam">
+            <option [ngValue]="null"></option>
+            @for (examOption of examsSharedCollection; track $index) {
+              <option [ngValue]="examOption">{{ examOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_teachingSession" jhiTranslate="examManagerApp.studentClass.teachingSession"
+            >Teaching Session</label
+          >
+          <select
+            class="form-control"
+            id="field_teachingSession"
+            data-cy="teachingSession"
+            name="teachingSession"
+            formControlName="teachingSession"
+            [compareWith]="compareTeachingSession"
+          >
+            <option [ngValue]="null"></option>
+            @for (teachingSessionOption of teachingSessionsSharedCollection; track $index) {
+              <option [ngValue]="teachingSessionOption">{{ teachingSessionOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "studentClass": {
+      "home": {
+        "title": "Student Classes",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Student Class جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Student Class",
+        "notFound": "لم يتم العثور على Student Classes"
+      },
+      "created": "Student Class جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Student Class تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Student Class تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Student Class {{ id }}؟"
+      },
+      "detail": {
+        "title": "Student Class"
+      },
+      "id": "ID",
+      "name": "Name",
+      "studentCount": "Student Count",
+      "major": "Major",
+      "exam": "Exam",
+      "teachingSession": "Teaching Session"
+    }
+  }
+}

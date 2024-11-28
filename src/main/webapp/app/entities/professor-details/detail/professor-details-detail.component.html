@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (professorDetails(); as professorDetailsRef) {
+      <div>
+        <h2 data-cy="professorDetailsDetailsHeading">
+          <span jhiTranslate="examManagerApp.professorDetails.detail.title">Professor Details</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ professorDetailsRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.professorDetails.rank">Rank</span></dt>
+          <dd>
+            <span [jhiTranslate]="'examManagerApp.Rank.' + (professorDetailsRef.rank ?? 'null')">{{
+              {
+                null: '',
+                MAITRE_ASSISTANT: 'MAITRE_ASSISTANT',
+                ASSISTANT: 'ASSISTANT',
+                VACATAIRE: 'VACATAIRE',
+                MAITRE_CONF: 'MAITRE_CONF',
+                PROFESSEUR: 'PROFESSEUR',
+                EXPERT: 'EXPERT',
+                PES: 'PES',
+                CONTRACTUEL: 'CONTRACTUEL',
+              }[professorDetailsRef.rank ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.professorDetails.user">User</span></dt>
+          <dd>
+            <span>{{ professorDetailsRef.user?.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.professorDetails.supervisedExams">Supervised Exams</span></dt>
+          <dd>
+            @for (supervisedExams of professorDetailsRef.supervisedExams; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/exam', supervisedExams.id, 'view']">{{ supervisedExams?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.professorDetails.report">Report</span></dt>
+          <dd>
+            @if (professorDetails()!.report) {
+              <div>
+                <a [routerLink]="['/report', professorDetails()!.report?.id, 'view']">{{ professorDetailsRef.report?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.professorDetails.timetable">Timetable</span></dt>
+          <dd>
+            @if (professorDetails()!.timetable) {
+              <div>
+                <a [routerLink]="['/timetable', professorDetails()!.timetable?.id, 'view']">{{ professorDetailsRef.timetable?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/professor-details', professorDetailsRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

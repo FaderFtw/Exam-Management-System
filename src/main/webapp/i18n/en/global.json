@@ -8,7 +8,18 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "classroom": "Classroom",
+        "department": "Department",
+        "exam": "Exam",
+        "examSession": "Exam Session",
+        "institute": "Institute",
+        "major": "Major",
+        "professorDetails": "Professor Details",
+        "report": "Report",
+        "sessionType": "Session Type",
+        "studentClass": "Student Class",
+        "teachingSession": "Teaching Session",
+        "timetable": "Timetable"
       },
       "account": {
         "main": "Account",

@@ -1,0 +1,127 @@
+//enum Role {
+//    SUPER_ADMIN,
+//    INSTITUTE_ADMIN,
+//    DEPARTMENT_ADMIN,
+//    PROFESSOR
+//}
+
+// Enum definitions
+enum Rank {
+    MAITRE_ASSISTANT,
+    ASSISTANT,
+    VACATAIRE,
+    MAITRE_CONF,
+    PROFESSEUR,
+    EXPERT,
+    PES,
+    CONTRACTUEL
+}
+
+
+// Entity definitions
+entity Institute {
+    name String required,
+    location String required,
+    logo ImageBlob required,
+    phone String,
+    email String,
+    website String
+}
+
+entity Department {
+    name String required,
+    email String
+}
+
+entity ProfessorDetails {
+    rank Rank required
+}
+
+entity ExamSession {
+    name String required,
+    sessionCode String required,
+    startDate LocalDate required,
+    endDate LocalDate required,
+    allowParallelStudies Boolean required,
+    allowOwnClassSupervision Boolean required,
+    allowCombineClasses Boolean required
+}
+
+entity SessionType {
+    name String required
+}
+
+entity Exam {
+    name String required
+}
+
+entity Major {
+    name String required
+}
+
+entity StudentClass {
+    name String required,
+    studentCount Integer
+}
+
+entity Classroom {
+    name String required,
+    capacity Integer required
+}
+
+entity Timetable {
+    name String required,
+    startDate LocalDate required,
+    endDate LocalDate required
+}
+
+entity TeachingSession {
+    name String required,
+    startHour Instant required,
+    endHour Instant required,
+    type String required
+}
+
+entity Report {
+    name String required,
+    createdDate Instant required,
+    content TextBlob
+}
+
+// Relationships
+relationship ManyToOne {
+    Department{users} to User{department} with builtInEntity
+}
+
+relationship OneToMany {
+    Department{institute} to Institute
+    Classroom{department} to Department
+    Major{department} to Department
+    Exam{classroom} to Classroom
+    Exam{studentClass} to StudentClass
+    Exam{session} to ExamSession
+    StudentClass{major} to Major
+    Timetable{professor} to ProfessorDetails
+    TeachingSession{timetable} to Timetable
+    TeachingSession{studentClass} to StudentClass
+    TeachingSession{classroom} to Classroom
+    Report{professor} to ProfessorDetails
+    Report{examSession} to ExamSession
+    Report{department} to Department
+    Report{institute} to Institute
+}
+
+relationship ManyToMany {
+    Exam{supervisors} to ProfessorDetails{supervisedExams}
+    ExamSession{departments} to Department{examSessions}
+}
+
+relationship OneToOne {
+    ProfessorDetails{user} to User with builtInEntity
+    ExamSession{sessionType} to SessionType
+}
+
+// Pagination, DTOs, and Services
+paginate Institute, Department, ProfessorDetails, ExamSession, Exam, StudentClass, Timetable, Report, Major, Classroom, TeachingSession with pagination
+dto * with mapstruct
+service all with serviceClass

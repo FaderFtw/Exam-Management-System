@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Major.
+    -->
+    <changeSet id="20241128173245-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="student_class_id"
+                                 baseTableName="major"
+                                 constraintName="fk_major__student_class_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="student_class"
+                                 />
+    </changeSet>
+</databaseChangeLog>

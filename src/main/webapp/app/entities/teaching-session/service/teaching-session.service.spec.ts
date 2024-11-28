@@ -1,0 +1,207 @@
+import { TestBed } from '@angular/core/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+
+import { ITeachingSession } from '../teaching-session.model';
+import { sampleWithFullData, sampleWithNewData, sampleWithPartialData, sampleWithRequiredData } from '../teaching-session.test-samples';
+
+import { RestTeachingSession, TeachingSessionService } from './teaching-session.service';
+
+const requireRestSample: RestTeachingSession = {
+  ...sampleWithRequiredData,
+  startHour: sampleWithRequiredData.startHour?.toJSON(),
+  endHour: sampleWithRequiredData.endHour?.toJSON(),
+};
+
+describe('TeachingSession Service', () => {
+  let service: TeachingSessionService;
+  let httpMock: HttpTestingController;
+  let expectedResult: ITeachingSession | ITeachingSession[] | boolean | null;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+    expectedResult = null;
+    service = TestBed.inject(TeachingSessionService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  describe('Service methods', () => {
+    it('should find an element', () => {
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.find(123).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'GET' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
+    });
+
+    it('should create a TeachingSession', () => {
+      const teachingSession = { ...sampleWithNewData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.create(teachingSession).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'POST' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
+    });
+
+    it('should update a TeachingSession', () => {
+      const teachingSession = { ...sampleWithRequiredData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.update(teachingSession).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'PUT' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
+    });
+
+    it('should partial update a TeachingSession', () => {
+      const patchObject = { ...sampleWithPartialData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'PATCH' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
+    });
+
+    it('should return a list of TeachingSession', () => {
+      const returnedFromService = { ...requireRestSample };
+
+      const expected = { ...sampleWithRequiredData };
+
+      service.query().subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'GET' });
+      req.flush([returnedFromService]);
+      httpMock.verify();
+      expect(expectedResult).toMatchObject([expected]);
+    });
+
+    it('should delete a TeachingSession', () => {
+      const expected = true;
+
+      service.delete(123).subscribe(resp => (expectedResult = resp.ok));
+
+      const req = httpMock.expectOne({ method: 'DELETE' });
+      req.flush({ status: 200 });
+      expect(expectedResult).toBe(expected);
+    });
+
+    describe('addTeachingSessionToCollectionIfMissing', () => {
+      it('should add a TeachingSession to an empty array', () => {
+        const teachingSession: ITeachingSession = sampleWithRequiredData;
+        expectedResult = service.addTeachingSessionToCollectionIfMissing([], teachingSession);
+        expect(expectedResult).toHaveLength(1);
+        expect(expectedResult).toContain(teachingSession);
+      });
+
+      it('should not add a TeachingSession to an array that contains it', () => {
+        const teachingSession: ITeachingSession = sampleWithRequiredData;
+        const teachingSessionCollection: ITeachingSession[] = [
+          {
+            ...teachingSession,
+          },
+          sampleWithPartialData,
+        ];
+        expectedResult = service.addTeachingSessionToCollectionIfMissing(teachingSessionCollection, teachingSession);
+        expect(expectedResult).toHaveLength(2);
+      });
+
+      it("should add a TeachingSession to an array that doesn't contain it", () => {
+        const teachingSession: ITeachingSession = sampleWithRequiredData;
+        const teachingSessionCollection: ITeachingSession[] = [sampleWithPartialData];
+        expectedResult = service.addTeachingSessionToCollectionIfMissing(teachingSessionCollection, teachingSession);
+        expect(expectedResult).toHaveLength(2);
+        expect(expectedResult).toContain(teachingSession);
+      });
+
+      it('should add only unique TeachingSession to an array', () => {
+        const teachingSessionArray: ITeachingSession[] = [sampleWithRequiredData, sampleWithPartialData, sampleWithFullData];
+        const teachingSessionCollection: ITeachingSession[] = [sampleWithRequiredData];
+        expectedResult = service.addTeachingSessionToCollectionIfMissing(teachingSessionCollection, ...teachingSessionArray);
+        expect(expectedResult).toHaveLength(3);
+      });
+
+      it('should accept varargs', () => {
+        const teachingSession: ITeachingSession = sampleWithRequiredData;
+        const teachingSession2: ITeachingSession = sampleWithPartialData;
+        expectedResult = service.addTeachingSessionToCollectionIfMissing([], teachingSession, teachingSession2);
+        expect(expectedResult).toHaveLength(2);
+        expect(expectedResult).toContain(teachingSession);
+        expect(expectedResult).toContain(teachingSession2);
+      });
+
+      it('should accept null and undefined values', () => {
+        const teachingSession: ITeachingSession = sampleWithRequiredData;
+        expectedResult = service.addTeachingSessionToCollectionIfMissing([], null, teachingSession, undefined);
+        expect(expectedResult).toHaveLength(1);
+        expect(expectedResult).toContain(teachingSession);
+      });
+
+      it('should return initial array if no TeachingSession is added', () => {
+        const teachingSessionCollection: ITeachingSession[] = [sampleWithRequiredData];
+        expectedResult = service.addTeachingSessionToCollectionIfMissing(teachingSessionCollection, undefined, null);
+        expect(expectedResult).toEqual(teachingSessionCollection);
+      });
+    });
+
+    describe('compareTeachingSession', () => {
+      it('Should return true if both entities are null', () => {
+        const entity1 = null;
+        const entity2 = null;
+
+        const compareResult = service.compareTeachingSession(entity1, entity2);
+
+        expect(compareResult).toEqual(true);
+      });
+
+      it('Should return false if one entity is null', () => {
+        const entity1 = { id: 123 };
+        const entity2 = null;
+
+        const compareResult1 = service.compareTeachingSession(entity1, entity2);
+        const compareResult2 = service.compareTeachingSession(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey differs', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 456 };
+
+        const compareResult1 = service.compareTeachingSession(entity1, entity2);
+        const compareResult2 = service.compareTeachingSession(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey matches', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 123 };
+
+        const compareResult1 = service.compareTeachingSession(entity1, entity2);
+        const compareResult2 = service.compareTeachingSession(entity2, entity1);
+
+        expect(compareResult1).toEqual(true);
+        expect(compareResult2).toEqual(true);
+      });
+    });
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+});

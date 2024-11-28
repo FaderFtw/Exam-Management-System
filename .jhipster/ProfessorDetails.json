@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20241128173246"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "rank",
+      "fieldType": "Rank",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MAITRE_ASSISTANT,ASSISTANT,VACATAIRE,MAITRE_CONF,PROFESSEUR,EXPERT,PES,CONTRACTUEL"
+    }
+  ],
+  "name": "ProfessorDetails",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "exam",
+      "otherEntityRelationshipName": "supervisors",
+      "relationshipName": "supervisedExams",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

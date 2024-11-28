@@ -1,0 +1,129 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-department-heading"
+        data-cy="DepartmentCreateUpdateHeading"
+        jhiTranslate="examManagerApp.department.home.createOrEditLabel"
+      >
+        Créer ou éditer un Department
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.department.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.department.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_email" jhiTranslate="examManagerApp.department.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_users" jhiTranslate="examManagerApp.department.users">Users</label>
+          <select class="form-control" id="field_users" data-cy="users" name="users" formControlName="users" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_examSessions" jhiTranslate="examManagerApp.department.examSessions">Exam Sessions</label>
+          <select
+            class="form-control"
+            id="field_examSessions"
+            data-cy="examSessions"
+            multiple
+            name="examSessions"
+            formControlName="examSessions"
+            [compareWith]="compareExamSession"
+          >
+            @for (examSessionOption of examSessionsSharedCollection; track $index) {
+              <option [ngValue]="examSessionOption">{{ examSessionOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_classroom" jhiTranslate="examManagerApp.department.classroom">Classroom</label>
+          <select
+            class="form-control"
+            id="field_classroom"
+            data-cy="classroom"
+            name="classroom"
+            formControlName="classroom"
+            [compareWith]="compareClassroom"
+          >
+            <option [ngValue]="null"></option>
+            @for (classroomOption of classroomsSharedCollection; track $index) {
+              <option [ngValue]="classroomOption">{{ classroomOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_major" jhiTranslate="examManagerApp.department.major">Major</label>
+          <select class="form-control" id="field_major" data-cy="major" name="major" formControlName="major" [compareWith]="compareMajor">
+            <option [ngValue]="null"></option>
+            @for (majorOption of majorsSharedCollection; track $index) {
+              <option [ngValue]="majorOption">{{ majorOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_report" jhiTranslate="examManagerApp.department.report">Report</label>
+          <select
+            class="form-control"
+            id="field_report"
+            data-cy="report"
+            name="report"
+            formControlName="report"
+            [compareWith]="compareReport"
+          >
+            <option [ngValue]="null"></option>
+            @for (reportOption of reportsSharedCollection; track $index) {
+              <option [ngValue]="reportOption">{{ reportOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

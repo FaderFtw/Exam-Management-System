@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (studentClass(); as studentClassRef) {
+      <div>
+        <h2 data-cy="studentClassDetailsHeading"><span jhiTranslate="examManagerApp.studentClass.detail.title">Student Class</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ studentClassRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.studentClass.name">Name</span></dt>
+          <dd>
+            <span>{{ studentClassRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.studentClass.studentCount">Student Count</span></dt>
+          <dd>
+            <span>{{ studentClassRef.studentCount }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.studentClass.exam">Exam</span></dt>
+          <dd>
+            @if (studentClass()!.exam) {
+              <div>
+                <a [routerLink]="['/exam', studentClass()!.exam?.id, 'view']">{{ studentClassRef.exam?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.studentClass.teachingSession">Teaching Session</span></dt>
+          <dd>
+            @if (studentClass()!.teachingSession) {
+              <div>
+                <a [routerLink]="['/teaching-session', studentClass()!.teachingSession?.id, 'view']">{{
+                  studentClassRef.teachingSession?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/student-class', studentClassRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

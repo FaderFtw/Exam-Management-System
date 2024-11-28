@@ -1,0 +1,250 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-exam-session-heading"
+        data-cy="ExamSessionCreateUpdateHeading"
+        jhiTranslate="examManagerApp.examSession.home.createOrEditLabel"
+      >
+        Créer ou éditer un Exam Session
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.examSession.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.examSession.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let sessionCodeRef = editForm.get('sessionCode')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_sessionCode" jhiTranslate="examManagerApp.examSession.sessionCode">Session Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="sessionCode"
+            id="field_sessionCode"
+            data-cy="sessionCode"
+            formControlName="sessionCode"
+          />
+          @if (sessionCodeRef.invalid && (sessionCodeRef.dirty || sessionCodeRef.touched)) {
+            <div>
+              @if (editForm.get('sessionCode')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let startDateRef = editForm.get('startDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate" jhiTranslate="examManagerApp.examSession.startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (startDateRef.invalid && (startDateRef.dirty || startDateRef.touched)) {
+            <div>
+              @if (editForm.get('startDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let endDateRef = editForm.get('endDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate" jhiTranslate="examManagerApp.examSession.endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (endDateRef.invalid && (endDateRef.dirty || endDateRef.touched)) {
+            <div>
+              @if (editForm.get('endDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let allowParallelStudiesRef = editForm.get('allowParallelStudies')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_allowParallelStudies" jhiTranslate="examManagerApp.examSession.allowParallelStudies"
+            >Allow Parallel Studies</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="allowParallelStudies"
+            id="field_allowParallelStudies"
+            data-cy="allowParallelStudies"
+            formControlName="allowParallelStudies"
+          />
+          @if (allowParallelStudiesRef.invalid && (allowParallelStudiesRef.dirty || allowParallelStudiesRef.touched)) {
+            <div>
+              @if (editForm.get('allowParallelStudies')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let allowOwnClassSupervisionRef = editForm.get('allowOwnClassSupervision')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_allowOwnClassSupervision" jhiTranslate="examManagerApp.examSession.allowOwnClassSupervision"
+            >Allow Own Class Supervision</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="allowOwnClassSupervision"
+            id="field_allowOwnClassSupervision"
+            data-cy="allowOwnClassSupervision"
+            formControlName="allowOwnClassSupervision"
+          />
+          @if (allowOwnClassSupervisionRef.invalid && (allowOwnClassSupervisionRef.dirty || allowOwnClassSupervisionRef.touched)) {
+            <div>
+              @if (editForm.get('allowOwnClassSupervision')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let allowCombineClassesRef = editForm.get('allowCombineClasses')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_allowCombineClasses" jhiTranslate="examManagerApp.examSession.allowCombineClasses"
+            >Allow Combine Classes</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="allowCombineClasses"
+            id="field_allowCombineClasses"
+            data-cy="allowCombineClasses"
+            formControlName="allowCombineClasses"
+          />
+          @if (allowCombineClassesRef.invalid && (allowCombineClassesRef.dirty || allowCombineClassesRef.touched)) {
+            <div>
+              @if (editForm.get('allowCombineClasses')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sessionType" jhiTranslate="examManagerApp.examSession.sessionType">Session Type</label>
+          <select
+            class="form-control"
+            id="field_sessionType"
+            data-cy="sessionType"
+            name="sessionType"
+            formControlName="sessionType"
+            [compareWith]="compareSessionType"
+          >
+            <option [ngValue]="null"></option>
+            @for (sessionTypeOption of sessionTypesCollection; track $index) {
+              <option [ngValue]="sessionTypeOption">{{ sessionTypeOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_departments" jhiTranslate="examManagerApp.examSession.departments">Departments</label>
+          <select
+            class="form-control"
+            id="field_departments"
+            data-cy="departments"
+            multiple
+            name="departments"
+            formControlName="departments"
+            [compareWith]="compareDepartment"
+          >
+            @for (departmentOption of departmentsSharedCollection; track $index) {
+              <option [ngValue]="departmentOption">{{ departmentOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_exam" jhiTranslate="examManagerApp.examSession.exam">Exam</label>
+          <select class="form-control" id="field_exam" data-cy="exam" name="exam" formControlName="exam" [compareWith]="compareExam">
+            <option [ngValue]="null"></option>
+            @for (examOption of examsSharedCollection; track $index) {
+              <option [ngValue]="examOption">{{ examOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_report" jhiTranslate="examManagerApp.examSession.report">Report</label>
+          <select
+            class="form-control"
+            id="field_report"
+            data-cy="report"
+            name="report"
+            formControlName="report"
+            [compareWith]="compareReport"
+          >
+            <option [ngValue]="null"></option>
+            @for (reportOption of reportsSharedCollection; track $index) {
+              <option [ngValue]="reportOption">{{ reportOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

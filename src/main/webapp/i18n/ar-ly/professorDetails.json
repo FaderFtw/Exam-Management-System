@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "professorDetails": {
+      "home": {
+        "title": "Professor Details",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Professor Details جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Professor Details",
+        "notFound": "لم يتم العثور على Professor Details"
+      },
+      "created": "Professor Details جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Professor Details تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Professor Details تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Professor Details {{ id }}؟"
+      },
+      "detail": {
+        "title": "Professor Details"
+      },
+      "id": "ID",
+      "rank": "Rank",
+      "user": "User",
+      "supervisedExams": "Supervised Exams",
+      "report": "Report",
+      "timetable": "Timetable"
+    }
+  }
+}

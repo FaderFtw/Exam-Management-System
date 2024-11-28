@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "timetable": {
+      "home": {
+        "title": "Timetables",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Timetable جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Timetable",
+        "notFound": "لم يتم العثور على Timetables"
+      },
+      "created": "Timetable جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Timetable تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Timetable تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Timetable {{ id }}؟"
+      },
+      "detail": {
+        "title": "Timetable"
+      },
+      "id": "ID",
+      "name": "Name",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "professor": "Professor",
+      "teachingSession": "Teaching Session"
+    }
+  }
+}

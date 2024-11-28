@@ -50,6 +50,37 @@ public class CacheConfiguration {
             createCache(cm, tn.fst.exam_manager.domain.User.class.getName());
             createCache(cm, tn.fst.exam_manager.domain.Authority.class.getName());
             createCache(cm, tn.fst.exam_manager.domain.User.class.getName() + ".authorities");
+            createCache(cm, tn.fst.exam_manager.domain.Classroom.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Classroom.class.getName() + ".departments");
+            createCache(cm, tn.fst.exam_manager.domain.Department.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Department.class.getName() + ".institutes");
+            createCache(cm, tn.fst.exam_manager.domain.Department.class.getName() + ".examSessions");
+            createCache(cm, tn.fst.exam_manager.domain.Exam.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Exam.class.getName() + ".classrooms");
+            createCache(cm, tn.fst.exam_manager.domain.Exam.class.getName() + ".studentClasses");
+            createCache(cm, tn.fst.exam_manager.domain.Exam.class.getName() + ".sessions");
+            createCache(cm, tn.fst.exam_manager.domain.Exam.class.getName() + ".supervisors");
+            createCache(cm, tn.fst.exam_manager.domain.ExamSession.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.ExamSession.class.getName() + ".departments");
+            createCache(cm, tn.fst.exam_manager.domain.Institute.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Major.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Major.class.getName() + ".departments");
+            createCache(cm, tn.fst.exam_manager.domain.ProfessorDetails.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.ProfessorDetails.class.getName() + ".supervisedExams");
+            createCache(cm, tn.fst.exam_manager.domain.Report.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Report.class.getName() + ".professors");
+            createCache(cm, tn.fst.exam_manager.domain.Report.class.getName() + ".examSessions");
+            createCache(cm, tn.fst.exam_manager.domain.Report.class.getName() + ".departments");
+            createCache(cm, tn.fst.exam_manager.domain.Report.class.getName() + ".institutes");
+            createCache(cm, tn.fst.exam_manager.domain.SessionType.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.StudentClass.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.StudentClass.class.getName() + ".majors");
+            createCache(cm, tn.fst.exam_manager.domain.TeachingSession.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.TeachingSession.class.getName() + ".timetables");
+            createCache(cm, tn.fst.exam_manager.domain.TeachingSession.class.getName() + ".studentClasses");
+            createCache(cm, tn.fst.exam_manager.domain.TeachingSession.class.getName() + ".classrooms");
+            createCache(cm, tn.fst.exam_manager.domain.Timetable.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Timetable.class.getName() + ".professors");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,31 @@
+{
+  "examManagerApp": {
+    "institute": {
+      "home": {
+        "title": "Institutes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Institute",
+        "createOrEditLabel": "Créer ou éditer un Institute",
+        "notFound": "Aucun Institute trouvé"
+      },
+      "created": "Un nouveau Institute a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Institute avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Institute avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Institute {{ id }} ?"
+      },
+      "detail": {
+        "title": "Institute"
+      },
+      "id": "ID",
+      "name": "Name",
+      "location": "Location",
+      "logo": "Logo",
+      "phone": "Phone",
+      "email": "Email",
+      "website": "Website",
+      "department": "Department",
+      "report": "Report"
+    }
+  }
+}

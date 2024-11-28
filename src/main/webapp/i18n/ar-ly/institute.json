@@ -1,0 +1,31 @@
+{
+  "examManagerApp": {
+    "institute": {
+      "home": {
+        "title": "Institutes",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Institute جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Institute",
+        "notFound": "لم يتم العثور على Institutes"
+      },
+      "created": "Institute جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Institute تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Institute تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Institute {{ id }}؟"
+      },
+      "detail": {
+        "title": "Institute"
+      },
+      "id": "ID",
+      "name": "Name",
+      "location": "Location",
+      "logo": "Logo",
+      "phone": "Phone",
+      "email": "Email",
+      "website": "Website",
+      "department": "Department",
+      "report": "Report"
+    }
+  }
+}
