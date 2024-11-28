@@ -1177,4 +1177,11 @@
             </build>
         </profile>
     </profiles>
+    <distributionManagement>
+    <repository>
+        <id>github</id>
+        <url>https://maven.pkg.github.com/FaderFtw/Exam-Management-System</url>
+    </repository>
+    </distributionManagement>
+
 </project>
