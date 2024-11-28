@@ -1,0 +1,2 @@
+org.springframework.test.context.ContextCustomizerFactory = tn.fst.exam_manager.\
+    config.SqlTestContainersSpringContextCustomizerFactory
