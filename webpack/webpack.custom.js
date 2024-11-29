@@ -6,9 +6,9 @@ const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
 const postcssRTLCSS = require('postcss-rtlcss');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const WebpackNotifierPlugin = require('webpack-notifier');
+// const WebpackNotifierPlugin = require('webpack-notifier');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 
 const environment = require('./environment');
 const proxyConfig = require('./proxy.conf');
@@ -20,19 +20,19 @@ module.exports = async (config, options, targetOptions) => {
     files: { include: ['*.json'] },
   });
 
-  // PLUGINS
-  if (config.mode === 'development') {
-    config.plugins.push(
-      new ESLintPlugin({
-        configType: 'flat',
-        extensions: ['ts', 'js', 'html'],
-      }),
-      new WebpackNotifierPlugin({
-        title: 'Exam Manager',
-        contentImage: path.join(__dirname, 'logo-jhipster.png'),
-      }),
-    );
-  }
+  // PLUGINS;
+  // if (config.mode === 'development') {
+  //   config.plugins.push(
+  //     new ESLintPlugin({
+  //       configType: 'flat',
+  //       extensions: ['ts', 'js', 'html'],
+  //     }),
+  //     // new WebpackNotifierPlugin({
+  //     //   title: 'Exam Manager',
+  //     //   contentImage: path.join(__dirname, 'logo-jhipster.png'),
+  //     // }),
+  //   );
+  // }
 
   // configuring proxy for back end service
   const tls = config.devServer?.server?.type === 'https';
