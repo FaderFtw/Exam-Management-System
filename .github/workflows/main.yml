@@ -7,8 +7,12 @@ on:
   workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
+    
+    environment: dev  # Specify the environment here
+
     permissions:
       contents: read
       packages: write
