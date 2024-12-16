@@ -35,6 +35,9 @@ const routes: Routes = [
   },
   {
     path: '',
+    data: {
+      authorities: [Authority.ADMIN],
+    },
     loadChildren: () => import(`./entities/entity.routes`),
   },
   ...errorRoute,
