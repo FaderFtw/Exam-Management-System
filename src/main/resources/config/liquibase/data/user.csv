@@ -1,3 +1,5 @@
 id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;last_modified_by
-1;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;true;fr;system;system
-2;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;true;fr;system;system
+1;super-admin;$2a$10$6vy/Cz.zWqGeACWiUJ3MMO4XlGGXxf31A8uSF18DvHYrDKvzt6OcK;SuperAdmin;SuperAdmin;super-admin@localhost;;true;fr;system;system
+2;institute-admin;$2a$10$Qx9obR0LyZMdgjdqUi31I.cZd.CVeSf6fDdx6S2P8gq3pqFcocypG;InstituteAdmin;InstituteAdmin;institute-admin@localhost;;true;fr;system;system
+3;department-admin;$2a$10$1gM5fIAw6rBF/gs/c.wWJevqg.lZc0v2zwapiLCTBXB121CfJ4ciG;DepartmentAdmin;DepartmentAdmin;department-admin@localhost;;true;fr;system;system
+4;professor;$2a$10$ng3WauLqxw2VyHyZmQQFZ.twhdlemVvIQsTzLBmVsxn/tgYHjdXHu;Professor;Professor;professor@localhost;;true;fr;system;system
