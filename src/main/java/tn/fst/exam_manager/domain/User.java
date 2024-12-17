@@ -33,9 +33,9 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = Constants.LOGIN_REGEX)
-    @Size(min = 1, max = 50)
-    @Column(length = 50, unique = true, nullable = false)
+    @Pattern(regexp = Constants.LOGIN_REGEX, message = "The CIN must contain exactly 8 digits")
+    @Size(min = 8, max = 8)
+    @Column(length = 8, unique = true, nullable = false)
     private String login;
 
     @JsonIgnore

@@ -46,8 +46,8 @@
       "language": "Langue"
     },
     "form": {
-      "username.label": "Nom d'utilisateur",
-      "username.placeholder": "Votre nom d'utilisateur",
+      "username.label": "Le numéro de carte d'identité ou Email",
+      "username.placeholder": "Votre numéro de votre carte d'identité ou email",
       "currentpassword.label": "Mot de passe actuel",
       "currentpassword.placeholder": "Mot de passe actuel",
       "newpassword.label": "Nouveau mot de passe",
@@ -131,7 +131,7 @@
       "pattern": "Ce champ doit suivre l'expression régulière {{pattern}}.",
       "number": "Ce champ doit être un nombre.",
       "datetimelocal": "Ce champ doit être une date et une heure.",
-      "patternLogin": "Ce champ ne peut contenir que des lettres, des chiffres ou des adresses e-mail."
+      "patternLogin": "Le numéro de carte d'identité doit contenir exactement 8 chiffres."
     },
     "filters": {
       "set": "Following filters are set",
