@@ -18,7 +18,7 @@ services:
       retries: 10
 
   app:
-    image: exam-mgmt-image
+    image: ghcr.io/faderftw/exam-management-system:develop
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/exammanager
       - SPRING_DATASOURCE_USERNAME=ExamManager
