@@ -38,8 +38,8 @@ import tn.fst.exam_manager.service.mapper.UserMapper;
 @IntegrationTest
 class UserResourceIT {
 
-    private static final String DEFAULT_LOGIN = "johndoe";
-    private static final String UPDATED_LOGIN = "jhipster";
+    private static final String DEFAULT_LOGIN = "87650000";
+    private static final String UPDATED_LOGIN = "87651111";
 
     private static final Long DEFAULT_ID = 1L;
 
@@ -110,6 +110,13 @@ class UserResourceIT {
     /**
      * Setups the database with one user.
      */
+    public static User initTestUserWithCustomLogin(String login) {
+        User persistUser = createEntity();
+        persistUser.setLogin(login);
+        persistUser.setEmail(DEFAULT_EMAIL);
+        return persistUser;
+    }
+
     public static User initTestUser() {
         User persistUser = createEntity();
         persistUser.setLogin(DEFAULT_LOGIN);
@@ -130,10 +137,15 @@ class UserResourceIT {
             .map(cacheName -> this.cacheManager.getCache(cacheName))
             .filter(Objects::nonNull)
             .forEach(Cache::clear);
+
+        // Clean up all test users
         userService.deleteUser(DEFAULT_LOGIN);
         userService.deleteUser(UPDATED_LOGIN);
         userService.deleteUser(user.getLogin());
-        userService.deleteUser("anotherlogin");
+        userService.deleteUser("00770077");
+        userService.deleteUser("88888888"); // Add cleanup for first additional test user
+        userService.deleteUser("88888889"); // Add cleanup for second additional test user
+
         assertThat(userRepository.count()).isEqualTo(numberOfUsers);
         numberOfUsers = null;
     }
@@ -231,7 +243,7 @@ class UserResourceIT {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         AdminUserDTO userDTO = new AdminUserDTO();
-        userDTO.setLogin("anotherlogin");
+        userDTO.setLogin("00770077");
         userDTO.setFirstName(DEFAULT_FIRSTNAME);
         userDTO.setLastName(DEFAULT_LASTNAME);
         userDTO.setEmail(DEFAULT_EMAIL); // this email should already be used
@@ -294,7 +306,7 @@ class UserResourceIT {
     @Test
     @Transactional
     void getNonExistingUser() throws Exception {
-        restUserMockMvc.perform(get("/api/admin/users/unknown")).andExpect(status().isNotFound());
+        restUserMockMvc.perform(get("/api/admin/users/99999999")).andExpect(status().isNotFound());
     }
 
     @Test
@@ -387,7 +399,7 @@ class UserResourceIT {
         userRepository.saveAndFlush(user);
 
         User anotherUser = new User();
-        anotherUser.setLogin("jhipster");
+        anotherUser.setLogin("88888888");
         anotherUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
         anotherUser.setActivated(true);
         anotherUser.setEmail("jhipster@localhost");
@@ -427,7 +439,7 @@ class UserResourceIT {
         userRepository.saveAndFlush(user);
 
         User anotherUser = new User();
-        anotherUser.setLogin("jhipster");
+        anotherUser.setLogin("88888889");
         anotherUser.setPassword(RandomStringUtils.randomAlphanumeric(60));
         anotherUser.setActivated(true);
         anotherUser.setEmail("jhipster@localhost");
@@ -442,7 +454,7 @@ class UserResourceIT {
 
         AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setId(updatedUser.getId());
-        userDTO.setLogin("jhipster"); // this login should already be used by anotherUser
+        userDTO.setLogin("88888889"); // this login should already be used by anotherUser
         userDTO.setFirstName(updatedUser.getFirstName());
         userDTO.setLastName(updatedUser.getLastName());
         userDTO.setEmail(updatedUser.getEmail());

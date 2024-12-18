@@ -32,7 +32,7 @@ import tn.fst.exam_manager.repository.UserRepository;
 @Transactional
 class UserServiceIT {
 
-    private static final String DEFAULT_LOGIN = "johndoe_service";
+    private static final String DEFAULT_LOGIN = "87654342";
 
     private static final String DEFAULT_EMAIL = "johndoe_service@localhost";
 

@@ -21,7 +21,7 @@ import tn.fst.exam_manager.service.dto.UserDTO;
  */
 class UserMapperTest {
 
-    private static final String DEFAULT_LOGIN = "johndoe";
+    private static final String DEFAULT_LOGIN = "12345678";
     private static final Long DEFAULT_ID = 1L;
 
     private UserMapper userMapper;

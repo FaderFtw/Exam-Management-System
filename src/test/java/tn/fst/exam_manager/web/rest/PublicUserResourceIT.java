@@ -53,7 +53,9 @@ class PublicUserResourceIT {
 
     @BeforeEach
     public void initTest() {
-        user = UserResourceIT.initTestUser();
+        // Create a unique 8-digit login for the user
+        String uniqueLogin = generateUniqueLogin();
+        user = UserResourceIT.initTestUserWithCustomLogin(uniqueLogin); // Pass the unique login to the test user initialization
     }
 
     @AfterEach
@@ -99,5 +101,11 @@ class PublicUserResourceIT {
             .perform(get("/api/users?sort=resetKey,desc&sort=id,desc").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
         restUserMockMvc.perform(get("/api/users?sort=id,desc").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
+    // Helper method to generate a unique 8-digit login
+    private String generateUniqueLogin() {
+        long randomLogin = (long) (Math.random() * 90000000) + 10000000; // Ensure it's always 8 digits
+        return String.valueOf(randomLogin);
     }
 }

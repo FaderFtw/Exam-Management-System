@@ -129,7 +129,7 @@ class MailServiceIT {
     void testSendEmailFromTemplate() throws Exception {
         User user = new User();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
+        user.setLogin("12345678");
         user.setEmail("john.doe@example.com");
         mailService.sendEmailFromTemplate(user, "mail/testEmail", "email.test.title");
         verify(javaMailSender).send(messageCaptor.capture());
@@ -137,7 +137,9 @@ class MailServiceIT {
         assertThat(message.getSubject()).isEqualTo("test title");
         assertThat(message.getAllRecipients()[0]).hasToString(user.getEmail());
         assertThat(message.getFrom()[0]).hasToString(jHipsterProperties.getMail().getFrom());
-        assertThat(message.getContent().toString()).isEqualToNormalizingNewlines("<html>test title, http://127.0.0.1:8080, john</html>\n");
+        assertThat(message.getContent().toString()).isEqualToNormalizingNewlines(
+            "<html>test title, http://127.0.0.1:8080, 12345678</html>\n"
+        );
         assertThat(message.getDataHandler().getContentType()).isEqualTo("text/html;charset=UTF-8");
     }
 
@@ -145,7 +147,7 @@ class MailServiceIT {
     void testSendActivationEmail() throws Exception {
         User user = new User();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
+        user.setLogin("12345678");
         user.setEmail("john.doe@example.com");
         mailService.sendActivationEmail(user);
         verify(javaMailSender).send(messageCaptor.capture());
@@ -160,7 +162,7 @@ class MailServiceIT {
     void testCreationEmail() throws Exception {
         User user = new User();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
+        user.setLogin("12345678");
         user.setEmail("john.doe@example.com");
         mailService.sendCreationEmail(user);
         verify(javaMailSender).send(messageCaptor.capture());
@@ -175,7 +177,7 @@ class MailServiceIT {
     void testSendPasswordResetMail() throws Exception {
         User user = new User();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
-        user.setLogin("john");
+        user.setLogin("12345678");
         user.setEmail("john.doe@example.com");
         mailService.sendPasswordResetMail(user);
         verify(javaMailSender).send(messageCaptor.capture());
@@ -199,7 +201,7 @@ class MailServiceIT {
     @Test
     void testSendLocalizedEmailForAllSupportedLanguages() throws Exception {
         User user = new User();
-        user.setLogin("john");
+        user.setLogin("12345678");
         user.setEmail("john.doe@example.com");
         for (String langKey : languages) {
             user.setLangKey(langKey);
@@ -216,7 +218,7 @@ class MailServiceIT {
             String emailTitle = (String) properties.get("email.test.title");
             assertThat(message.getSubject()).isEqualTo(emailTitle);
             assertThat(message.getContent().toString()).isEqualToNormalizingNewlines(
-                "<html>" + emailTitle + ", http://127.0.0.1:8080, john</html>\n"
+                "<html>" + emailTitle + ", http://127.0.0.1:8080, 12345678</html>\n"
             );
         }
     }

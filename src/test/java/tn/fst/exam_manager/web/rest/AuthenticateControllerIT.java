@@ -45,7 +45,7 @@ class AuthenticateControllerIT {
     @Transactional
     void testAuthorize() throws Exception {
         User user = new User();
-        user.setLogin("user-jwt-controller");
+        user.setLogin("87654098");
         user.setEmail("user-jwt-controller@example.com");
         user.setActivated(true);
         user.setPassword(passwordEncoder.encode("test"));
@@ -53,7 +53,7 @@ class AuthenticateControllerIT {
         userRepository.saveAndFlush(user);
 
         LoginVM login = new LoginVM();
-        login.setUsername("user-jwt-controller");
+        login.setUsername("87654098");
         login.setPassword("test");
         mockMvc
             .perform(post("/api/authenticate").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(login)))
@@ -68,7 +68,7 @@ class AuthenticateControllerIT {
     @Transactional
     void testAuthorizeWithRememberMe() throws Exception {
         User user = new User();
-        user.setLogin("user-jwt-controller-remember-me");
+        user.setLogin("87654098");
         user.setEmail("user-jwt-controller-remember-me@example.com");
         user.setActivated(true);
         user.setPassword(passwordEncoder.encode("test"));
@@ -76,7 +76,7 @@ class AuthenticateControllerIT {
         userRepository.saveAndFlush(user);
 
         LoginVM login = new LoginVM();
-        login.setUsername("user-jwt-controller-remember-me");
+        login.setUsername("87654098");
         login.setPassword("test");
         login.setRememberMe(true);
         mockMvc
@@ -91,7 +91,7 @@ class AuthenticateControllerIT {
     @Test
     void testAuthorizeFails() throws Exception {
         LoginVM login = new LoginVM();
-        login.setUsername("wrong-user");
+        login.setUsername("12345344");
         login.setPassword("wrong password");
         mockMvc
             .perform(post("/api/authenticate").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(login)))

@@ -25,11 +25,11 @@ import tn.fst.exam_manager.service.UserService;
 @IntegrationTest
 class DomainUserDetailsServiceIT {
 
-    private static final String USER_ONE_LOGIN = "test-user-one";
+    private static final String USER_ONE_LOGIN = "12345890";
     private static final String USER_ONE_EMAIL = "test-user-one@localhost";
-    private static final String USER_TWO_LOGIN = "test-user-two";
+    private static final String USER_TWO_LOGIN = "12345891";
     private static final String USER_TWO_EMAIL = "test-user-two@localhost";
-    private static final String USER_THREE_LOGIN = "test-user-three";
+    private static final String USER_THREE_LOGIN = "12345892";
     private static final String USER_THREE_EMAIL = "test-user-three@localhost";
 
     @Autowired
