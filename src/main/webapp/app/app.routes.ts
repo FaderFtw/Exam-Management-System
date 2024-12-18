@@ -4,6 +4,7 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { errorRoute } from './layouts/error/error.route';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,9 @@ const routes: Routes = [
     loadComponent: () => import('./login/login.component'),
     title: 'login.title',
   },
+
+  { path: 'calendar', component: CalendarComponent },
+
   {
     path: '',
     data: {
