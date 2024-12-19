@@ -27,7 +27,7 @@ import tn.fst.exam_manager.service.UserService;
  * Integration tests for the {@link PublicUserResource} REST controller.
  */
 @AutoConfigureMockMvc
-@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
+@WithMockUser(authorities = AuthoritiesConstants.SUPER)
 @IntegrationTest
 class PublicUserResourceIT {
 
