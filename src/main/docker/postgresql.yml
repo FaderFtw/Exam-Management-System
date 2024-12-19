@@ -2,7 +2,7 @@
 name: exammanager
 services:
   postgresql:
-    image: postgres:17.0
+    image: postgres:latest
     # volumes:
     #   - ~/volumes/jhipster/ExamManager/postgresql/:/var/lib/postgresql/data/
     environment:

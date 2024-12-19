@@ -29,6 +29,7 @@ class SecurityUtilsUnitTest {
     void testGetCurrentUserCin() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin"));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin"));
         SecurityContextHolder.setContext(securityContext);
         Optional<String> cin = SecurityUtils.getCurrentUserLogin();
         assertThat(cin).contains("12345678");
