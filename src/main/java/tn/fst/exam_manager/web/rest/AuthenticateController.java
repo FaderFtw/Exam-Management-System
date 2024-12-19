@@ -9,6 +9,7 @@ import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -76,7 +77,15 @@ public class AuthenticateController {
     @GetMapping(value = "/authenticate", produces = MediaType.TEXT_PLAIN_VALUE)
     public String isAuthenticated(Principal principal) {
         LOG.debug("REST request to check if the current user is authenticated");
-        return principal == null ? null : principal.getName();
+
+        return principal == null ? null : encodeForHTML(principal.getName());
+    }
+
+    /**
+     * Encode the user input to prevent XSS attacks.
+     */
+    private String encodeForHTML(String input) {
+        return input == null ? "" : StringEscapeUtils.escapeHtml4(input);
     }
 
     public String createToken(Authentication authentication, boolean rememberMe) {
