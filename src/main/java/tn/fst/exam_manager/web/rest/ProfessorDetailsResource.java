@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -193,13 +194,22 @@ public class ProfessorDetailsResource {
 
     @PostMapping(value = "/import", consumes = "multipart/form-data")
     @Operation(summary = "Import Professor Details from CSV")
-    public ResponseEntity<Void> importProfessors(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> importProfessors(@RequestParam("file") MultipartFile file) {
         try {
             professorDetailsService.importProfessors(file);
             return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            // Handle specific exceptions related to invalid input
+            LOG.error("Invalid input: {}", e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid input: " + e.getMessage());
+        } catch (IOException e) {
+            // Handle exceptions related to file processing
+            LOG.error("Error reading file: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error reading file: " + e.getMessage());
         } catch (Exception e) {
-            // Log the exception here (using a logger)
-            return ResponseEntity.badRequest().build();
+            // Handle any other exceptions
+            LOG.error("An unexpected error occurred: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + e.getMessage());
         }
     }
 
