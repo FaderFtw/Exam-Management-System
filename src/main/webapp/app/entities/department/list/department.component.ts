@@ -15,11 +15,14 @@ import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigati
 import { IDepartment } from '../department.model';
 import { DepartmentService, EntityArrayResponseType } from '../service/department.service';
 import { DepartmentDeleteDialogComponent } from '../delete/department-delete-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   standalone: true,
   selector: 'jhi-department',
   templateUrl: './department.component.html',
+  styleUrl: './department.component.scss',
   imports: [
     RouterModule,
     FormsModule,
@@ -30,6 +33,8 @@ import { DepartmentDeleteDialogComponent } from '../delete/department-delete-dia
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
     ItemCountComponent,
+    MatPaginatorModule,
+    MatIconModule,
   ],
 })
 export class DepartmentComponent implements OnInit {
@@ -42,7 +47,8 @@ export class DepartmentComponent implements OnInit {
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
-
+  // Add displayedColumns array to define the columns of the table
+  displayedColumns: string[] = ['id', 'name', 'email', 'institute', 'actions'];
   public readonly router = inject(Router);
   protected readonly departmentService = inject(DepartmentService);
   protected readonly activatedRoute = inject(ActivatedRoute);

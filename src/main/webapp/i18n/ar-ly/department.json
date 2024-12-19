@@ -22,7 +22,8 @@
       "email": "Email",
       "institute": "Institute",
       "examSessions": "Exam Sessions",
-      "users": "Users"
+      "users": "Users",
+      "actions": "Actions"
     }
   }
 }

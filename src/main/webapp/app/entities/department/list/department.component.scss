@@ -1,0 +1,49 @@
+::ng-deep .mat-header-row {
+  background-color: #f5f5f5; /* Example of custom header background */
+  font-weight: bold;
+}
+
+::ng-deep .mat-row {
+  background-color: red;
+  color: #333;
+}
+
+::ng-deep .mat-cell {
+  padding: 12px;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: red($color: #000000); /* Sort icon color */
+}
+
+::ng-deep .mat-table {
+  border: none;
+}
+
+::ng-deep .mat-header-row {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+::ng-deep .mat-row {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+::ng-deep .mat-sort-header-container {
+  background-color: transparent !important;
+}
+
+::ng-deep .mat-header-cell {
+  padding: 12px 24px !important;
+}
+
+::ng-deep .mat-cell {
+  padding: 12px 24px !important;
+}
+
+::ng-deep .mat-button {
+  /* Customize button styles if needed */
+  border-radius: 4px;
+  background-color: #007bff;
+}

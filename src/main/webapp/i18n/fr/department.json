@@ -3,8 +3,8 @@
     "department": {
       "home": {
         "title": "Departments",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Department",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
         "createOrEditLabel": "Créer ou éditer un Department",
         "notFound": "Aucun Department trouvé"
       },
@@ -22,7 +22,8 @@
       "email": "Email",
       "institute": "Institute",
       "examSessions": "Exam Sessions",
-      "users": "Users"
+      "users": "Users",
+      "actions": "Actions"
     }
   }
 }

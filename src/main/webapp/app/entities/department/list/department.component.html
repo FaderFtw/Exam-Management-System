@@ -32,37 +32,39 @@
 
   @if (departments && departments.length > 0) {
     <div class="table-responsive table-entities" id="entities">
-      <table class="table table-striped" aria-describedby="page-heading">
+      <table class="table table-hover" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
-            <th scope="col" jhiSortBy="id">
-              <div class="d-flex">
+            <th scope="col" jhiSortBy="id" class="centered-header">
+              <div class="d-flex justify-content-center">
                 <span jhiTranslate="global.field.id">ID</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
+                <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="name">
-              <div class="d-flex">
+            <th scope="col" jhiSortBy="name" class="centered-header">
+              <div class="d-flex justify-content-center">
                 <span jhiTranslate="examManagerApp.department.name">Name</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
+                <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="email">
-              <div class="d-flex">
+            <th scope="col" jhiSortBy="email" class="centered-header">
+              <div class="d-flex justify-content-center">
                 <span jhiTranslate="examManagerApp.department.email">Email</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
+                <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="institute.id">
-              <div class="d-flex">
+            <th scope="col" jhiSortBy="institute.id" class="centered-header">
+              <div class="d-flex justify-content-center">
                 <span jhiTranslate="examManagerApp.department.institute">Institute</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
+                <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
-            <th scope="col"></th>
+            <th scope="col" class="centered-header">
+              <div class="d-flex justify-content-center">
+                <span jhiTranslate="examManagerApp.department.actions">actions</span>
+                <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -71,30 +73,28 @@
               <td>
                 <a [routerLink]="['/department', department.id, 'view']">{{ department.id }}</a>
               </td>
-              <td>{{ department.name }}</td>
-              <td>{{ department.email }}</td>
-              <td>
+              <td class="text-left">{{ department.name }}</td>
+              <td class="text-left">{{ department.email }}</td>
+              <td class="text-left">
                 @if (department.institute) {
                   <div>
                     <a [routerLink]="['/institute', department.institute.id, 'view']">{{ department.institute.id }}</a>
                   </div>
                 }
               </td>
+
               <td class="text-end">
-                <div class="btn-group">
+                <div class="d-flex justify-content-center gap-2">
                   <a [routerLink]="['/department', department.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                    <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                    <mat-icon>visibility</mat-icon>
                   </a>
 
                   <a [routerLink]="['/department', department.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                    <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                    <mat-icon>edit</mat-icon>
                   </a>
 
                   <button type="submit" (click)="delete(department)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                    <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                    <mat-icon>delete_forever</mat-icon>
                   </button>
                 </div>
               </td>
@@ -110,17 +110,12 @@
         <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
       </div>
 
-      <div class="d-flex justify-content-center">
-        <ngb-pagination
-          [collectionSize]="totalItems"
-          [page]="page"
-          [pageSize]="itemsPerPage"
-          [maxSize]="5"
-          [rotate]="true"
-          [boundaryLinks]="true"
-          (pageChange)="navigateToPage($event)"
-        ></ngb-pagination>
-      </div>
+      <mat-paginator
+        [length]="totalItems"
+        [pageIndex]="page - 1"
+        [pageSize]="itemsPerPage"
+        (page)="navigateToPage($event.pageIndex + 1)"
+      ></mat-paginator>
     </div>
   }
 </div>
