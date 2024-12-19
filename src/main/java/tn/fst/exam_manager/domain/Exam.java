@@ -30,20 +30,17 @@ public class Exam implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "departments", "exam", "teachingSession" }, allowSetters = true)
-    private Set<Classroom> classrooms = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "department" }, allowSetters = true)
+    private Classroom classroom;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "majors", "exam", "teachingSession" }, allowSetters = true)
-    private Set<StudentClass> studentClasses = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "major" }, allowSetters = true)
+    private StudentClass studentClass;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "sessionType", "departments", "exam", "report" }, allowSetters = true)
-    private Set<ExamSession> sessions = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "sessionType", "departments" }, allowSetters = true)
+    private ExamSession session;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -52,7 +49,7 @@ public class Exam implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "supervisors_id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "supervisedExams", "report", "timetable" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "supervisedExams" }, allowSetters = true)
     private Set<ProfessorDetails> supervisors = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -83,96 +80,42 @@ public class Exam implements Serializable {
         this.name = name;
     }
 
-    public Set<Classroom> getClassrooms() {
-        return this.classrooms;
+    public Classroom getClassroom() {
+        return this.classroom;
     }
 
-    public void setClassrooms(Set<Classroom> classrooms) {
-        if (this.classrooms != null) {
-            this.classrooms.forEach(i -> i.setExam(null));
-        }
-        if (classrooms != null) {
-            classrooms.forEach(i -> i.setExam(this));
-        }
-        this.classrooms = classrooms;
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 
-    public Exam classrooms(Set<Classroom> classrooms) {
-        this.setClassrooms(classrooms);
+    public Exam classroom(Classroom classroom) {
+        this.setClassroom(classroom);
         return this;
     }
 
-    public Exam addClassroom(Classroom classroom) {
-        this.classrooms.add(classroom);
-        classroom.setExam(this);
+    public StudentClass getStudentClass() {
+        return this.studentClass;
+    }
+
+    public void setStudentClass(StudentClass studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public Exam studentClass(StudentClass studentClass) {
+        this.setStudentClass(studentClass);
         return this;
     }
 
-    public Exam removeClassroom(Classroom classroom) {
-        this.classrooms.remove(classroom);
-        classroom.setExam(null);
-        return this;
+    public ExamSession getSession() {
+        return this.session;
     }
 
-    public Set<StudentClass> getStudentClasses() {
-        return this.studentClasses;
+    public void setSession(ExamSession examSession) {
+        this.session = examSession;
     }
 
-    public void setStudentClasses(Set<StudentClass> studentClasses) {
-        if (this.studentClasses != null) {
-            this.studentClasses.forEach(i -> i.setExam(null));
-        }
-        if (studentClasses != null) {
-            studentClasses.forEach(i -> i.setExam(this));
-        }
-        this.studentClasses = studentClasses;
-    }
-
-    public Exam studentClasses(Set<StudentClass> studentClasses) {
-        this.setStudentClasses(studentClasses);
-        return this;
-    }
-
-    public Exam addStudentClass(StudentClass studentClass) {
-        this.studentClasses.add(studentClass);
-        studentClass.setExam(this);
-        return this;
-    }
-
-    public Exam removeStudentClass(StudentClass studentClass) {
-        this.studentClasses.remove(studentClass);
-        studentClass.setExam(null);
-        return this;
-    }
-
-    public Set<ExamSession> getSessions() {
-        return this.sessions;
-    }
-
-    public void setSessions(Set<ExamSession> examSessions) {
-        if (this.sessions != null) {
-            this.sessions.forEach(i -> i.setExam(null));
-        }
-        if (examSessions != null) {
-            examSessions.forEach(i -> i.setExam(this));
-        }
-        this.sessions = examSessions;
-    }
-
-    public Exam sessions(Set<ExamSession> examSessions) {
-        this.setSessions(examSessions);
-        return this;
-    }
-
-    public Exam addSession(ExamSession examSession) {
-        this.sessions.add(examSession);
-        examSession.setExam(this);
-        return this;
-    }
-
-    public Exam removeSession(ExamSession examSession) {
-        this.sessions.remove(examSession);
-        examSession.setExam(null);
+    public Exam session(ExamSession examSession) {
+        this.setSession(examSession);
         return this;
     }
 

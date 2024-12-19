@@ -28,13 +28,14 @@
       "SessionType",
       "StudentClass",
       "TeachingSession",
-      "Timetable"
+      "Timetable",
+      "UserAcademicInfo"
     ],
     "feignClient": null,
     "jhipsterVersion": "8.7.3",
     "jwtSecretKey": "YjdjMDliYmIyYWYzOGY3MzQwMjJhMjFkYjNkMDU4ZmIzYjQzOThlNDE0ZTA4NTRlOTA5ODM0N2E0YjI1NmQxN2EwOWZmMjQ0MmYxMTM4NTFjMDUyZTMxODI3ZmZjMWY4NDY0OTJkMTlhNmY4OGVmNmRmOGQxZjM5MzcxYWRjN2M=",
     "languages": ["fr", "ar-ly", "en"],
-    "lastLiquibaseTimestamp": 1732815171000,
+    "lastLiquibaseTimestamp": 1734633179000,
     "messageBroker": false,
     "microfrontend": null,
     "microfrontends": [],

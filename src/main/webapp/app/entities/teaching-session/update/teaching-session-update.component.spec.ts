@@ -4,8 +4,14 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, of } from 'rxjs';
 
-import { TeachingSessionService } from '../service/teaching-session.service';
+import { ITimetable } from 'app/entities/timetable/timetable.model';
+import { TimetableService } from 'app/entities/timetable/service/timetable.service';
+import { IStudentClass } from 'app/entities/student-class/student-class.model';
+import { StudentClassService } from 'app/entities/student-class/service/student-class.service';
+import { IClassroom } from 'app/entities/classroom/classroom.model';
+import { ClassroomService } from 'app/entities/classroom/service/classroom.service';
 import { ITeachingSession } from '../teaching-session.model';
+import { TeachingSessionService } from '../service/teaching-session.service';
 import { TeachingSessionFormService } from './teaching-session-form.service';
 
 import { TeachingSessionUpdateComponent } from './teaching-session-update.component';
@@ -16,6 +22,9 @@ describe('TeachingSession Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let teachingSessionFormService: TeachingSessionFormService;
   let teachingSessionService: TeachingSessionService;
+  let timetableService: TimetableService;
+  let studentClassService: StudentClassService;
+  let classroomService: ClassroomService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,17 +47,95 @@ describe('TeachingSession Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     teachingSessionFormService = TestBed.inject(TeachingSessionFormService);
     teachingSessionService = TestBed.inject(TeachingSessionService);
+    timetableService = TestBed.inject(TimetableService);
+    studentClassService = TestBed.inject(StudentClassService);
+    classroomService = TestBed.inject(ClassroomService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Timetable query and add missing value', () => {
       const teachingSession: ITeachingSession = { id: 456 };
+      const timetable: ITimetable = { id: 22589 };
+      teachingSession.timetable = timetable;
+
+      const timetableCollection: ITimetable[] = [{ id: 31666 }];
+      jest.spyOn(timetableService, 'query').mockReturnValue(of(new HttpResponse({ body: timetableCollection })));
+      const additionalTimetables = [timetable];
+      const expectedCollection: ITimetable[] = [...additionalTimetables, ...timetableCollection];
+      jest.spyOn(timetableService, 'addTimetableToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ teachingSession });
       comp.ngOnInit();
 
+      expect(timetableService.query).toHaveBeenCalled();
+      expect(timetableService.addTimetableToCollectionIfMissing).toHaveBeenCalledWith(
+        timetableCollection,
+        ...additionalTimetables.map(expect.objectContaining),
+      );
+      expect(comp.timetablesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should call StudentClass query and add missing value', () => {
+      const teachingSession: ITeachingSession = { id: 456 };
+      const studentClass: IStudentClass = { id: 5864 };
+      teachingSession.studentClass = studentClass;
+
+      const studentClassCollection: IStudentClass[] = [{ id: 634 }];
+      jest.spyOn(studentClassService, 'query').mockReturnValue(of(new HttpResponse({ body: studentClassCollection })));
+      const additionalStudentClasses = [studentClass];
+      const expectedCollection: IStudentClass[] = [...additionalStudentClasses, ...studentClassCollection];
+      jest.spyOn(studentClassService, 'addStudentClassToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ teachingSession });
+      comp.ngOnInit();
+
+      expect(studentClassService.query).toHaveBeenCalled();
+      expect(studentClassService.addStudentClassToCollectionIfMissing).toHaveBeenCalledWith(
+        studentClassCollection,
+        ...additionalStudentClasses.map(expect.objectContaining),
+      );
+      expect(comp.studentClassesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should call Classroom query and add missing value', () => {
+      const teachingSession: ITeachingSession = { id: 456 };
+      const classroom: IClassroom = { id: 4137 };
+      teachingSession.classroom = classroom;
+
+      const classroomCollection: IClassroom[] = [{ id: 30411 }];
+      jest.spyOn(classroomService, 'query').mockReturnValue(of(new HttpResponse({ body: classroomCollection })));
+      const additionalClassrooms = [classroom];
+      const expectedCollection: IClassroom[] = [...additionalClassrooms, ...classroomCollection];
+      jest.spyOn(classroomService, 'addClassroomToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ teachingSession });
+      comp.ngOnInit();
+
+      expect(classroomService.query).toHaveBeenCalled();
+      expect(classroomService.addClassroomToCollectionIfMissing).toHaveBeenCalledWith(
+        classroomCollection,
+        ...additionalClassrooms.map(expect.objectContaining),
+      );
+      expect(comp.classroomsSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const teachingSession: ITeachingSession = { id: 456 };
+      const timetable: ITimetable = { id: 11662 };
+      teachingSession.timetable = timetable;
+      const studentClass: IStudentClass = { id: 8233 };
+      teachingSession.studentClass = studentClass;
+      const classroom: IClassroom = { id: 25376 };
+      teachingSession.classroom = classroom;
+
+      activatedRoute.data = of({ teachingSession });
+      comp.ngOnInit();
+
+      expect(comp.timetablesSharedCollection).toContain(timetable);
+      expect(comp.studentClassesSharedCollection).toContain(studentClass);
+      expect(comp.classroomsSharedCollection).toContain(classroom);
       expect(comp.teachingSession).toEqual(teachingSession);
     });
   });
@@ -118,6 +205,38 @@ describe('TeachingSession Management Update Component', () => {
       expect(teachingSessionService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareTimetable', () => {
+      it('Should forward to timetableService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(timetableService, 'compareTimetable');
+        comp.compareTimetable(entity, entity2);
+        expect(timetableService.compareTimetable).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareStudentClass', () => {
+      it('Should forward to studentClassService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(studentClassService, 'compareStudentClass');
+        comp.compareStudentClass(entity, entity2);
+        expect(studentClassService.compareStudentClass).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareClassroom', () => {
+      it('Should forward to classroomService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(classroomService, 'compareClassroom');
+        comp.compareClassroom(entity, entity2);
+        expect(classroomService.compareClassroom).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

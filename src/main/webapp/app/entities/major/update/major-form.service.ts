@@ -19,7 +19,7 @@ type MajorFormDefaults = Pick<NewMajor, 'id'>;
 type MajorFormGroupContent = {
   id: FormControl<IMajor['id'] | NewMajor['id']>;
   name: FormControl<IMajor['name']>;
-  studentClass: FormControl<IMajor['studentClass']>;
+  department: FormControl<IMajor['department']>;
 };
 
 export type MajorFormGroup = FormGroup<MajorFormGroupContent>;
@@ -42,7 +42,7 @@ export class MajorFormService {
       name: new FormControl(majorRawValue.name, {
         validators: [Validators.required],
       }),
-      studentClass: new FormControl(majorRawValue.studentClass),
+      department: new FormControl(majorRawValue.department),
     });
   }
 

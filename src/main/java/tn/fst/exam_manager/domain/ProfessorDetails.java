@@ -38,16 +38,8 @@ public class ProfessorDetails implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "supervisors")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "classrooms", "studentClasses", "sessions", "supervisors" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "classroom", "studentClass", "session", "supervisors" }, allowSetters = true)
     private Set<Exam> supervisedExams = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "professors", "examSessions", "departments", "institutes" }, allowSetters = true)
-    private Report report;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "professors", "teachingSession" }, allowSetters = true)
-    private Timetable timetable;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -118,32 +110,6 @@ public class ProfessorDetails implements Serializable {
     public ProfessorDetails removeSupervisedExams(Exam exam) {
         this.supervisedExams.remove(exam);
         exam.getSupervisors().remove(this);
-        return this;
-    }
-
-    public Report getReport() {
-        return this.report;
-    }
-
-    public void setReport(Report report) {
-        this.report = report;
-    }
-
-    public ProfessorDetails report(Report report) {
-        this.setReport(report);
-        return this;
-    }
-
-    public Timetable getTimetable() {
-        return this.timetable;
-    }
-
-    public void setTimetable(Timetable timetable) {
-        this.timetable = timetable;
-    }
-
-    public ProfessorDetails timetable(Timetable timetable) {
-        this.setTimetable(timetable);
         return this;
     }
 

@@ -23,9 +23,13 @@
           <dd>
             <span>{{ departmentRef.email }}</span>
           </dd>
-          <dt><span jhiTranslate="examManagerApp.department.users">Users</span></dt>
+          <dt><span jhiTranslate="examManagerApp.department.institute">Institute</span></dt>
           <dd>
-            <span>{{ departmentRef.users?.id }}</span>
+            @if (department()!.institute) {
+              <div>
+                <a [routerLink]="['/institute', department()!.institute?.id, 'view']">{{ departmentRef.institute?.id }}</a>
+              </div>
+            }
           </dd>
           <dt><span jhiTranslate="examManagerApp.department.examSessions">Exam Sessions</span></dt>
           <dd>
@@ -34,30 +38,6 @@
                 <a [routerLink]="['/exam-session', examSessions.id, 'view']">{{ examSessions?.id }}</a
                 >{{ last ? '' : ', ' }}
               </span>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.department.classroom">Classroom</span></dt>
-          <dd>
-            @if (department()!.classroom) {
-              <div>
-                <a [routerLink]="['/classroom', department()!.classroom?.id, 'view']">{{ departmentRef.classroom?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.department.major">Major</span></dt>
-          <dd>
-            @if (department()!.major) {
-              <div>
-                <a [routerLink]="['/major', department()!.major?.id, 'view']">{{ departmentRef.major?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.department.report">Report</span></dt>
-          <dd>
-            @if (department()!.report) {
-              <div>
-                <a [routerLink]="['/report', department()!.report?.id, 'view']">{{ departmentRef.report?.id }}</a>
-              </div>
             }
           </dd>
         </dl>

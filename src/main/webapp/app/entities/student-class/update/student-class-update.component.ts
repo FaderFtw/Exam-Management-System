@@ -7,12 +7,10 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IExam } from 'app/entities/exam/exam.model';
-import { ExamService } from 'app/entities/exam/service/exam.service';
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
-import { TeachingSessionService } from 'app/entities/teaching-session/service/teaching-session.service';
-import { StudentClassService } from '../service/student-class.service';
+import { IMajor } from 'app/entities/major/major.model';
+import { MajorService } from 'app/entities/major/service/major.service';
 import { IStudentClass } from '../student-class.model';
+import { StudentClassService } from '../service/student-class.service';
 import { StudentClassFormGroup, StudentClassFormService } from './student-class-form.service';
 
 @Component({
@@ -25,22 +23,17 @@ export class StudentClassUpdateComponent implements OnInit {
   isSaving = false;
   studentClass: IStudentClass | null = null;
 
-  examsSharedCollection: IExam[] = [];
-  teachingSessionsSharedCollection: ITeachingSession[] = [];
+  majorsSharedCollection: IMajor[] = [];
 
   protected studentClassService = inject(StudentClassService);
   protected studentClassFormService = inject(StudentClassFormService);
-  protected examService = inject(ExamService);
-  protected teachingSessionService = inject(TeachingSessionService);
+  protected majorService = inject(MajorService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: StudentClassFormGroup = this.studentClassFormService.createStudentClassFormGroup();
 
-  compareExam = (o1: IExam | null, o2: IExam | null): boolean => this.examService.compareExam(o1, o2);
-
-  compareTeachingSession = (o1: ITeachingSession | null, o2: ITeachingSession | null): boolean =>
-    this.teachingSessionService.compareTeachingSession(o1, o2);
+  compareMajor = (o1: IMajor | null, o2: IMajor | null): boolean => this.majorService.compareMajor(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ studentClass }) => {
@@ -90,31 +83,14 @@ export class StudentClassUpdateComponent implements OnInit {
     this.studentClass = studentClass;
     this.studentClassFormService.resetForm(this.editForm, studentClass);
 
-    this.examsSharedCollection = this.examService.addExamToCollectionIfMissing<IExam>(this.examsSharedCollection, studentClass.exam);
-    this.teachingSessionsSharedCollection = this.teachingSessionService.addTeachingSessionToCollectionIfMissing<ITeachingSession>(
-      this.teachingSessionsSharedCollection,
-      studentClass.teachingSession,
-    );
+    this.majorsSharedCollection = this.majorService.addMajorToCollectionIfMissing<IMajor>(this.majorsSharedCollection, studentClass.major);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.examService
+    this.majorService
       .query()
-      .pipe(map((res: HttpResponse<IExam[]>) => res.body ?? []))
-      .pipe(map((exams: IExam[]) => this.examService.addExamToCollectionIfMissing<IExam>(exams, this.studentClass?.exam)))
-      .subscribe((exams: IExam[]) => (this.examsSharedCollection = exams));
-
-    this.teachingSessionService
-      .query()
-      .pipe(map((res: HttpResponse<ITeachingSession[]>) => res.body ?? []))
-      .pipe(
-        map((teachingSessions: ITeachingSession[]) =>
-          this.teachingSessionService.addTeachingSessionToCollectionIfMissing<ITeachingSession>(
-            teachingSessions,
-            this.studentClass?.teachingSession,
-          ),
-        ),
-      )
-      .subscribe((teachingSessions: ITeachingSession[]) => (this.teachingSessionsSharedCollection = teachingSessions));
+      .pipe(map((res: HttpResponse<IMajor[]>) => res.body ?? []))
+      .pipe(map((majors: IMajor[]) => this.majorService.addMajorToCollectionIfMissing<IMajor>(majors, this.studentClass?.major)))
+      .subscribe((majors: IMajor[]) => (this.majorsSharedCollection = majors));
   }
 }

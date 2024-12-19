@@ -22,7 +22,7 @@
       "otherEntityName": "major",
       "relationshipName": "major",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

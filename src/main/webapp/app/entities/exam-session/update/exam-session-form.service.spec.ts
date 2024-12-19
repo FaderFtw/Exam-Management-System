@@ -29,8 +29,6 @@ describe('ExamSession Form Service', () => {
             allowCombineClasses: expect.any(Object),
             sessionType: expect.any(Object),
             departments: expect.any(Object),
-            exam: expect.any(Object),
-            report: expect.any(Object),
           }),
         );
       });
@@ -50,8 +48,6 @@ describe('ExamSession Form Service', () => {
             allowCombineClasses: expect.any(Object),
             sessionType: expect.any(Object),
             departments: expect.any(Object),
-            exam: expect.any(Object),
-            report: expect.any(Object),
           }),
         );
       });

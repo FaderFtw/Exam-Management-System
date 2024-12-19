@@ -3,11 +3,7 @@ package tn.fst.exam_manager.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tn.fst.exam_manager.domain.ClassroomTestSamples.*;
 import static tn.fst.exam_manager.domain.DepartmentTestSamples.*;
-import static tn.fst.exam_manager.domain.ExamTestSamples.*;
-import static tn.fst.exam_manager.domain.TeachingSessionTestSamples.*;
 
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import tn.fst.exam_manager.web.rest.TestUtil;
 
@@ -32,44 +28,10 @@ class ClassroomTest {
         Classroom classroom = getClassroomRandomSampleGenerator();
         Department departmentBack = getDepartmentRandomSampleGenerator();
 
-        classroom.addDepartment(departmentBack);
-        assertThat(classroom.getDepartments()).containsOnly(departmentBack);
-        assertThat(departmentBack.getClassroom()).isEqualTo(classroom);
+        classroom.setDepartment(departmentBack);
+        assertThat(classroom.getDepartment()).isEqualTo(departmentBack);
 
-        classroom.removeDepartment(departmentBack);
-        assertThat(classroom.getDepartments()).doesNotContain(departmentBack);
-        assertThat(departmentBack.getClassroom()).isNull();
-
-        classroom.departments(new HashSet<>(Set.of(departmentBack)));
-        assertThat(classroom.getDepartments()).containsOnly(departmentBack);
-        assertThat(departmentBack.getClassroom()).isEqualTo(classroom);
-
-        classroom.setDepartments(new HashSet<>());
-        assertThat(classroom.getDepartments()).doesNotContain(departmentBack);
-        assertThat(departmentBack.getClassroom()).isNull();
-    }
-
-    @Test
-    void examTest() {
-        Classroom classroom = getClassroomRandomSampleGenerator();
-        Exam examBack = getExamRandomSampleGenerator();
-
-        classroom.setExam(examBack);
-        assertThat(classroom.getExam()).isEqualTo(examBack);
-
-        classroom.exam(null);
-        assertThat(classroom.getExam()).isNull();
-    }
-
-    @Test
-    void teachingSessionTest() {
-        Classroom classroom = getClassroomRandomSampleGenerator();
-        TeachingSession teachingSessionBack = getTeachingSessionRandomSampleGenerator();
-
-        classroom.setTeachingSession(teachingSessionBack);
-        assertThat(classroom.getTeachingSession()).isEqualTo(teachingSessionBack);
-
-        classroom.teachingSession(null);
-        assertThat(classroom.getTeachingSession()).isNull();
+        classroom.department(null);
+        assertThat(classroom.getDepartment()).isNull();
     }
 }

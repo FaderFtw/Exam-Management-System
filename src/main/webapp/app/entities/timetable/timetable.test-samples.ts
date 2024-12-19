@@ -3,28 +3,28 @@ import dayjs from 'dayjs/esm';
 import { ITimetable, NewTimetable } from './timetable.model';
 
 export const sampleWithRequiredData: ITimetable = {
-  id: 999,
-  name: 'fort soutenir en bas de',
-  startDate: dayjs('2024-11-27'),
-  endDate: dayjs('2024-11-27'),
+  id: 31176,
+  name: 'snif à travers',
+  startDate: dayjs('2024-11-28'),
+  endDate: dayjs('2024-11-28'),
 };
 
 export const sampleWithPartialData: ITimetable = {
-  id: 10431,
-  name: 'choisir claquer psitt',
+  id: 9668,
+  name: 'avant que',
   startDate: dayjs('2024-11-28'),
-  endDate: dayjs('2024-11-27'),
+  endDate: dayjs('2024-11-28'),
 };
 
 export const sampleWithFullData: ITimetable = {
-  id: 23741,
-  name: 'ouah touriste',
+  id: 31760,
+  name: 'devant de peur que commissionnaire',
   startDate: dayjs('2024-11-28'),
   endDate: dayjs('2024-11-28'),
 };
 
 export const sampleWithNewData: NewTimetable = {
-  name: 'ouah sauvegarder',
+  name: 'loin de de sorte que',
   startDate: dayjs('2024-11-27'),
   endDate: dayjs('2024-11-27'),
   id: null,

@@ -28,7 +28,7 @@ public class SessionType implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @JsonIgnoreProperties(value = { "sessionType", "departments", "exam", "report" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "sessionType", "departments" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "sessionType")
     private ExamSession examSession;
 

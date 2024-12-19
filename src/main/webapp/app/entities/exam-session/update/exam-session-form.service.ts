@@ -30,8 +30,6 @@ type ExamSessionFormGroupContent = {
   allowCombineClasses: FormControl<IExamSession['allowCombineClasses']>;
   sessionType: FormControl<IExamSession['sessionType']>;
   departments: FormControl<IExamSession['departments']>;
-  exam: FormControl<IExamSession['exam']>;
-  report: FormControl<IExamSession['report']>;
 };
 
 export type ExamSessionFormGroup = FormGroup<ExamSessionFormGroupContent>;
@@ -74,8 +72,6 @@ export class ExamSessionFormService {
       }),
       sessionType: new FormControl(examSessionRawValue.sessionType),
       departments: new FormControl(examSessionRawValue.departments ?? []),
-      exam: new FormControl(examSessionRawValue.exam),
-      report: new FormControl(examSessionRawValue.report),
     });
   }
 

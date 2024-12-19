@@ -24,6 +24,9 @@ describe('TeachingSession Form Service', () => {
             startHour: expect.any(Object),
             endHour: expect.any(Object),
             type: expect.any(Object),
+            timetable: expect.any(Object),
+            studentClass: expect.any(Object),
+            classroom: expect.any(Object),
           }),
         );
       });
@@ -38,6 +41,9 @@ describe('TeachingSession Form Service', () => {
             startHour: expect.any(Object),
             endHour: expect.any(Object),
             type: expect.any(Object),
+            timetable: expect.any(Object),
+            studentClass: expect.any(Object),
+            classroom: expect.any(Object),
           }),
         );
       });

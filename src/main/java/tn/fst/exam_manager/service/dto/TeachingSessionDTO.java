@@ -25,6 +25,12 @@ public class TeachingSessionDTO implements Serializable {
     @NotNull
     private String type;
 
+    private TimetableDTO timetable;
+
+    private StudentClassDTO studentClass;
+
+    private ClassroomDTO classroom;
+
     public Long getId() {
         return id;
     }
@@ -65,6 +71,30 @@ public class TeachingSessionDTO implements Serializable {
         this.type = type;
     }
 
+    public TimetableDTO getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(TimetableDTO timetable) {
+        this.timetable = timetable;
+    }
+
+    public StudentClassDTO getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(StudentClassDTO studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public ClassroomDTO getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(ClassroomDTO classroom) {
+        this.classroom = classroom;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -95,6 +125,9 @@ public class TeachingSessionDTO implements Serializable {
             ", startHour='" + getStartHour() + "'" +
             ", endHour='" + getEndHour() + "'" +
             ", type='" + getType() + "'" +
+            ", timetable=" + getTimetable() +
+            ", studentClass=" + getStudentClass() +
+            ", classroom=" + getClassroom() +
             "}";
     }
 }

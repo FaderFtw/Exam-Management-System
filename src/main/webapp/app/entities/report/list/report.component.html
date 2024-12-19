@@ -63,6 +63,30 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="professor.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.report.professor">Professor</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="examSession.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.report.examSession">Exam Session</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="department.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.report.department">Department</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="institute.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.report.institute">Institute</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -75,6 +99,34 @@
               <td>{{ report.name }}</td>
               <td>{{ report.createdDate | formatMediumDatetime }}</td>
               <td>{{ report.content }}</td>
+              <td>
+                @if (report.professor) {
+                  <div>
+                    <a [routerLink]="['/professor-details', report.professor.id, 'view']">{{ report.professor.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (report.examSession) {
+                  <div>
+                    <a [routerLink]="['/exam-session', report.examSession.id, 'view']">{{ report.examSession.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (report.department) {
+                  <div>
+                    <a [routerLink]="['/department', report.department.id, 'view']">{{ report.department.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (report.institute) {
+                  <div>
+                    <a [routerLink]="['/institute', report.institute.id, 'view']">{{ report.institute.id }}</a>
+                  </div>
+                }
+              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/report', report.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

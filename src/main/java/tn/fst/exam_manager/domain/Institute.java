@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -49,13 +51,10 @@ public class Institute implements Serializable {
     @Column(name = "website")
     private String website;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "institutes", "users", "examSessions", "classroom", "major", "report" }, allowSetters = true)
-    private Department department;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "professors", "examSessions", "departments", "institutes" }, allowSetters = true)
-    private Report report;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "institute")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "department", "institute" }, allowSetters = true)
+    private Set<UserAcademicInfo> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -163,29 +162,34 @@ public class Institute implements Serializable {
         this.website = website;
     }
 
-    public Department getDepartment() {
-        return this.department;
+    public Set<UserAcademicInfo> getUsers() {
+        return this.users;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setUsers(Set<UserAcademicInfo> userAcademicInfos) {
+        if (this.users != null) {
+            this.users.forEach(i -> i.setInstitute(null));
+        }
+        if (userAcademicInfos != null) {
+            userAcademicInfos.forEach(i -> i.setInstitute(this));
+        }
+        this.users = userAcademicInfos;
     }
 
-    public Institute department(Department department) {
-        this.setDepartment(department);
+    public Institute users(Set<UserAcademicInfo> userAcademicInfos) {
+        this.setUsers(userAcademicInfos);
         return this;
     }
 
-    public Report getReport() {
-        return this.report;
+    public Institute addUsers(UserAcademicInfo userAcademicInfo) {
+        this.users.add(userAcademicInfo);
+        userAcademicInfo.setInstitute(this);
+        return this;
     }
 
-    public void setReport(Report report) {
-        this.report = report;
-    }
-
-    public Institute report(Report report) {
-        this.setReport(report);
+    public Institute removeUsers(UserAcademicInfo userAcademicInfo) {
+        this.users.remove(userAcademicInfo);
+        userAcademicInfo.setInstitute(null);
         return this;
     }
 

@@ -27,11 +27,11 @@
           <dd>
             <span>{{ timetableRef.endDate | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="examManagerApp.timetable.teachingSession">Teaching Session</span></dt>
+          <dt><span jhiTranslate="examManagerApp.timetable.professor">Professor</span></dt>
           <dd>
-            @if (timetable()!.teachingSession) {
+            @if (timetable()!.professor) {
               <div>
-                <a [routerLink]="['/teaching-session', timetable()!.teachingSession?.id, 'view']">{{ timetableRef.teachingSession?.id }}</a>
+                <a [routerLink]="['/professor-details', timetable()!.professor?.id, 'view']">{{ timetableRef.professor?.id }}</a>
               </div>
             }
           </dd>

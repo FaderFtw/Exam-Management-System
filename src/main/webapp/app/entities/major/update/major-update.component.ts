@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IStudentClass } from 'app/entities/student-class/student-class.model';
-import { StudentClassService } from 'app/entities/student-class/service/student-class.service';
+import { IDepartment } from 'app/entities/department/department.model';
+import { DepartmentService } from 'app/entities/department/service/department.service';
 import { IMajor } from '../major.model';
 import { MajorService } from '../service/major.service';
 import { MajorFormGroup, MajorFormService } from './major-form.service';
@@ -23,18 +23,17 @@ export class MajorUpdateComponent implements OnInit {
   isSaving = false;
   major: IMajor | null = null;
 
-  studentClassesSharedCollection: IStudentClass[] = [];
+  departmentsSharedCollection: IDepartment[] = [];
 
   protected majorService = inject(MajorService);
   protected majorFormService = inject(MajorFormService);
-  protected studentClassService = inject(StudentClassService);
+  protected departmentService = inject(DepartmentService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: MajorFormGroup = this.majorFormService.createMajorFormGroup();
 
-  compareStudentClass = (o1: IStudentClass | null, o2: IStudentClass | null): boolean =>
-    this.studentClassService.compareStudentClass(o1, o2);
+  compareDepartment = (o1: IDepartment | null, o2: IDepartment | null): boolean => this.departmentService.compareDepartment(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ major }) => {
@@ -84,21 +83,21 @@ export class MajorUpdateComponent implements OnInit {
     this.major = major;
     this.majorFormService.resetForm(this.editForm, major);
 
-    this.studentClassesSharedCollection = this.studentClassService.addStudentClassToCollectionIfMissing<IStudentClass>(
-      this.studentClassesSharedCollection,
-      major.studentClass,
+    this.departmentsSharedCollection = this.departmentService.addDepartmentToCollectionIfMissing<IDepartment>(
+      this.departmentsSharedCollection,
+      major.department,
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.studentClassService
+    this.departmentService
       .query()
-      .pipe(map((res: HttpResponse<IStudentClass[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IDepartment[]>) => res.body ?? []))
       .pipe(
-        map((studentClasses: IStudentClass[]) =>
-          this.studentClassService.addStudentClassToCollectionIfMissing<IStudentClass>(studentClasses, this.major?.studentClass),
+        map((departments: IDepartment[]) =>
+          this.departmentService.addDepartmentToCollectionIfMissing<IDepartment>(departments, this.major?.department),
         ),
       )
-      .subscribe((studentClasses: IStudentClass[]) => (this.studentClassesSharedCollection = studentClasses));
+      .subscribe((departments: IDepartment[]) => (this.departmentsSharedCollection = departments));
   }
 }

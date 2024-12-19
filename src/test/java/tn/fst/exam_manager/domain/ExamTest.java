@@ -33,21 +33,11 @@ class ExamTest {
         Exam exam = getExamRandomSampleGenerator();
         Classroom classroomBack = getClassroomRandomSampleGenerator();
 
-        exam.addClassroom(classroomBack);
-        assertThat(exam.getClassrooms()).containsOnly(classroomBack);
-        assertThat(classroomBack.getExam()).isEqualTo(exam);
+        exam.setClassroom(classroomBack);
+        assertThat(exam.getClassroom()).isEqualTo(classroomBack);
 
-        exam.removeClassroom(classroomBack);
-        assertThat(exam.getClassrooms()).doesNotContain(classroomBack);
-        assertThat(classroomBack.getExam()).isNull();
-
-        exam.classrooms(new HashSet<>(Set.of(classroomBack)));
-        assertThat(exam.getClassrooms()).containsOnly(classroomBack);
-        assertThat(classroomBack.getExam()).isEqualTo(exam);
-
-        exam.setClassrooms(new HashSet<>());
-        assertThat(exam.getClassrooms()).doesNotContain(classroomBack);
-        assertThat(classroomBack.getExam()).isNull();
+        exam.classroom(null);
+        assertThat(exam.getClassroom()).isNull();
     }
 
     @Test
@@ -55,21 +45,11 @@ class ExamTest {
         Exam exam = getExamRandomSampleGenerator();
         StudentClass studentClassBack = getStudentClassRandomSampleGenerator();
 
-        exam.addStudentClass(studentClassBack);
-        assertThat(exam.getStudentClasses()).containsOnly(studentClassBack);
-        assertThat(studentClassBack.getExam()).isEqualTo(exam);
+        exam.setStudentClass(studentClassBack);
+        assertThat(exam.getStudentClass()).isEqualTo(studentClassBack);
 
-        exam.removeStudentClass(studentClassBack);
-        assertThat(exam.getStudentClasses()).doesNotContain(studentClassBack);
-        assertThat(studentClassBack.getExam()).isNull();
-
-        exam.studentClasses(new HashSet<>(Set.of(studentClassBack)));
-        assertThat(exam.getStudentClasses()).containsOnly(studentClassBack);
-        assertThat(studentClassBack.getExam()).isEqualTo(exam);
-
-        exam.setStudentClasses(new HashSet<>());
-        assertThat(exam.getStudentClasses()).doesNotContain(studentClassBack);
-        assertThat(studentClassBack.getExam()).isNull();
+        exam.studentClass(null);
+        assertThat(exam.getStudentClass()).isNull();
     }
 
     @Test
@@ -77,21 +57,11 @@ class ExamTest {
         Exam exam = getExamRandomSampleGenerator();
         ExamSession examSessionBack = getExamSessionRandomSampleGenerator();
 
-        exam.addSession(examSessionBack);
-        assertThat(exam.getSessions()).containsOnly(examSessionBack);
-        assertThat(examSessionBack.getExam()).isEqualTo(exam);
+        exam.setSession(examSessionBack);
+        assertThat(exam.getSession()).isEqualTo(examSessionBack);
 
-        exam.removeSession(examSessionBack);
-        assertThat(exam.getSessions()).doesNotContain(examSessionBack);
-        assertThat(examSessionBack.getExam()).isNull();
-
-        exam.sessions(new HashSet<>(Set.of(examSessionBack)));
-        assertThat(exam.getSessions()).containsOnly(examSessionBack);
-        assertThat(examSessionBack.getExam()).isEqualTo(exam);
-
-        exam.setSessions(new HashSet<>());
-        assertThat(exam.getSessions()).doesNotContain(examSessionBack);
-        assertThat(examSessionBack.getExam()).isNull();
+        exam.session(null);
+        assertThat(exam.getSession()).isNull();
     }
 
     @Test

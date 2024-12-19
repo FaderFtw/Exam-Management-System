@@ -23,21 +23,11 @@
           <dd>
             <span>{{ studentClassRef.studentCount }}</span>
           </dd>
-          <dt><span jhiTranslate="examManagerApp.studentClass.exam">Exam</span></dt>
+          <dt><span jhiTranslate="examManagerApp.studentClass.major">Major</span></dt>
           <dd>
-            @if (studentClass()!.exam) {
+            @if (studentClass()!.major) {
               <div>
-                <a [routerLink]="['/exam', studentClass()!.exam?.id, 'view']">{{ studentClassRef.exam?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.studentClass.teachingSession">Teaching Session</span></dt>
-          <dd>
-            @if (studentClass()!.teachingSession) {
-              <div>
-                <a [routerLink]="['/teaching-session', studentClass()!.teachingSession?.id, 'view']">{{
-                  studentClassRef.teachingSession?.id
-                }}</a>
+                <a [routerLink]="['/major', studentClass()!.major?.id, 'view']">{{ studentClassRef.major?.id }}</a>
               </div>
             }
           </dd>

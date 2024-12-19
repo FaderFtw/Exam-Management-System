@@ -67,16 +67,8 @@ public class ExamSession implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "departments_id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "institutes", "users", "examSessions", "classroom", "major", "report" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "institute", "examSessions", "users" }, allowSetters = true)
     private Set<Department> departments = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "classrooms", "studentClasses", "sessions", "supervisors" }, allowSetters = true)
-    private Exam exam;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "professors", "examSessions", "departments", "institutes" }, allowSetters = true)
-    private Report report;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -217,32 +209,6 @@ public class ExamSession implements Serializable {
 
     public ExamSession removeDepartments(Department department) {
         this.departments.remove(department);
-        return this;
-    }
-
-    public Exam getExam() {
-        return this.exam;
-    }
-
-    public void setExam(Exam exam) {
-        this.exam = exam;
-    }
-
-    public ExamSession exam(Exam exam) {
-        this.setExam(exam);
-        return this;
-    }
-
-    public Report getReport() {
-        return this.report;
-    }
-
-    public void setReport(Report report) {
-        this.report = report;
-    }
-
-    public ExamSession report(Report report) {
-        this.setReport(report);
         return this;
     }
 

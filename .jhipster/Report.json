@@ -27,25 +27,25 @@
       "otherEntityName": "professorDetails",
       "relationshipName": "professor",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "examSession",
       "relationshipName": "examSession",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "department",
       "relationshipName": "department",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "institute",
       "relationshipName": "institute",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

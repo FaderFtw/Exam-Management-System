@@ -102,6 +102,59 @@
             </div>
           }
         </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_timetable" jhiTranslate="examManagerApp.teachingSession.timetable">Timetable</label>
+          <select
+            class="form-control"
+            id="field_timetable"
+            data-cy="timetable"
+            name="timetable"
+            formControlName="timetable"
+            [compareWith]="compareTimetable"
+          >
+            <option [ngValue]="null"></option>
+            @for (timetableOption of timetablesSharedCollection; track $index) {
+              <option [ngValue]="timetableOption">{{ timetableOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_studentClass" jhiTranslate="examManagerApp.teachingSession.studentClass"
+            >Student Class</label
+          >
+          <select
+            class="form-control"
+            id="field_studentClass"
+            data-cy="studentClass"
+            name="studentClass"
+            formControlName="studentClass"
+            [compareWith]="compareStudentClass"
+          >
+            <option [ngValue]="null"></option>
+            @for (studentClassOption of studentClassesSharedCollection; track $index) {
+              <option [ngValue]="studentClassOption">{{ studentClassOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_classroom" jhiTranslate="examManagerApp.teachingSession.classroom">Classroom</label>
+          <select
+            class="form-control"
+            id="field_classroom"
+            data-cy="classroom"
+            name="classroom"
+            formControlName="classroom"
+            [compareWith]="compareClassroom"
+          >
+            <option [ngValue]="null"></option>
+            @for (classroomOption of classroomsSharedCollection; track $index) {
+              <option [ngValue]="classroomOption">{{ classroomOption.id }}</option>
+            }
+          </select>
+        </div>
       </div>
 
       <div>

@@ -21,8 +21,7 @@
       "name": "Name",
       "startDate": "Start Date",
       "endDate": "End Date",
-      "professor": "Professor",
-      "teachingSession": "Teaching Session"
+      "professor": "Professor"
     }
   }
 }

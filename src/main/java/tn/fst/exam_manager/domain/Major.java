@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,14 +28,9 @@ public class Major implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "major")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "institutes", "users", "examSessions", "classroom", "major", "report" }, allowSetters = true)
-    private Set<Department> departments = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "majors", "exam", "teachingSession" }, allowSetters = true)
-    private StudentClass studentClass;
+    @JsonIgnoreProperties(value = { "institute", "examSessions", "users" }, allowSetters = true)
+    private Department department;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -67,47 +60,16 @@ public class Major implements Serializable {
         this.name = name;
     }
 
-    public Set<Department> getDepartments() {
-        return this.departments;
+    public Department getDepartment() {
+        return this.department;
     }
 
-    public void setDepartments(Set<Department> departments) {
-        if (this.departments != null) {
-            this.departments.forEach(i -> i.setMajor(null));
-        }
-        if (departments != null) {
-            departments.forEach(i -> i.setMajor(this));
-        }
-        this.departments = departments;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public Major departments(Set<Department> departments) {
-        this.setDepartments(departments);
-        return this;
-    }
-
-    public Major addDepartment(Department department) {
-        this.departments.add(department);
-        department.setMajor(this);
-        return this;
-    }
-
-    public Major removeDepartment(Department department) {
-        this.departments.remove(department);
-        department.setMajor(null);
-        return this;
-    }
-
-    public StudentClass getStudentClass() {
-        return this.studentClass;
-    }
-
-    public void setStudentClass(StudentClass studentClass) {
-        this.studentClass = studentClass;
-    }
-
-    public Major studentClass(StudentClass studentClass) {
-        this.setStudentClass(studentClass);
+    public Major department(Department department) {
+        this.setDepartment(department);
         return this;
     }
 

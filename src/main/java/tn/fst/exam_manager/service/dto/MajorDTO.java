@@ -15,7 +15,7 @@ public class MajorDTO implements Serializable {
     @NotNull
     private String name;
 
-    private StudentClassDTO studentClass;
+    private DepartmentDTO department;
 
     public Long getId() {
         return id;
@@ -33,12 +33,12 @@ public class MajorDTO implements Serializable {
         this.name = name;
     }
 
-    public StudentClassDTO getStudentClass() {
-        return studentClass;
+    public DepartmentDTO getDepartment() {
+        return department;
     }
 
-    public void setStudentClass(StudentClassDTO studentClass) {
-        this.studentClass = studentClass;
+    public void setDepartment(DepartmentDTO department) {
+        this.department = department;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MajorDTO implements Serializable {
         return "MajorDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", studentClass=" + getStudentClass() +
+            ", department=" + getDepartment() +
             "}";
     }
 }

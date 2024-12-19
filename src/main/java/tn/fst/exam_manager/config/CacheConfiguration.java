@@ -81,6 +81,9 @@ public class CacheConfiguration {
             createCache(cm, tn.fst.exam_manager.domain.TeachingSession.class.getName() + ".classrooms");
             createCache(cm, tn.fst.exam_manager.domain.Timetable.class.getName());
             createCache(cm, tn.fst.exam_manager.domain.Timetable.class.getName() + ".professors");
+            createCache(cm, tn.fst.exam_manager.domain.Department.class.getName() + ".users");
+            createCache(cm, tn.fst.exam_manager.domain.Institute.class.getName() + ".users");
+            createCache(cm, tn.fst.exam_manager.domain.UserAcademicInfo.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

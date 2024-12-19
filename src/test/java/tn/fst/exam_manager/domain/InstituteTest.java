@@ -1,10 +1,11 @@
 package tn.fst.exam_manager.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tn.fst.exam_manager.domain.DepartmentTestSamples.*;
 import static tn.fst.exam_manager.domain.InstituteTestSamples.*;
-import static tn.fst.exam_manager.domain.ReportTestSamples.*;
+import static tn.fst.exam_manager.domain.UserAcademicInfoTestSamples.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import tn.fst.exam_manager.web.rest.TestUtil;
 
@@ -25,26 +26,24 @@ class InstituteTest {
     }
 
     @Test
-    void departmentTest() {
+    void usersTest() {
         Institute institute = getInstituteRandomSampleGenerator();
-        Department departmentBack = getDepartmentRandomSampleGenerator();
+        UserAcademicInfo userAcademicInfoBack = getUserAcademicInfoRandomSampleGenerator();
 
-        institute.setDepartment(departmentBack);
-        assertThat(institute.getDepartment()).isEqualTo(departmentBack);
+        institute.addUsers(userAcademicInfoBack);
+        assertThat(institute.getUsers()).containsOnly(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getInstitute()).isEqualTo(institute);
 
-        institute.department(null);
-        assertThat(institute.getDepartment()).isNull();
-    }
+        institute.removeUsers(userAcademicInfoBack);
+        assertThat(institute.getUsers()).doesNotContain(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getInstitute()).isNull();
 
-    @Test
-    void reportTest() {
-        Institute institute = getInstituteRandomSampleGenerator();
-        Report reportBack = getReportRandomSampleGenerator();
+        institute.users(new HashSet<>(Set.of(userAcademicInfoBack)));
+        assertThat(institute.getUsers()).containsOnly(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getInstitute()).isEqualTo(institute);
 
-        institute.setReport(reportBack);
-        assertThat(institute.getReport()).isEqualTo(reportBack);
-
-        institute.report(null);
-        assertThat(institute.getReport()).isNull();
+        institute.setUsers(new HashSet<>());
+        assertThat(institute.getUsers()).doesNotContain(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getInstitute()).isNull();
     }
 }

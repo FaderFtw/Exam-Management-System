@@ -22,15 +22,7 @@
       "otherEntityName": "institute",
       "relationshipName": "institute",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "user",
-      "otherEntityRelationshipName": "department",
-      "relationshipName": "users",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one",
-      "relationshipWithBuiltInEntity": true
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "examSession",

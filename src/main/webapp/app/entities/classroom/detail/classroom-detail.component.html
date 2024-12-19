@@ -23,19 +23,11 @@
           <dd>
             <span>{{ classroomRef.capacity }}</span>
           </dd>
-          <dt><span jhiTranslate="examManagerApp.classroom.exam">Exam</span></dt>
+          <dt><span jhiTranslate="examManagerApp.classroom.department">Department</span></dt>
           <dd>
-            @if (classroom()!.exam) {
+            @if (classroom()!.department) {
               <div>
-                <a [routerLink]="['/exam', classroom()!.exam?.id, 'view']">{{ classroomRef.exam?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.classroom.teachingSession">Teaching Session</span></dt>
-          <dd>
-            @if (classroom()!.teachingSession) {
-              <div>
-                <a [routerLink]="['/teaching-session', classroom()!.teachingSession?.id, 'view']">{{ classroomRef.teachingSession?.id }}</a>
+                <a [routerLink]="['/department', classroom()!.department?.id, 'view']">{{ classroomRef.department?.id }}</a>
               </div>
             }
           </dd>

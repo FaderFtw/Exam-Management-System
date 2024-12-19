@@ -84,18 +84,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="department.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.institute.department">Department</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="report.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.institute.report">Report</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -122,20 +110,6 @@
               <td>{{ institute.phone }}</td>
               <td>{{ institute.email }}</td>
               <td>{{ institute.website }}</td>
-              <td>
-                @if (institute.department) {
-                  <div>
-                    <a [routerLink]="['/department', institute.department.id, 'view']">{{ institute.department.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (institute.report) {
-                  <div>
-                    <a [routerLink]="['/report', institute.report.id, 'view']">{{ institute.report.id }}</a>
-                  </div>
-                }
-              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/institute', institute.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

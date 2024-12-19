@@ -19,15 +19,9 @@ public class DepartmentDTO implements Serializable {
 
     private String email;
 
-    private UserDTO users;
+    private InstituteDTO institute;
 
     private Set<ExamSessionDTO> examSessions = new HashSet<>();
-
-    private ClassroomDTO classroom;
-
-    private MajorDTO major;
-
-    private ReportDTO report;
 
     public Long getId() {
         return id;
@@ -53,12 +47,12 @@ public class DepartmentDTO implements Serializable {
         this.email = email;
     }
 
-    public UserDTO getUsers() {
-        return users;
+    public InstituteDTO getInstitute() {
+        return institute;
     }
 
-    public void setUsers(UserDTO users) {
-        this.users = users;
+    public void setInstitute(InstituteDTO institute) {
+        this.institute = institute;
     }
 
     public Set<ExamSessionDTO> getExamSessions() {
@@ -67,30 +61,6 @@ public class DepartmentDTO implements Serializable {
 
     public void setExamSessions(Set<ExamSessionDTO> examSessions) {
         this.examSessions = examSessions;
-    }
-
-    public ClassroomDTO getClassroom() {
-        return classroom;
-    }
-
-    public void setClassroom(ClassroomDTO classroom) {
-        this.classroom = classroom;
-    }
-
-    public MajorDTO getMajor() {
-        return major;
-    }
-
-    public void setMajor(MajorDTO major) {
-        this.major = major;
-    }
-
-    public ReportDTO getReport() {
-        return report;
-    }
-
-    public void setReport(ReportDTO report) {
-        this.report = report;
     }
 
     @Override
@@ -121,11 +91,8 @@ public class DepartmentDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", email='" + getEmail() + "'" +
-            ", users=" + getUsers() +
+            ", institute=" + getInstitute() +
             ", examSessions=" + getExamSessions() +
-            ", classroom=" + getClassroom() +
-            ", major=" + getMajor() +
-            ", report=" + getReport() +
             "}";
     }
 }

@@ -46,22 +46,6 @@
               </span>
             }
           </dd>
-          <dt><span jhiTranslate="examManagerApp.professorDetails.report">Report</span></dt>
-          <dd>
-            @if (professorDetails()!.report) {
-              <div>
-                <a [routerLink]="['/report', professorDetails()!.report?.id, 'view']">{{ professorDetailsRef.report?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.professorDetails.timetable">Timetable</span></dt>
-          <dd>
-            @if (professorDetails()!.timetable) {
-              <div>
-                <a [routerLink]="['/timetable', professorDetails()!.timetable?.id, 'view']">{{ professorDetailsRef.timetable?.id }}</a>
-              </div>
-            }
-          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

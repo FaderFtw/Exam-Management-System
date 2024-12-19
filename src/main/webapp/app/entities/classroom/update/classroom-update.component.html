@@ -48,30 +48,18 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_exam" jhiTranslate="examManagerApp.classroom.exam">Exam</label>
-          <select class="form-control" id="field_exam" data-cy="exam" name="exam" formControlName="exam" [compareWith]="compareExam">
-            <option [ngValue]="null"></option>
-            @for (examOption of examsSharedCollection; track $index) {
-              <option [ngValue]="examOption">{{ examOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_teachingSession" jhiTranslate="examManagerApp.classroom.teachingSession"
-            >Teaching Session</label
-          >
+          <label class="form-label" for="field_department" jhiTranslate="examManagerApp.classroom.department">Department</label>
           <select
             class="form-control"
-            id="field_teachingSession"
-            data-cy="teachingSession"
-            name="teachingSession"
-            formControlName="teachingSession"
-            [compareWith]="compareTeachingSession"
+            id="field_department"
+            data-cy="department"
+            name="department"
+            formControlName="department"
+            [compareWith]="compareDepartment"
           >
             <option [ngValue]="null"></option>
-            @for (teachingSessionOption of teachingSessionsSharedCollection; track $index) {
-              <option [ngValue]="teachingSessionOption">{{ teachingSessionOption.id }}</option>
+            @for (departmentOption of departmentsSharedCollection; track $index) {
+              <option [ngValue]="departmentOption">{{ departmentOption.id }}</option>
             }
           </select>
         </div>

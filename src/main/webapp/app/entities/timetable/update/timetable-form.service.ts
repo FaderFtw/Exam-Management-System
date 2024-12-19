@@ -21,7 +21,7 @@ type TimetableFormGroupContent = {
   name: FormControl<ITimetable['name']>;
   startDate: FormControl<ITimetable['startDate']>;
   endDate: FormControl<ITimetable['endDate']>;
-  teachingSession: FormControl<ITimetable['teachingSession']>;
+  professor: FormControl<ITimetable['professor']>;
 };
 
 export type TimetableFormGroup = FormGroup<TimetableFormGroupContent>;
@@ -50,7 +50,7 @@ export class TimetableFormService {
       endDate: new FormControl(timetableRawValue.endDate, {
         validators: [Validators.required],
       }),
-      teachingSession: new FormControl(timetableRawValue.teachingSession),
+      professor: new FormControl(timetableRawValue.professor),
     });
   }
 

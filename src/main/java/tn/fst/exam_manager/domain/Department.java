@@ -33,30 +33,19 @@ public class Department implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "department", "report" }, allowSetters = true)
-    private Set<Institute> institutes = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
-    private User users;
+    @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
+    private Institute institute;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "departments")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "sessionType", "departments", "exam", "report" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "sessionType", "departments" }, allowSetters = true)
     private Set<ExamSession> examSessions = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "departments", "exam", "teachingSession" }, allowSetters = true)
-    private Classroom classroom;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "departments", "studentClass" }, allowSetters = true)
-    private Major major;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "professors", "examSessions", "departments", "institutes" }, allowSetters = true)
-    private Report report;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "department", "institute" }, allowSetters = true)
+    private Set<UserAcademicInfo> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -99,47 +88,16 @@ public class Department implements Serializable {
         this.email = email;
     }
 
-    public Set<Institute> getInstitutes() {
-        return this.institutes;
+    public Institute getInstitute() {
+        return this.institute;
     }
 
-    public void setInstitutes(Set<Institute> institutes) {
-        if (this.institutes != null) {
-            this.institutes.forEach(i -> i.setDepartment(null));
-        }
-        if (institutes != null) {
-            institutes.forEach(i -> i.setDepartment(this));
-        }
-        this.institutes = institutes;
+    public void setInstitute(Institute institute) {
+        this.institute = institute;
     }
 
-    public Department institutes(Set<Institute> institutes) {
-        this.setInstitutes(institutes);
-        return this;
-    }
-
-    public Department addInstitute(Institute institute) {
-        this.institutes.add(institute);
-        institute.setDepartment(this);
-        return this;
-    }
-
-    public Department removeInstitute(Institute institute) {
-        this.institutes.remove(institute);
-        institute.setDepartment(null);
-        return this;
-    }
-
-    public User getUsers() {
-        return this.users;
-    }
-
-    public void setUsers(User user) {
-        this.users = user;
-    }
-
-    public Department users(User user) {
-        this.setUsers(user);
+    public Department institute(Institute institute) {
+        this.setInstitute(institute);
         return this;
     }
 
@@ -174,42 +132,34 @@ public class Department implements Serializable {
         return this;
     }
 
-    public Classroom getClassroom() {
-        return this.classroom;
+    public Set<UserAcademicInfo> getUsers() {
+        return this.users;
     }
 
-    public void setClassroom(Classroom classroom) {
-        this.classroom = classroom;
+    public void setUsers(Set<UserAcademicInfo> userAcademicInfos) {
+        if (this.users != null) {
+            this.users.forEach(i -> i.setDepartment(null));
+        }
+        if (userAcademicInfos != null) {
+            userAcademicInfos.forEach(i -> i.setDepartment(this));
+        }
+        this.users = userAcademicInfos;
     }
 
-    public Department classroom(Classroom classroom) {
-        this.setClassroom(classroom);
+    public Department users(Set<UserAcademicInfo> userAcademicInfos) {
+        this.setUsers(userAcademicInfos);
         return this;
     }
 
-    public Major getMajor() {
-        return this.major;
-    }
-
-    public void setMajor(Major major) {
-        this.major = major;
-    }
-
-    public Department major(Major major) {
-        this.setMajor(major);
+    public Department addUsers(UserAcademicInfo userAcademicInfo) {
+        this.users.add(userAcademicInfo);
+        userAcademicInfo.setDepartment(this);
         return this;
     }
 
-    public Report getReport() {
-        return this.report;
-    }
-
-    public void setReport(Report report) {
-        this.report = report;
-    }
-
-    public Department report(Report report) {
-        this.setReport(report);
+    public Department removeUsers(UserAcademicInfo userAcademicInfo) {
+        this.users.remove(userAcademicInfo);
+        userAcademicInfo.setDepartment(null);
         return this;
     }
 

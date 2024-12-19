@@ -27,6 +27,38 @@
           <dd>
             <span>{{ reportRef.content }}</span>
           </dd>
+          <dt><span jhiTranslate="examManagerApp.report.professor">Professor</span></dt>
+          <dd>
+            @if (report()!.professor) {
+              <div>
+                <a [routerLink]="['/professor-details', report()!.professor?.id, 'view']">{{ reportRef.professor?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.examSession">Exam Session</span></dt>
+          <dd>
+            @if (report()!.examSession) {
+              <div>
+                <a [routerLink]="['/exam-session', report()!.examSession?.id, 'view']">{{ reportRef.examSession?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.department">Department</span></dt>
+          <dd>
+            @if (report()!.department) {
+              <div>
+                <a [routerLink]="['/department', report()!.department?.id, 'view']">{{ reportRef.department?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.institute">Institute</span></dt>
+          <dd>
+            @if (report()!.institute) {
+              <div>
+                <a [routerLink]="['/institute', report()!.institute?.id, 'view']">{{ reportRef.institute?.id }}</a>
+              </div>
+            }
+          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

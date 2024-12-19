@@ -1,24 +1,23 @@
 import { IStudentClass, NewStudentClass } from './student-class.model';
 
 export const sampleWithRequiredData: IStudentClass = {
-  id: 9212,
-  name: 'déjà avant que',
+  id: 31525,
+  name: 'prestataire de services',
 };
 
 export const sampleWithPartialData: IStudentClass = {
-  id: 8287,
-  name: 'poursuivre électorat pschitt',
-  studentCount: 6433,
+  id: 13035,
+  name: 'auprès de magenta',
 };
 
 export const sampleWithFullData: IStudentClass = {
-  id: 25229,
-  name: 'drôlement miam ouch',
-  studentCount: 11614,
+  id: 26386,
+  name: 'direction conseil d’administration',
+  studentCount: 21610,
 };
 
 export const sampleWithNewData: NewStudentClass = {
-  name: 'hors immense jeune enfant',
+  name: 'ça derechef',
   id: null,
 };
 

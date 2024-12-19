@@ -8,10 +8,6 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/service/user.service';
 import { IExam } from 'app/entities/exam/exam.model';
 import { ExamService } from 'app/entities/exam/service/exam.service';
-import { IReport } from 'app/entities/report/report.model';
-import { ReportService } from 'app/entities/report/service/report.service';
-import { ITimetable } from 'app/entities/timetable/timetable.model';
-import { TimetableService } from 'app/entities/timetable/service/timetable.service';
 import { IProfessorDetails } from '../professor-details.model';
 import { ProfessorDetailsService } from '../service/professor-details.service';
 import { ProfessorDetailsFormService } from './professor-details-form.service';
@@ -26,8 +22,6 @@ describe('ProfessorDetails Management Update Component', () => {
   let professorDetailsService: ProfessorDetailsService;
   let userService: UserService;
   let examService: ExamService;
-  let reportService: ReportService;
-  let timetableService: TimetableService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -52,8 +46,6 @@ describe('ProfessorDetails Management Update Component', () => {
     professorDetailsService = TestBed.inject(ProfessorDetailsService);
     userService = TestBed.inject(UserService);
     examService = TestBed.inject(ExamService);
-    reportService = TestBed.inject(ReportService);
-    timetableService = TestBed.inject(TimetableService);
 
     comp = fixture.componentInstance;
   });
@@ -61,10 +53,10 @@ describe('ProfessorDetails Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call User query and add missing value', () => {
       const professorDetails: IProfessorDetails = { id: 456 };
-      const user: IUser = { id: 21529 };
+      const user: IUser = { id: 19134 };
       professorDetails.user = user;
 
-      const userCollection: IUser[] = [{ id: 26358 }];
+      const userCollection: IUser[] = [{ id: 13585 }];
       jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
       const additionalUsers = [user];
       const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
@@ -83,10 +75,10 @@ describe('ProfessorDetails Management Update Component', () => {
 
     it('Should call Exam query and add missing value', () => {
       const professorDetails: IProfessorDetails = { id: 456 };
-      const supervisedExams: IExam[] = [{ id: 24002 }];
+      const supervisedExams: IExam[] = [{ id: 26507 }];
       professorDetails.supervisedExams = supervisedExams;
 
-      const examCollection: IExam[] = [{ id: 8755 }];
+      const examCollection: IExam[] = [{ id: 31096 }];
       jest.spyOn(examService, 'query').mockReturnValue(of(new HttpResponse({ body: examCollection })));
       const additionalExams = [...supervisedExams];
       const expectedCollection: IExam[] = [...additionalExams, ...examCollection];
@@ -103,68 +95,18 @@ describe('ProfessorDetails Management Update Component', () => {
       expect(comp.examsSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call Report query and add missing value', () => {
-      const professorDetails: IProfessorDetails = { id: 456 };
-      const report: IReport = { id: 5805 };
-      professorDetails.report = report;
-
-      const reportCollection: IReport[] = [{ id: 10888 }];
-      jest.spyOn(reportService, 'query').mockReturnValue(of(new HttpResponse({ body: reportCollection })));
-      const additionalReports = [report];
-      const expectedCollection: IReport[] = [...additionalReports, ...reportCollection];
-      jest.spyOn(reportService, 'addReportToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ professorDetails });
-      comp.ngOnInit();
-
-      expect(reportService.query).toHaveBeenCalled();
-      expect(reportService.addReportToCollectionIfMissing).toHaveBeenCalledWith(
-        reportCollection,
-        ...additionalReports.map(expect.objectContaining),
-      );
-      expect(comp.reportsSharedCollection).toEqual(expectedCollection);
-    });
-
-    it('Should call Timetable query and add missing value', () => {
-      const professorDetails: IProfessorDetails = { id: 456 };
-      const timetable: ITimetable = { id: 1628 };
-      professorDetails.timetable = timetable;
-
-      const timetableCollection: ITimetable[] = [{ id: 8630 }];
-      jest.spyOn(timetableService, 'query').mockReturnValue(of(new HttpResponse({ body: timetableCollection })));
-      const additionalTimetables = [timetable];
-      const expectedCollection: ITimetable[] = [...additionalTimetables, ...timetableCollection];
-      jest.spyOn(timetableService, 'addTimetableToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ professorDetails });
-      comp.ngOnInit();
-
-      expect(timetableService.query).toHaveBeenCalled();
-      expect(timetableService.addTimetableToCollectionIfMissing).toHaveBeenCalledWith(
-        timetableCollection,
-        ...additionalTimetables.map(expect.objectContaining),
-      );
-      expect(comp.timetablesSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const professorDetails: IProfessorDetails = { id: 456 };
-      const user: IUser = { id: 30696 };
+      const user: IUser = { id: 18803 };
       professorDetails.user = user;
-      const supervisedExams: IExam = { id: 130 };
+      const supervisedExams: IExam = { id: 31571 };
       professorDetails.supervisedExams = [supervisedExams];
-      const report: IReport = { id: 25539 };
-      professorDetails.report = report;
-      const timetable: ITimetable = { id: 1440 };
-      professorDetails.timetable = timetable;
 
       activatedRoute.data = of({ professorDetails });
       comp.ngOnInit();
 
       expect(comp.usersSharedCollection).toContain(user);
       expect(comp.examsSharedCollection).toContain(supervisedExams);
-      expect(comp.reportsSharedCollection).toContain(report);
-      expect(comp.timetablesSharedCollection).toContain(timetable);
       expect(comp.professorDetails).toEqual(professorDetails);
     });
   });
@@ -255,26 +197,6 @@ describe('ProfessorDetails Management Update Component', () => {
         jest.spyOn(examService, 'compareExam');
         comp.compareExam(entity, entity2);
         expect(examService.compareExam).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareReport', () => {
-      it('Should forward to reportService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(reportService, 'compareReport');
-        comp.compareReport(entity, entity2);
-        expect(reportService.compareReport).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareTimetable', () => {
-      it('Should forward to timetableService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(timetableService, 'compareTimetable');
-        comp.compareTimetable(entity, entity2);
-        expect(timetableService.compareTimetable).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

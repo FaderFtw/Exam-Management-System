@@ -298,7 +298,7 @@ class StudentClassResourceIT {
         StudentClass partialUpdatedStudentClass = new StudentClass();
         partialUpdatedStudentClass.setId(studentClass.getId());
 
-        partialUpdatedStudentClass.studentCount(UPDATED_STUDENT_COUNT);
+        partialUpdatedStudentClass.name(UPDATED_NAME);
 
         restStudentClassMockMvc
             .perform(

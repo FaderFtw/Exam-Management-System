@@ -18,19 +18,19 @@
       "otherEntityName": "classroom",
       "relationshipName": "classroom",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "studentClass",
       "relationshipName": "studentClass",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "examSession",
       "relationshipName": "session",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "professorDetails",

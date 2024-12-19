@@ -20,9 +20,7 @@
       "id": "ID",
       "rank": "Rank",
       "user": "User",
-      "supervisedExams": "Supervised Exams",
-      "report": "Report",
-      "timetable": "Timetable"
+      "supervisedExams": "Supervised Exams"
     }
   }
 }

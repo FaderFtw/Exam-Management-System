@@ -480,7 +480,7 @@ class ExamSessionResourceIT {
         ExamSession partialUpdatedExamSession = new ExamSession();
         partialUpdatedExamSession.setId(examSession.getId());
 
-        partialUpdatedExamSession.endDate(UPDATED_END_DATE).allowCombineClasses(UPDATED_ALLOW_COMBINE_CLASSES);
+        partialUpdatedExamSession.sessionCode(UPDATED_SESSION_CODE).startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
 
         restExamSessionMockMvc
             .perform(

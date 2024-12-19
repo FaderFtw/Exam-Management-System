@@ -11,10 +11,6 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/service/user.service';
 import { IExam } from 'app/entities/exam/exam.model';
 import { ExamService } from 'app/entities/exam/service/exam.service';
-import { IReport } from 'app/entities/report/report.model';
-import { ReportService } from 'app/entities/report/service/report.service';
-import { ITimetable } from 'app/entities/timetable/timetable.model';
-import { TimetableService } from 'app/entities/timetable/service/timetable.service';
 import { Rank } from 'app/entities/enumerations/rank.model';
 import { ProfessorDetailsService } from '../service/professor-details.service';
 import { IProfessorDetails } from '../professor-details.model';
@@ -33,15 +29,11 @@ export class ProfessorDetailsUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
   examsSharedCollection: IExam[] = [];
-  reportsSharedCollection: IReport[] = [];
-  timetablesSharedCollection: ITimetable[] = [];
 
   protected professorDetailsService = inject(ProfessorDetailsService);
   protected professorDetailsFormService = inject(ProfessorDetailsFormService);
   protected userService = inject(UserService);
   protected examService = inject(ExamService);
-  protected reportService = inject(ReportService);
-  protected timetableService = inject(TimetableService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -50,10 +42,6 @@ export class ProfessorDetailsUpdateComponent implements OnInit {
   compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
 
   compareExam = (o1: IExam | null, o2: IExam | null): boolean => this.examService.compareExam(o1, o2);
-
-  compareReport = (o1: IReport | null, o2: IReport | null): boolean => this.reportService.compareReport(o1, o2);
-
-  compareTimetable = (o1: ITimetable | null, o2: ITimetable | null): boolean => this.timetableService.compareTimetable(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ professorDetails }) => {
@@ -108,14 +96,6 @@ export class ProfessorDetailsUpdateComponent implements OnInit {
       this.examsSharedCollection,
       ...(professorDetails.supervisedExams ?? []),
     );
-    this.reportsSharedCollection = this.reportService.addReportToCollectionIfMissing<IReport>(
-      this.reportsSharedCollection,
-      professorDetails.report,
-    );
-    this.timetablesSharedCollection = this.timetableService.addTimetableToCollectionIfMissing<ITimetable>(
-      this.timetablesSharedCollection,
-      professorDetails.timetable,
-    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -134,21 +114,5 @@ export class ProfessorDetailsUpdateComponent implements OnInit {
         ),
       )
       .subscribe((exams: IExam[]) => (this.examsSharedCollection = exams));
-
-    this.reportService
-      .query()
-      .pipe(map((res: HttpResponse<IReport[]>) => res.body ?? []))
-      .pipe(map((reports: IReport[]) => this.reportService.addReportToCollectionIfMissing<IReport>(reports, this.professorDetails?.report)))
-      .subscribe((reports: IReport[]) => (this.reportsSharedCollection = reports));
-
-    this.timetableService
-      .query()
-      .pipe(map((res: HttpResponse<ITimetable[]>) => res.body ?? []))
-      .pipe(
-        map((timetables: ITimetable[]) =>
-          this.timetableService.addTimetableToCollectionIfMissing<ITimetable>(timetables, this.professorDetails?.timetable),
-        ),
-      )
-      .subscribe((timetables: ITimetable[]) => (this.timetablesSharedCollection = timetables));
   }
 }

@@ -7,16 +7,10 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/service/user.service';
+import { IInstitute } from 'app/entities/institute/institute.model';
+import { InstituteService } from 'app/entities/institute/service/institute.service';
 import { IExamSession } from 'app/entities/exam-session/exam-session.model';
 import { ExamSessionService } from 'app/entities/exam-session/service/exam-session.service';
-import { IClassroom } from 'app/entities/classroom/classroom.model';
-import { ClassroomService } from 'app/entities/classroom/service/classroom.service';
-import { IMajor } from 'app/entities/major/major.model';
-import { MajorService } from 'app/entities/major/service/major.service';
-import { IReport } from 'app/entities/report/report.model';
-import { ReportService } from 'app/entities/report/service/report.service';
 import { DepartmentService } from '../service/department.service';
 import { IDepartment } from '../department.model';
 import { DepartmentFormGroup, DepartmentFormService } from './department-form.service';
@@ -31,33 +25,21 @@ export class DepartmentUpdateComponent implements OnInit {
   isSaving = false;
   department: IDepartment | null = null;
 
-  usersSharedCollection: IUser[] = [];
+  institutesSharedCollection: IInstitute[] = [];
   examSessionsSharedCollection: IExamSession[] = [];
-  classroomsSharedCollection: IClassroom[] = [];
-  majorsSharedCollection: IMajor[] = [];
-  reportsSharedCollection: IReport[] = [];
 
   protected departmentService = inject(DepartmentService);
   protected departmentFormService = inject(DepartmentFormService);
-  protected userService = inject(UserService);
+  protected instituteService = inject(InstituteService);
   protected examSessionService = inject(ExamSessionService);
-  protected classroomService = inject(ClassroomService);
-  protected majorService = inject(MajorService);
-  protected reportService = inject(ReportService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: DepartmentFormGroup = this.departmentFormService.createDepartmentFormGroup();
 
-  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
+  compareInstitute = (o1: IInstitute | null, o2: IInstitute | null): boolean => this.instituteService.compareInstitute(o1, o2);
 
   compareExamSession = (o1: IExamSession | null, o2: IExamSession | null): boolean => this.examSessionService.compareExamSession(o1, o2);
-
-  compareClassroom = (o1: IClassroom | null, o2: IClassroom | null): boolean => this.classroomService.compareClassroom(o1, o2);
-
-  compareMajor = (o1: IMajor | null, o2: IMajor | null): boolean => this.majorService.compareMajor(o1, o2);
-
-  compareReport = (o1: IReport | null, o2: IReport | null): boolean => this.reportService.compareReport(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ department }) => {
@@ -107,28 +89,26 @@ export class DepartmentUpdateComponent implements OnInit {
     this.department = department;
     this.departmentFormService.resetForm(this.editForm, department);
 
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, department.users);
+    this.institutesSharedCollection = this.instituteService.addInstituteToCollectionIfMissing<IInstitute>(
+      this.institutesSharedCollection,
+      department.institute,
+    );
     this.examSessionsSharedCollection = this.examSessionService.addExamSessionToCollectionIfMissing<IExamSession>(
       this.examSessionsSharedCollection,
       ...(department.examSessions ?? []),
     );
-    this.classroomsSharedCollection = this.classroomService.addClassroomToCollectionIfMissing<IClassroom>(
-      this.classroomsSharedCollection,
-      department.classroom,
-    );
-    this.majorsSharedCollection = this.majorService.addMajorToCollectionIfMissing<IMajor>(this.majorsSharedCollection, department.major);
-    this.reportsSharedCollection = this.reportService.addReportToCollectionIfMissing<IReport>(
-      this.reportsSharedCollection,
-      department.report,
-    );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.userService
+    this.instituteService
       .query()
-      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.department?.users)))
-      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+      .pipe(map((res: HttpResponse<IInstitute[]>) => res.body ?? []))
+      .pipe(
+        map((institutes: IInstitute[]) =>
+          this.instituteService.addInstituteToCollectionIfMissing<IInstitute>(institutes, this.department?.institute),
+        ),
+      )
+      .subscribe((institutes: IInstitute[]) => (this.institutesSharedCollection = institutes));
 
     this.examSessionService
       .query()
@@ -139,27 +119,5 @@ export class DepartmentUpdateComponent implements OnInit {
         ),
       )
       .subscribe((examSessions: IExamSession[]) => (this.examSessionsSharedCollection = examSessions));
-
-    this.classroomService
-      .query()
-      .pipe(map((res: HttpResponse<IClassroom[]>) => res.body ?? []))
-      .pipe(
-        map((classrooms: IClassroom[]) =>
-          this.classroomService.addClassroomToCollectionIfMissing<IClassroom>(classrooms, this.department?.classroom),
-        ),
-      )
-      .subscribe((classrooms: IClassroom[]) => (this.classroomsSharedCollection = classrooms));
-
-    this.majorService
-      .query()
-      .pipe(map((res: HttpResponse<IMajor[]>) => res.body ?? []))
-      .pipe(map((majors: IMajor[]) => this.majorService.addMajorToCollectionIfMissing<IMajor>(majors, this.department?.major)))
-      .subscribe((majors: IMajor[]) => (this.majorsSharedCollection = majors));
-
-    this.reportService
-      .query()
-      .pipe(map((res: HttpResponse<IReport[]>) => res.body ?? []))
-      .pipe(map((reports: IReport[]) => this.reportService.addReportToCollectionIfMissing<IReport>(reports, this.department?.report)))
-      .subscribe((reports: IReport[]) => (this.reportsSharedCollection = reports));
   }
 }

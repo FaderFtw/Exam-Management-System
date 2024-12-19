@@ -24,8 +24,7 @@
       "phone": "Phone",
       "email": "Email",
       "website": "Website",
-      "department": "Department",
-      "report": "Report"
+      "users": "Users"
     }
   }
 }

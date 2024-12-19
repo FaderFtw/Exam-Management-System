@@ -22,10 +22,6 @@ public class ProfessorDetailsDTO implements Serializable {
 
     private Set<ExamDTO> supervisedExams = new HashSet<>();
 
-    private ReportDTO report;
-
-    private TimetableDTO timetable;
-
     public Long getId() {
         return id;
     }
@@ -58,22 +54,6 @@ public class ProfessorDetailsDTO implements Serializable {
         this.supervisedExams = supervisedExams;
     }
 
-    public ReportDTO getReport() {
-        return report;
-    }
-
-    public void setReport(ReportDTO report) {
-        this.report = report;
-    }
-
-    public TimetableDTO getTimetable() {
-        return timetable;
-    }
-
-    public void setTimetable(TimetableDTO timetable) {
-        this.timetable = timetable;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,8 +83,6 @@ public class ProfessorDetailsDTO implements Serializable {
             ", rank='" + getRank() + "'" +
             ", user=" + getUser() +
             ", supervisedExams=" + getSupervisedExams() +
-            ", report=" + getReport() +
-            ", timetable=" + getTimetable() +
             "}";
     }
 }

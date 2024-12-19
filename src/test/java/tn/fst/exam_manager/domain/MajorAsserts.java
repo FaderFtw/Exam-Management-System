@@ -59,6 +59,6 @@ public class MajorAsserts {
     public static void assertMajorUpdatableRelationshipsEquals(Major expected, Major actual) {
         assertThat(expected)
             .as("Verify Major relationships")
-            .satisfies(e -> assertThat(e.getStudentClass()).as("check studentClass").isEqualTo(actual.getStudentClass()));
+            .satisfies(e -> assertThat(e.getDepartment()).as("check department").isEqualTo(actual.getDepartment()));
     }
 }

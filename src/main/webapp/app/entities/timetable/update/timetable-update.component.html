@@ -79,20 +79,18 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_teachingSession" jhiTranslate="examManagerApp.timetable.teachingSession"
-            >Teaching Session</label
-          >
+          <label class="form-label" for="field_professor" jhiTranslate="examManagerApp.timetable.professor">Professor</label>
           <select
             class="form-control"
-            id="field_teachingSession"
-            data-cy="teachingSession"
-            name="teachingSession"
-            formControlName="teachingSession"
-            [compareWith]="compareTeachingSession"
+            id="field_professor"
+            data-cy="professor"
+            name="professor"
+            formControlName="professor"
+            [compareWith]="compareProfessorDetails"
           >
             <option [ngValue]="null"></option>
-            @for (teachingSessionOption of teachingSessionsSharedCollection; track $index) {
-              <option [ngValue]="teachingSessionOption">{{ teachingSessionOption.id }}</option>
+            @for (professorDetailsOption of professorDetailsSharedCollection; track $index) {
+              <option [ngValue]="professorDetailsOption">{{ professorDetailsOption.id }}</option>
             }
           </select>
         </div>

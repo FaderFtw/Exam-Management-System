@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -43,20 +41,17 @@ public class TeachingSession implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teachingSession")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "professors", "teachingSession" }, allowSetters = true)
-    private Set<Timetable> timetables = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "professor" }, allowSetters = true)
+    private Timetable timetable;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teachingSession")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "majors", "exam", "teachingSession" }, allowSetters = true)
-    private Set<StudentClass> studentClasses = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "major" }, allowSetters = true)
+    private StudentClass studentClass;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teachingSession")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "departments", "exam", "teachingSession" }, allowSetters = true)
-    private Set<Classroom> classrooms = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "department" }, allowSetters = true)
+    private Classroom classroom;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -125,96 +120,42 @@ public class TeachingSession implements Serializable {
         this.type = type;
     }
 
-    public Set<Timetable> getTimetables() {
-        return this.timetables;
+    public Timetable getTimetable() {
+        return this.timetable;
     }
 
-    public void setTimetables(Set<Timetable> timetables) {
-        if (this.timetables != null) {
-            this.timetables.forEach(i -> i.setTeachingSession(null));
-        }
-        if (timetables != null) {
-            timetables.forEach(i -> i.setTeachingSession(this));
-        }
-        this.timetables = timetables;
+    public void setTimetable(Timetable timetable) {
+        this.timetable = timetable;
     }
 
-    public TeachingSession timetables(Set<Timetable> timetables) {
-        this.setTimetables(timetables);
+    public TeachingSession timetable(Timetable timetable) {
+        this.setTimetable(timetable);
         return this;
     }
 
-    public TeachingSession addTimetable(Timetable timetable) {
-        this.timetables.add(timetable);
-        timetable.setTeachingSession(this);
+    public StudentClass getStudentClass() {
+        return this.studentClass;
+    }
+
+    public void setStudentClass(StudentClass studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public TeachingSession studentClass(StudentClass studentClass) {
+        this.setStudentClass(studentClass);
         return this;
     }
 
-    public TeachingSession removeTimetable(Timetable timetable) {
-        this.timetables.remove(timetable);
-        timetable.setTeachingSession(null);
-        return this;
+    public Classroom getClassroom() {
+        return this.classroom;
     }
 
-    public Set<StudentClass> getStudentClasses() {
-        return this.studentClasses;
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 
-    public void setStudentClasses(Set<StudentClass> studentClasses) {
-        if (this.studentClasses != null) {
-            this.studentClasses.forEach(i -> i.setTeachingSession(null));
-        }
-        if (studentClasses != null) {
-            studentClasses.forEach(i -> i.setTeachingSession(this));
-        }
-        this.studentClasses = studentClasses;
-    }
-
-    public TeachingSession studentClasses(Set<StudentClass> studentClasses) {
-        this.setStudentClasses(studentClasses);
-        return this;
-    }
-
-    public TeachingSession addStudentClass(StudentClass studentClass) {
-        this.studentClasses.add(studentClass);
-        studentClass.setTeachingSession(this);
-        return this;
-    }
-
-    public TeachingSession removeStudentClass(StudentClass studentClass) {
-        this.studentClasses.remove(studentClass);
-        studentClass.setTeachingSession(null);
-        return this;
-    }
-
-    public Set<Classroom> getClassrooms() {
-        return this.classrooms;
-    }
-
-    public void setClassrooms(Set<Classroom> classrooms) {
-        if (this.classrooms != null) {
-            this.classrooms.forEach(i -> i.setTeachingSession(null));
-        }
-        if (classrooms != null) {
-            classrooms.forEach(i -> i.setTeachingSession(this));
-        }
-        this.classrooms = classrooms;
-    }
-
-    public TeachingSession classrooms(Set<Classroom> classrooms) {
-        this.setClassrooms(classrooms);
-        return this;
-    }
-
-    public TeachingSession addClassroom(Classroom classroom) {
-        this.classrooms.add(classroom);
-        classroom.setTeachingSession(this);
-        return this;
-    }
-
-    public TeachingSession removeClassroom(Classroom classroom) {
-        this.classrooms.remove(classroom);
-        classroom.setTeachingSession(null);
+    public TeachingSession classroom(Classroom classroom) {
+        this.setClassroom(classroom);
         return this;
     }
 

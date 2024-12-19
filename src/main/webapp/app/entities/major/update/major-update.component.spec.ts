@@ -4,8 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, of } from 'rxjs';
 
-import { IStudentClass } from 'app/entities/student-class/student-class.model';
-import { StudentClassService } from 'app/entities/student-class/service/student-class.service';
+import { IDepartment } from 'app/entities/department/department.model';
+import { DepartmentService } from 'app/entities/department/service/department.service';
 import { MajorService } from '../service/major.service';
 import { IMajor } from '../major.model';
 import { MajorFormService } from './major-form.service';
@@ -18,7 +18,7 @@ describe('Major Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let majorFormService: MajorFormService;
   let majorService: MajorService;
-  let studentClassService: StudentClassService;
+  let departmentService: DepartmentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,43 +41,43 @@ describe('Major Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     majorFormService = TestBed.inject(MajorFormService);
     majorService = TestBed.inject(MajorService);
-    studentClassService = TestBed.inject(StudentClassService);
+    departmentService = TestBed.inject(DepartmentService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call StudentClass query and add missing value', () => {
+    it('Should call Department query and add missing value', () => {
       const major: IMajor = { id: 456 };
-      const studentClass: IStudentClass = { id: 7153 };
-      major.studentClass = studentClass;
+      const department: IDepartment = { id: 1812 };
+      major.department = department;
 
-      const studentClassCollection: IStudentClass[] = [{ id: 9714 }];
-      jest.spyOn(studentClassService, 'query').mockReturnValue(of(new HttpResponse({ body: studentClassCollection })));
-      const additionalStudentClasses = [studentClass];
-      const expectedCollection: IStudentClass[] = [...additionalStudentClasses, ...studentClassCollection];
-      jest.spyOn(studentClassService, 'addStudentClassToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const departmentCollection: IDepartment[] = [{ id: 32354 }];
+      jest.spyOn(departmentService, 'query').mockReturnValue(of(new HttpResponse({ body: departmentCollection })));
+      const additionalDepartments = [department];
+      const expectedCollection: IDepartment[] = [...additionalDepartments, ...departmentCollection];
+      jest.spyOn(departmentService, 'addDepartmentToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ major });
       comp.ngOnInit();
 
-      expect(studentClassService.query).toHaveBeenCalled();
-      expect(studentClassService.addStudentClassToCollectionIfMissing).toHaveBeenCalledWith(
-        studentClassCollection,
-        ...additionalStudentClasses.map(expect.objectContaining),
+      expect(departmentService.query).toHaveBeenCalled();
+      expect(departmentService.addDepartmentToCollectionIfMissing).toHaveBeenCalledWith(
+        departmentCollection,
+        ...additionalDepartments.map(expect.objectContaining),
       );
-      expect(comp.studentClassesSharedCollection).toEqual(expectedCollection);
+      expect(comp.departmentsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const major: IMajor = { id: 456 };
-      const studentClass: IStudentClass = { id: 14118 };
-      major.studentClass = studentClass;
+      const department: IDepartment = { id: 15862 };
+      major.department = department;
 
       activatedRoute.data = of({ major });
       comp.ngOnInit();
 
-      expect(comp.studentClassesSharedCollection).toContain(studentClass);
+      expect(comp.departmentsSharedCollection).toContain(department);
       expect(comp.major).toEqual(major);
     });
   });
@@ -151,13 +151,13 @@ describe('Major Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareStudentClass', () => {
-      it('Should forward to studentClassService', () => {
+    describe('compareDepartment', () => {
+      it('Should forward to departmentService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(studentClassService, 'compareStudentClass');
-        comp.compareStudentClass(entity, entity2);
-        expect(studentClassService.compareStudentClass).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(departmentService, 'compareDepartment');
+        comp.compareDepartment(entity, entity2);
+        expect(departmentService.compareDepartment).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

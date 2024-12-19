@@ -74,8 +74,6 @@ public class ExamSessionAsserts {
         assertThat(expected)
             .as("Verify ExamSession relationships")
             .satisfies(e -> assertThat(e.getSessionType()).as("check sessionType").isEqualTo(actual.getSessionType()))
-            .satisfies(e -> assertThat(e.getDepartments()).as("check departments").isEqualTo(actual.getDepartments()))
-            .satisfies(e -> assertThat(e.getExam()).as("check exam").isEqualTo(actual.getExam()))
-            .satisfies(e -> assertThat(e.getReport()).as("check report").isEqualTo(actual.getReport()));
+            .satisfies(e -> assertThat(e.getDepartments()).as("check departments").isEqualTo(actual.getDepartments()));
     }
 }

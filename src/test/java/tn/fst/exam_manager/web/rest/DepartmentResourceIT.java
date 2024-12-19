@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tn.fst.exam_manager.IntegrationTest;
 import tn.fst.exam_manager.domain.Department;
 import tn.fst.exam_manager.repository.DepartmentRepository;
-import tn.fst.exam_manager.repository.UserRepository;
 import tn.fst.exam_manager.service.dto.DepartmentDTO;
 import tn.fst.exam_manager.service.mapper.DepartmentMapper;
 
@@ -52,9 +51,6 @@ class DepartmentResourceIT {
 
     @Autowired
     private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private DepartmentMapper departmentMapper;
@@ -301,8 +297,6 @@ class DepartmentResourceIT {
         // Update the department using partial update
         Department partialUpdatedDepartment = new Department();
         partialUpdatedDepartment.setId(department.getId());
-
-        partialUpdatedDepartment.name(UPDATED_NAME).email(UPDATED_EMAIL);
 
         restDepartmentMockMvc
             .perform(

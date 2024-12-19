@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,18 +32,9 @@ public class Classroom implements Serializable {
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "institutes", "users", "examSessions", "classroom", "major", "report" }, allowSetters = true)
-    private Set<Department> departments = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "classrooms", "studentClasses", "sessions", "supervisors" }, allowSetters = true)
-    private Exam exam;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "timetables", "studentClasses", "classrooms" }, allowSetters = true)
-    private TeachingSession teachingSession;
+    @JsonIgnoreProperties(value = { "institute", "examSessions", "users" }, allowSetters = true)
+    private Department department;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -88,60 +77,16 @@ public class Classroom implements Serializable {
         this.capacity = capacity;
     }
 
-    public Set<Department> getDepartments() {
-        return this.departments;
+    public Department getDepartment() {
+        return this.department;
     }
 
-    public void setDepartments(Set<Department> departments) {
-        if (this.departments != null) {
-            this.departments.forEach(i -> i.setClassroom(null));
-        }
-        if (departments != null) {
-            departments.forEach(i -> i.setClassroom(this));
-        }
-        this.departments = departments;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public Classroom departments(Set<Department> departments) {
-        this.setDepartments(departments);
-        return this;
-    }
-
-    public Classroom addDepartment(Department department) {
-        this.departments.add(department);
-        department.setClassroom(this);
-        return this;
-    }
-
-    public Classroom removeDepartment(Department department) {
-        this.departments.remove(department);
-        department.setClassroom(null);
-        return this;
-    }
-
-    public Exam getExam() {
-        return this.exam;
-    }
-
-    public void setExam(Exam exam) {
-        this.exam = exam;
-    }
-
-    public Classroom exam(Exam exam) {
-        this.setExam(exam);
-        return this;
-    }
-
-    public TeachingSession getTeachingSession() {
-        return this.teachingSession;
-    }
-
-    public void setTeachingSession(TeachingSession teachingSession) {
-        this.teachingSession = teachingSession;
-    }
-
-    public Classroom teachingSession(TeachingSession teachingSession) {
-        this.setTeachingSession(teachingSession);
+    public Classroom department(Department department) {
+        this.setDepartment(department);
         return this;
     }
 

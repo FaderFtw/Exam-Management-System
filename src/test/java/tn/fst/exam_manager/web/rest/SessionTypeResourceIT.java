@@ -293,6 +293,8 @@ class SessionTypeResourceIT {
         SessionType partialUpdatedSessionType = new SessionType();
         partialUpdatedSessionType.setId(sessionType.getId());
 
+        partialUpdatedSessionType.name(UPDATED_NAME);
+
         restSessionTypeMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedSessionType.getId())

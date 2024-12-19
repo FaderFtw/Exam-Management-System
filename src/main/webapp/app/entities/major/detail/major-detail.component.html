@@ -19,11 +19,11 @@
           <dd>
             <span>{{ majorRef.name }}</span>
           </dd>
-          <dt><span jhiTranslate="examManagerApp.major.studentClass">Student Class</span></dt>
+          <dt><span jhiTranslate="examManagerApp.major.department">Department</span></dt>
           <dd>
-            @if (major()!.studentClass) {
+            @if (major()!.department) {
               <div>
-                <a [routerLink]="['/student-class', major()!.studentClass?.id, 'view']">{{ majorRef.studentClass?.id }}</a>
+                <a [routerLink]="['/department', major()!.department?.id, 'view']">{{ majorRef.department?.id }}</a>
               </div>
             }
           </dd>

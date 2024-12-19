@@ -1,22 +1,22 @@
 import { IMajor, NewMajor } from './major.model';
 
 export const sampleWithRequiredData: IMajor = {
-  id: 27837,
-  name: 'psitt',
+  id: 17412,
+  name: 'régner contre',
 };
 
 export const sampleWithPartialData: IMajor = {
-  id: 8168,
-  name: 'moderne',
+  id: 23780,
+  name: 'de crainte que extra',
 };
 
 export const sampleWithFullData: IMajor = {
-  id: 14010,
-  name: 'de manière à ce que',
+  id: 11546,
+  name: 'ouch au-dessous de',
 };
 
 export const sampleWithNewData: NewMajor = {
-  name: 'concurrence',
+  name: 'au dépens de courir égoïste',
   id: null,
 };
 

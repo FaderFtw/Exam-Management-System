@@ -18,9 +18,7 @@ public class ClassroomDTO implements Serializable {
     @NotNull
     private Integer capacity;
 
-    private ExamDTO exam;
-
-    private TeachingSessionDTO teachingSession;
+    private DepartmentDTO department;
 
     public Long getId() {
         return id;
@@ -46,20 +44,12 @@ public class ClassroomDTO implements Serializable {
         this.capacity = capacity;
     }
 
-    public ExamDTO getExam() {
-        return exam;
+    public DepartmentDTO getDepartment() {
+        return department;
     }
 
-    public void setExam(ExamDTO exam) {
-        this.exam = exam;
-    }
-
-    public TeachingSessionDTO getTeachingSession() {
-        return teachingSession;
-    }
-
-    public void setTeachingSession(TeachingSessionDTO teachingSession) {
-        this.teachingSession = teachingSession;
+    public void setDepartment(DepartmentDTO department) {
+        this.department = department;
     }
 
     @Override
@@ -90,8 +80,7 @@ public class ClassroomDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", capacity=" + getCapacity() +
-            ", exam=" + getExam() +
-            ", teachingSession=" + getTeachingSession() +
+            ", department=" + getDepartment() +
             "}";
     }
 }

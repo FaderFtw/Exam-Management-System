@@ -28,7 +28,7 @@
       "otherEntityName": "professorDetails",
       "relationshipName": "professor",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

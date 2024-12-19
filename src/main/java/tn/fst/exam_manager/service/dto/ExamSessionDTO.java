@@ -40,10 +40,6 @@ public class ExamSessionDTO implements Serializable {
 
     private Set<DepartmentDTO> departments = new HashSet<>();
 
-    private ExamDTO exam;
-
-    private ReportDTO report;
-
     public Long getId() {
         return id;
     }
@@ -124,22 +120,6 @@ public class ExamSessionDTO implements Serializable {
         this.departments = departments;
     }
 
-    public ExamDTO getExam() {
-        return exam;
-    }
-
-    public void setExam(ExamDTO exam) {
-        this.exam = exam;
-    }
-
-    public ReportDTO getReport() {
-        return report;
-    }
-
-    public void setReport(ReportDTO report) {
-        this.report = report;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -175,8 +155,6 @@ public class ExamSessionDTO implements Serializable {
             ", allowCombineClasses='" + getAllowCombineClasses() + "'" +
             ", sessionType=" + getSessionType() +
             ", departments=" + getDepartments() +
-            ", exam=" + getExam() +
-            ", report=" + getReport() +
             "}";
     }
 }

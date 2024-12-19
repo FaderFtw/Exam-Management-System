@@ -60,9 +60,7 @@ public class DepartmentAsserts {
     public static void assertDepartmentUpdatableRelationshipsEquals(Department expected, Department actual) {
         assertThat(expected)
             .as("Verify Department relationships")
-            .satisfies(e -> assertThat(e.getExamSessions()).as("check examSessions").isEqualTo(actual.getExamSessions()))
-            .satisfies(e -> assertThat(e.getClassroom()).as("check classroom").isEqualTo(actual.getClassroom()))
-            .satisfies(e -> assertThat(e.getMajor()).as("check major").isEqualTo(actual.getMajor()))
-            .satisfies(e -> assertThat(e.getReport()).as("check report").isEqualTo(actual.getReport()));
+            .satisfies(e -> assertThat(e.getInstitute()).as("check institute").isEqualTo(actual.getInstitute()))
+            .satisfies(e -> assertThat(e.getExamSessions()).as("check examSessions").isEqualTo(actual.getExamSessions()));
     }
 }

@@ -7,12 +7,10 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IExam } from 'app/entities/exam/exam.model';
-import { ExamService } from 'app/entities/exam/service/exam.service';
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
-import { TeachingSessionService } from 'app/entities/teaching-session/service/teaching-session.service';
-import { ClassroomService } from '../service/classroom.service';
+import { IDepartment } from 'app/entities/department/department.model';
+import { DepartmentService } from 'app/entities/department/service/department.service';
 import { IClassroom } from '../classroom.model';
+import { ClassroomService } from '../service/classroom.service';
 import { ClassroomFormGroup, ClassroomFormService } from './classroom-form.service';
 
 @Component({
@@ -25,22 +23,17 @@ export class ClassroomUpdateComponent implements OnInit {
   isSaving = false;
   classroom: IClassroom | null = null;
 
-  examsSharedCollection: IExam[] = [];
-  teachingSessionsSharedCollection: ITeachingSession[] = [];
+  departmentsSharedCollection: IDepartment[] = [];
 
   protected classroomService = inject(ClassroomService);
   protected classroomFormService = inject(ClassroomFormService);
-  protected examService = inject(ExamService);
-  protected teachingSessionService = inject(TeachingSessionService);
+  protected departmentService = inject(DepartmentService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: ClassroomFormGroup = this.classroomFormService.createClassroomFormGroup();
 
-  compareExam = (o1: IExam | null, o2: IExam | null): boolean => this.examService.compareExam(o1, o2);
-
-  compareTeachingSession = (o1: ITeachingSession | null, o2: ITeachingSession | null): boolean =>
-    this.teachingSessionService.compareTeachingSession(o1, o2);
+  compareDepartment = (o1: IDepartment | null, o2: IDepartment | null): boolean => this.departmentService.compareDepartment(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ classroom }) => {
@@ -90,31 +83,21 @@ export class ClassroomUpdateComponent implements OnInit {
     this.classroom = classroom;
     this.classroomFormService.resetForm(this.editForm, classroom);
 
-    this.examsSharedCollection = this.examService.addExamToCollectionIfMissing<IExam>(this.examsSharedCollection, classroom.exam);
-    this.teachingSessionsSharedCollection = this.teachingSessionService.addTeachingSessionToCollectionIfMissing<ITeachingSession>(
-      this.teachingSessionsSharedCollection,
-      classroom.teachingSession,
+    this.departmentsSharedCollection = this.departmentService.addDepartmentToCollectionIfMissing<IDepartment>(
+      this.departmentsSharedCollection,
+      classroom.department,
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.examService
+    this.departmentService
       .query()
-      .pipe(map((res: HttpResponse<IExam[]>) => res.body ?? []))
-      .pipe(map((exams: IExam[]) => this.examService.addExamToCollectionIfMissing<IExam>(exams, this.classroom?.exam)))
-      .subscribe((exams: IExam[]) => (this.examsSharedCollection = exams));
-
-    this.teachingSessionService
-      .query()
-      .pipe(map((res: HttpResponse<ITeachingSession[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IDepartment[]>) => res.body ?? []))
       .pipe(
-        map((teachingSessions: ITeachingSession[]) =>
-          this.teachingSessionService.addTeachingSessionToCollectionIfMissing<ITeachingSession>(
-            teachingSessions,
-            this.classroom?.teachingSession,
-          ),
+        map((departments: IDepartment[]) =>
+          this.departmentService.addDepartmentToCollectionIfMissing<IDepartment>(departments, this.classroom?.department),
         ),
       )
-      .subscribe((teachingSessions: ITeachingSession[]) => (this.teachingSessionsSharedCollection = teachingSessions));
+      .subscribe((departments: IDepartment[]) => (this.departmentsSharedCollection = departments));
   }
 }

@@ -26,9 +26,7 @@
       "allowOwnClassSupervision": "Allow Own Class Supervision",
       "allowCombineClasses": "Allow Combine Classes",
       "sessionType": "Session Type",
-      "departments": "Departments",
-      "exam": "Exam",
-      "report": "Report"
+      "departments": "Departments"
     }
   }
 }

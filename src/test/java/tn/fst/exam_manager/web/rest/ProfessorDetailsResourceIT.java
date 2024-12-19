@@ -298,8 +298,6 @@ class ProfessorDetailsResourceIT {
         ProfessorDetails partialUpdatedProfessorDetails = new ProfessorDetails();
         partialUpdatedProfessorDetails.setId(professorDetails.getId());
 
-        partialUpdatedProfessorDetails.rank(UPDATED_RANK);
-
         restProfessorDetailsMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedProfessorDetails.getId())

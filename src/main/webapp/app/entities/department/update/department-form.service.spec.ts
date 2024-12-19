@@ -22,11 +22,8 @@ describe('Department Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             email: expect.any(Object),
-            users: expect.any(Object),
+            institute: expect.any(Object),
             examSessions: expect.any(Object),
-            classroom: expect.any(Object),
-            major: expect.any(Object),
-            report: expect.any(Object),
           }),
         );
       });
@@ -39,11 +36,8 @@ describe('Department Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             email: expect.any(Object),
-            users: expect.any(Object),
+            institute: expect.any(Object),
             examSessions: expect.any(Object),
-            classroom: expect.any(Object),
-            major: expect.any(Object),
-            report: expect.any(Object),
           }),
         );
       });

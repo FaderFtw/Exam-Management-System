@@ -22,8 +22,7 @@ describe('Classroom Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             capacity: expect.any(Object),
-            exam: expect.any(Object),
-            teachingSession: expect.any(Object),
+            department: expect.any(Object),
           }),
         );
       });
@@ -36,8 +35,7 @@ describe('Classroom Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             capacity: expect.any(Object),
-            exam: expect.any(Object),
-            teachingSession: expect.any(Object),
+            department: expect.any(Object),
           }),
         );
       });

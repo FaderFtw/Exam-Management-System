@@ -7,8 +7,6 @@ import static tn.fst.exam_manager.domain.InstituteTestSamples.*;
 import static tn.fst.exam_manager.domain.ProfessorDetailsTestSamples.*;
 import static tn.fst.exam_manager.domain.ReportTestSamples.*;
 
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import tn.fst.exam_manager.web.rest.TestUtil;
 
@@ -33,21 +31,11 @@ class ReportTest {
         Report report = getReportRandomSampleGenerator();
         ProfessorDetails professorDetailsBack = getProfessorDetailsRandomSampleGenerator();
 
-        report.addProfessor(professorDetailsBack);
-        assertThat(report.getProfessors()).containsOnly(professorDetailsBack);
-        assertThat(professorDetailsBack.getReport()).isEqualTo(report);
+        report.setProfessor(professorDetailsBack);
+        assertThat(report.getProfessor()).isEqualTo(professorDetailsBack);
 
-        report.removeProfessor(professorDetailsBack);
-        assertThat(report.getProfessors()).doesNotContain(professorDetailsBack);
-        assertThat(professorDetailsBack.getReport()).isNull();
-
-        report.professors(new HashSet<>(Set.of(professorDetailsBack)));
-        assertThat(report.getProfessors()).containsOnly(professorDetailsBack);
-        assertThat(professorDetailsBack.getReport()).isEqualTo(report);
-
-        report.setProfessors(new HashSet<>());
-        assertThat(report.getProfessors()).doesNotContain(professorDetailsBack);
-        assertThat(professorDetailsBack.getReport()).isNull();
+        report.professor(null);
+        assertThat(report.getProfessor()).isNull();
     }
 
     @Test
@@ -55,21 +43,11 @@ class ReportTest {
         Report report = getReportRandomSampleGenerator();
         ExamSession examSessionBack = getExamSessionRandomSampleGenerator();
 
-        report.addExamSession(examSessionBack);
-        assertThat(report.getExamSessions()).containsOnly(examSessionBack);
-        assertThat(examSessionBack.getReport()).isEqualTo(report);
+        report.setExamSession(examSessionBack);
+        assertThat(report.getExamSession()).isEqualTo(examSessionBack);
 
-        report.removeExamSession(examSessionBack);
-        assertThat(report.getExamSessions()).doesNotContain(examSessionBack);
-        assertThat(examSessionBack.getReport()).isNull();
-
-        report.examSessions(new HashSet<>(Set.of(examSessionBack)));
-        assertThat(report.getExamSessions()).containsOnly(examSessionBack);
-        assertThat(examSessionBack.getReport()).isEqualTo(report);
-
-        report.setExamSessions(new HashSet<>());
-        assertThat(report.getExamSessions()).doesNotContain(examSessionBack);
-        assertThat(examSessionBack.getReport()).isNull();
+        report.examSession(null);
+        assertThat(report.getExamSession()).isNull();
     }
 
     @Test
@@ -77,21 +55,11 @@ class ReportTest {
         Report report = getReportRandomSampleGenerator();
         Department departmentBack = getDepartmentRandomSampleGenerator();
 
-        report.addDepartment(departmentBack);
-        assertThat(report.getDepartments()).containsOnly(departmentBack);
-        assertThat(departmentBack.getReport()).isEqualTo(report);
+        report.setDepartment(departmentBack);
+        assertThat(report.getDepartment()).isEqualTo(departmentBack);
 
-        report.removeDepartment(departmentBack);
-        assertThat(report.getDepartments()).doesNotContain(departmentBack);
-        assertThat(departmentBack.getReport()).isNull();
-
-        report.departments(new HashSet<>(Set.of(departmentBack)));
-        assertThat(report.getDepartments()).containsOnly(departmentBack);
-        assertThat(departmentBack.getReport()).isEqualTo(report);
-
-        report.setDepartments(new HashSet<>());
-        assertThat(report.getDepartments()).doesNotContain(departmentBack);
-        assertThat(departmentBack.getReport()).isNull();
+        report.department(null);
+        assertThat(report.getDepartment()).isNull();
     }
 
     @Test
@@ -99,20 +67,10 @@ class ReportTest {
         Report report = getReportRandomSampleGenerator();
         Institute instituteBack = getInstituteRandomSampleGenerator();
 
-        report.addInstitute(instituteBack);
-        assertThat(report.getInstitutes()).containsOnly(instituteBack);
-        assertThat(instituteBack.getReport()).isEqualTo(report);
+        report.setInstitute(instituteBack);
+        assertThat(report.getInstitute()).isEqualTo(instituteBack);
 
-        report.removeInstitute(instituteBack);
-        assertThat(report.getInstitutes()).doesNotContain(instituteBack);
-        assertThat(instituteBack.getReport()).isNull();
-
-        report.institutes(new HashSet<>(Set.of(instituteBack)));
-        assertThat(report.getInstitutes()).containsOnly(instituteBack);
-        assertThat(instituteBack.getReport()).isEqualTo(report);
-
-        report.setInstitutes(new HashSet<>());
-        assertThat(report.getInstitutes()).doesNotContain(instituteBack);
-        assertThat(instituteBack.getReport()).isNull();
+        report.institute(null);
+        assertThat(report.getInstitute()).isNull();
     }
 }

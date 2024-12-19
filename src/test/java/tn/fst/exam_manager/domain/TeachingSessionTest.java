@@ -6,8 +6,6 @@ import static tn.fst.exam_manager.domain.StudentClassTestSamples.*;
 import static tn.fst.exam_manager.domain.TeachingSessionTestSamples.*;
 import static tn.fst.exam_manager.domain.TimetableTestSamples.*;
 
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import tn.fst.exam_manager.web.rest.TestUtil;
 
@@ -32,21 +30,11 @@ class TeachingSessionTest {
         TeachingSession teachingSession = getTeachingSessionRandomSampleGenerator();
         Timetable timetableBack = getTimetableRandomSampleGenerator();
 
-        teachingSession.addTimetable(timetableBack);
-        assertThat(teachingSession.getTimetables()).containsOnly(timetableBack);
-        assertThat(timetableBack.getTeachingSession()).isEqualTo(teachingSession);
+        teachingSession.setTimetable(timetableBack);
+        assertThat(teachingSession.getTimetable()).isEqualTo(timetableBack);
 
-        teachingSession.removeTimetable(timetableBack);
-        assertThat(teachingSession.getTimetables()).doesNotContain(timetableBack);
-        assertThat(timetableBack.getTeachingSession()).isNull();
-
-        teachingSession.timetables(new HashSet<>(Set.of(timetableBack)));
-        assertThat(teachingSession.getTimetables()).containsOnly(timetableBack);
-        assertThat(timetableBack.getTeachingSession()).isEqualTo(teachingSession);
-
-        teachingSession.setTimetables(new HashSet<>());
-        assertThat(teachingSession.getTimetables()).doesNotContain(timetableBack);
-        assertThat(timetableBack.getTeachingSession()).isNull();
+        teachingSession.timetable(null);
+        assertThat(teachingSession.getTimetable()).isNull();
     }
 
     @Test
@@ -54,21 +42,11 @@ class TeachingSessionTest {
         TeachingSession teachingSession = getTeachingSessionRandomSampleGenerator();
         StudentClass studentClassBack = getStudentClassRandomSampleGenerator();
 
-        teachingSession.addStudentClass(studentClassBack);
-        assertThat(teachingSession.getStudentClasses()).containsOnly(studentClassBack);
-        assertThat(studentClassBack.getTeachingSession()).isEqualTo(teachingSession);
+        teachingSession.setStudentClass(studentClassBack);
+        assertThat(teachingSession.getStudentClass()).isEqualTo(studentClassBack);
 
-        teachingSession.removeStudentClass(studentClassBack);
-        assertThat(teachingSession.getStudentClasses()).doesNotContain(studentClassBack);
-        assertThat(studentClassBack.getTeachingSession()).isNull();
-
-        teachingSession.studentClasses(new HashSet<>(Set.of(studentClassBack)));
-        assertThat(teachingSession.getStudentClasses()).containsOnly(studentClassBack);
-        assertThat(studentClassBack.getTeachingSession()).isEqualTo(teachingSession);
-
-        teachingSession.setStudentClasses(new HashSet<>());
-        assertThat(teachingSession.getStudentClasses()).doesNotContain(studentClassBack);
-        assertThat(studentClassBack.getTeachingSession()).isNull();
+        teachingSession.studentClass(null);
+        assertThat(teachingSession.getStudentClass()).isNull();
     }
 
     @Test
@@ -76,20 +54,10 @@ class TeachingSessionTest {
         TeachingSession teachingSession = getTeachingSessionRandomSampleGenerator();
         Classroom classroomBack = getClassroomRandomSampleGenerator();
 
-        teachingSession.addClassroom(classroomBack);
-        assertThat(teachingSession.getClassrooms()).containsOnly(classroomBack);
-        assertThat(classroomBack.getTeachingSession()).isEqualTo(teachingSession);
+        teachingSession.setClassroom(classroomBack);
+        assertThat(teachingSession.getClassroom()).isEqualTo(classroomBack);
 
-        teachingSession.removeClassroom(classroomBack);
-        assertThat(teachingSession.getClassrooms()).doesNotContain(classroomBack);
-        assertThat(classroomBack.getTeachingSession()).isNull();
-
-        teachingSession.classrooms(new HashSet<>(Set.of(classroomBack)));
-        assertThat(teachingSession.getClassrooms()).containsOnly(classroomBack);
-        assertThat(classroomBack.getTeachingSession()).isEqualTo(teachingSession);
-
-        teachingSession.setClassrooms(new HashSet<>());
-        assertThat(teachingSession.getClassrooms()).doesNotContain(classroomBack);
-        assertThat(classroomBack.getTeachingSession()).isNull();
+        teachingSession.classroom(null);
+        assertThat(teachingSession.getClassroom()).isNull();
     }
 }

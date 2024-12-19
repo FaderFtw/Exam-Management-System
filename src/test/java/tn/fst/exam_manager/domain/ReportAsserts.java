@@ -59,6 +59,11 @@ public class ReportAsserts {
      * @param actual the actual entity
      */
     public static void assertReportUpdatableRelationshipsEquals(Report expected, Report actual) {
-        // empty method
+        assertThat(expected)
+            .as("Verify Report relationships")
+            .satisfies(e -> assertThat(e.getProfessor()).as("check professor").isEqualTo(actual.getProfessor()))
+            .satisfies(e -> assertThat(e.getExamSession()).as("check examSession").isEqualTo(actual.getExamSession()))
+            .satisfies(e -> assertThat(e.getDepartment()).as("check department").isEqualTo(actual.getDepartment()))
+            .satisfies(e -> assertThat(e.getInstitute()).as("check institute").isEqualTo(actual.getInstitute()));
     }
 }

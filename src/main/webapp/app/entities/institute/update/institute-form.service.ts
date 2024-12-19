@@ -25,8 +25,6 @@ type InstituteFormGroupContent = {
   phone: FormControl<IInstitute['phone']>;
   email: FormControl<IInstitute['email']>;
   website: FormControl<IInstitute['website']>;
-  department: FormControl<IInstitute['department']>;
-  report: FormControl<IInstitute['report']>;
 };
 
 export type InstituteFormGroup = FormGroup<InstituteFormGroupContent>;
@@ -59,8 +57,6 @@ export class InstituteFormService {
       phone: new FormControl(instituteRawValue.phone),
       email: new FormControl(instituteRawValue.email),
       website: new FormControl(instituteRawValue.website),
-      department: new FormControl(instituteRawValue.department),
-      report: new FormControl(instituteRawValue.report),
     });
   }
 

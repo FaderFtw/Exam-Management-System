@@ -315,8 +315,6 @@ class ClassroomResourceIT {
         Classroom partialUpdatedClassroom = new Classroom();
         partialUpdatedClassroom.setId(classroom.getId());
 
-        partialUpdatedClassroom.name(UPDATED_NAME).capacity(UPDATED_CAPACITY);
-
         restClassroomMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedClassroom.getId())

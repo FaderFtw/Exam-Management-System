@@ -1,12 +1,10 @@
 package tn.fst.exam_manager.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tn.fst.exam_manager.domain.ClassroomTestSamples.*;
 import static tn.fst.exam_manager.domain.DepartmentTestSamples.*;
 import static tn.fst.exam_manager.domain.ExamSessionTestSamples.*;
 import static tn.fst.exam_manager.domain.InstituteTestSamples.*;
-import static tn.fst.exam_manager.domain.MajorTestSamples.*;
-import static tn.fst.exam_manager.domain.ReportTestSamples.*;
+import static tn.fst.exam_manager.domain.UserAcademicInfoTestSamples.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,21 +32,11 @@ class DepartmentTest {
         Department department = getDepartmentRandomSampleGenerator();
         Institute instituteBack = getInstituteRandomSampleGenerator();
 
-        department.addInstitute(instituteBack);
-        assertThat(department.getInstitutes()).containsOnly(instituteBack);
-        assertThat(instituteBack.getDepartment()).isEqualTo(department);
+        department.setInstitute(instituteBack);
+        assertThat(department.getInstitute()).isEqualTo(instituteBack);
 
-        department.removeInstitute(instituteBack);
-        assertThat(department.getInstitutes()).doesNotContain(instituteBack);
-        assertThat(instituteBack.getDepartment()).isNull();
-
-        department.institutes(new HashSet<>(Set.of(instituteBack)));
-        assertThat(department.getInstitutes()).containsOnly(instituteBack);
-        assertThat(instituteBack.getDepartment()).isEqualTo(department);
-
-        department.setInstitutes(new HashSet<>());
-        assertThat(department.getInstitutes()).doesNotContain(instituteBack);
-        assertThat(instituteBack.getDepartment()).isNull();
+        department.institute(null);
+        assertThat(department.getInstitute()).isNull();
     }
 
     @Test
@@ -74,38 +62,24 @@ class DepartmentTest {
     }
 
     @Test
-    void classroomTest() {
+    void usersTest() {
         Department department = getDepartmentRandomSampleGenerator();
-        Classroom classroomBack = getClassroomRandomSampleGenerator();
+        UserAcademicInfo userAcademicInfoBack = getUserAcademicInfoRandomSampleGenerator();
 
-        department.setClassroom(classroomBack);
-        assertThat(department.getClassroom()).isEqualTo(classroomBack);
+        department.addUsers(userAcademicInfoBack);
+        assertThat(department.getUsers()).containsOnly(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getDepartment()).isEqualTo(department);
 
-        department.classroom(null);
-        assertThat(department.getClassroom()).isNull();
-    }
+        department.removeUsers(userAcademicInfoBack);
+        assertThat(department.getUsers()).doesNotContain(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getDepartment()).isNull();
 
-    @Test
-    void majorTest() {
-        Department department = getDepartmentRandomSampleGenerator();
-        Major majorBack = getMajorRandomSampleGenerator();
+        department.users(new HashSet<>(Set.of(userAcademicInfoBack)));
+        assertThat(department.getUsers()).containsOnly(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getDepartment()).isEqualTo(department);
 
-        department.setMajor(majorBack);
-        assertThat(department.getMajor()).isEqualTo(majorBack);
-
-        department.major(null);
-        assertThat(department.getMajor()).isNull();
-    }
-
-    @Test
-    void reportTest() {
-        Department department = getDepartmentRandomSampleGenerator();
-        Report reportBack = getReportRandomSampleGenerator();
-
-        department.setReport(reportBack);
-        assertThat(department.getReport()).isEqualTo(reportBack);
-
-        department.report(null);
-        assertThat(department.getReport()).isNull();
+        department.setUsers(new HashSet<>());
+        assertThat(department.getUsers()).doesNotContain(userAcademicInfoBack);
+        assertThat(userAcademicInfoBack.getDepartment()).isNull();
     }
 }

@@ -23,7 +23,7 @@ describe('Timetable Form Service', () => {
             name: expect.any(Object),
             startDate: expect.any(Object),
             endDate: expect.any(Object),
-            teachingSession: expect.any(Object),
+            professor: expect.any(Object),
           }),
         );
       });
@@ -37,7 +37,7 @@ describe('Timetable Form Service', () => {
             name: expect.any(Object),
             startDate: expect.any(Object),
             endDate: expect.any(Object),
-            teachingSession: expect.any(Object),
+            professor: expect.any(Object),
           }),
         );
       });

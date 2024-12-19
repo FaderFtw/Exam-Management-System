@@ -59,8 +59,6 @@ public class ProfessorDetailsAsserts {
     public static void assertProfessorDetailsUpdatableRelationshipsEquals(ProfessorDetails expected, ProfessorDetails actual) {
         assertThat(expected)
             .as("Verify ProfessorDetails relationships")
-            .satisfies(e -> assertThat(e.getSupervisedExams()).as("check supervisedExams").isEqualTo(actual.getSupervisedExams()))
-            .satisfies(e -> assertThat(e.getReport()).as("check report").isEqualTo(actual.getReport()))
-            .satisfies(e -> assertThat(e.getTimetable()).as("check timetable").isEqualTo(actual.getTimetable()));
+            .satisfies(e -> assertThat(e.getSupervisedExams()).as("check supervisedExams").isEqualTo(actual.getSupervisedExams()));
     }
 }

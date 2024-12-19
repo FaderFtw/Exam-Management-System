@@ -339,7 +339,7 @@ class TimetableResourceIT {
         Timetable partialUpdatedTimetable = new Timetable();
         partialUpdatedTimetable.setId(timetable.getId());
 
-        partialUpdatedTimetable.name(UPDATED_NAME).startDate(UPDATED_START_DATE);
+        partialUpdatedTimetable.name(UPDATED_NAME).endDate(UPDATED_END_DATE);
 
         restTimetableMockMvc
             .perform(

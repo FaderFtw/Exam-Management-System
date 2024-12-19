@@ -30,10 +30,6 @@ public class InstituteDTO implements Serializable {
 
     private String website;
 
-    private DepartmentDTO department;
-
-    private ReportDTO report;
-
     public Long getId() {
         return id;
     }
@@ -98,22 +94,6 @@ public class InstituteDTO implements Serializable {
         this.website = website;
     }
 
-    public DepartmentDTO getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(DepartmentDTO department) {
-        this.department = department;
-    }
-
-    public ReportDTO getReport() {
-        return report;
-    }
-
-    public void setReport(ReportDTO report) {
-        this.report = report;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -146,8 +126,6 @@ public class InstituteDTO implements Serializable {
             ", phone='" + getPhone() + "'" +
             ", email='" + getEmail() + "'" +
             ", website='" + getWebsite() + "'" +
-            ", department=" + getDepartment() +
-            ", report=" + getReport() +
             "}";
     }
 }

@@ -17,6 +17,12 @@ public class ExamDTO implements Serializable {
     @NotNull
     private String name;
 
+    private ClassroomDTO classroom;
+
+    private StudentClassDTO studentClass;
+
+    private ExamSessionDTO session;
+
     private Set<ProfessorDetailsDTO> supervisors = new HashSet<>();
 
     public Long getId() {
@@ -33,6 +39,30 @@ public class ExamDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ClassroomDTO getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(ClassroomDTO classroom) {
+        this.classroom = classroom;
+    }
+
+    public StudentClassDTO getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(StudentClassDTO studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public ExamSessionDTO getSession() {
+        return session;
+    }
+
+    public void setSession(ExamSessionDTO session) {
+        this.session = session;
     }
 
     public Set<ProfessorDetailsDTO> getSupervisors() {
@@ -70,6 +100,9 @@ public class ExamDTO implements Serializable {
         return "ExamDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", classroom=" + getClassroom() +
+            ", studentClass=" + getStudentClass() +
+            ", session=" + getSession() +
             ", supervisors=" + getSupervisors() +
             "}";
     }

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,10 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { IDepartment } from 'app/entities/department/department.model';
-import { DepartmentService } from 'app/entities/department/service/department.service';
-import { IReport } from 'app/entities/report/report.model';
-import { ReportService } from 'app/entities/report/service/report.service';
 import { InstituteService } from '../service/institute.service';
 import { IInstitute } from '../institute.model';
 import { InstituteFormGroup, InstituteFormService } from './institute-form.service';
@@ -28,24 +24,15 @@ export class InstituteUpdateComponent implements OnInit {
   isSaving = false;
   institute: IInstitute | null = null;
 
-  departmentsSharedCollection: IDepartment[] = [];
-  reportsSharedCollection: IReport[] = [];
-
   protected dataUtils = inject(DataUtils);
   protected eventManager = inject(EventManager);
   protected instituteService = inject(InstituteService);
   protected instituteFormService = inject(InstituteFormService);
-  protected departmentService = inject(DepartmentService);
-  protected reportService = inject(ReportService);
   protected elementRef = inject(ElementRef);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: InstituteFormGroup = this.instituteFormService.createInstituteFormGroup();
-
-  compareDepartment = (o1: IDepartment | null, o2: IDepartment | null): boolean => this.departmentService.compareDepartment(o1, o2);
-
-  compareReport = (o1: IReport | null, o2: IReport | null): boolean => this.reportService.compareReport(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ institute }) => {
@@ -53,8 +40,6 @@ export class InstituteUpdateComponent implements OnInit {
       if (institute) {
         this.updateForm(institute);
       }
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -119,32 +104,5 @@ export class InstituteUpdateComponent implements OnInit {
   protected updateForm(institute: IInstitute): void {
     this.institute = institute;
     this.instituteFormService.resetForm(this.editForm, institute);
-
-    this.departmentsSharedCollection = this.departmentService.addDepartmentToCollectionIfMissing<IDepartment>(
-      this.departmentsSharedCollection,
-      institute.department,
-    );
-    this.reportsSharedCollection = this.reportService.addReportToCollectionIfMissing<IReport>(
-      this.reportsSharedCollection,
-      institute.report,
-    );
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.departmentService
-      .query()
-      .pipe(map((res: HttpResponse<IDepartment[]>) => res.body ?? []))
-      .pipe(
-        map((departments: IDepartment[]) =>
-          this.departmentService.addDepartmentToCollectionIfMissing<IDepartment>(departments, this.institute?.department),
-        ),
-      )
-      .subscribe((departments: IDepartment[]) => (this.departmentsSharedCollection = departments));
-
-    this.reportService
-      .query()
-      .pipe(map((res: HttpResponse<IReport[]>) => res.body ?? []))
-      .pipe(map((reports: IReport[]) => this.reportService.addReportToCollectionIfMissing<IReport>(reports, this.institute?.report)))
-      .subscribe((reports: IReport[]) => (this.reportsSharedCollection = reports));
   }
 }

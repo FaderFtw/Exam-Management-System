@@ -21,8 +21,6 @@ type ProfessorDetailsFormGroupContent = {
   rank: FormControl<IProfessorDetails['rank']>;
   user: FormControl<IProfessorDetails['user']>;
   supervisedExams: FormControl<IProfessorDetails['supervisedExams']>;
-  report: FormControl<IProfessorDetails['report']>;
-  timetable: FormControl<IProfessorDetails['timetable']>;
 };
 
 export type ProfessorDetailsFormGroup = FormGroup<ProfessorDetailsFormGroupContent>;
@@ -47,8 +45,6 @@ export class ProfessorDetailsFormService {
       }),
       user: new FormControl(professorDetailsRawValue.user),
       supervisedExams: new FormControl(professorDetailsRawValue.supervisedExams ?? []),
-      report: new FormControl(professorDetailsRawValue.report),
-      timetable: new FormControl(professorDetailsRawValue.timetable),
     });
   }
 

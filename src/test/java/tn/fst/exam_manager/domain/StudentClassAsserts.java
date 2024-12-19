@@ -60,7 +60,6 @@ public class StudentClassAsserts {
     public static void assertStudentClassUpdatableRelationshipsEquals(StudentClass expected, StudentClass actual) {
         assertThat(expected)
             .as("Verify StudentClass relationships")
-            .satisfies(e -> assertThat(e.getExam()).as("check exam").isEqualTo(actual.getExam()))
-            .satisfies(e -> assertThat(e.getTeachingSession()).as("check teachingSession").isEqualTo(actual.getTeachingSession()));
+            .satisfies(e -> assertThat(e.getMajor()).as("check major").isEqualTo(actual.getMajor()));
     }
 }

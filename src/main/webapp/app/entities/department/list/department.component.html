@@ -56,27 +56,9 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="users.id">
+            <th scope="col" jhiSortBy="institute.id">
               <div class="d-flex">
-                <span jhiTranslate="examManagerApp.department.users">Users</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="classroom.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.department.classroom">Classroom</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="major.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.department.major">Major</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="report.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.department.report">Report</span>
+                <span jhiTranslate="examManagerApp.department.institute">Institute</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -92,26 +74,9 @@
               <td>{{ department.name }}</td>
               <td>{{ department.email }}</td>
               <td>
-                {{ department.users?.id }}
-              </td>
-              <td>
-                @if (department.classroom) {
+                @if (department.institute) {
                   <div>
-                    <a [routerLink]="['/classroom', department.classroom.id, 'view']">{{ department.classroom.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (department.major) {
-                  <div>
-                    <a [routerLink]="['/major', department.major.id, 'view']">{{ department.major.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (department.report) {
-                  <div>
-                    <a [routerLink]="['/report', department.report.id, 'view']">{{ department.report.id }}</a>
+                    <a [routerLink]="['/institute', department.institute.id, 'view']">{{ department.institute.id }}</a>
                   </div>
                 }
               </td>

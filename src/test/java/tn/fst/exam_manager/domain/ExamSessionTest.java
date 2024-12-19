@@ -3,8 +3,6 @@ package tn.fst.exam_manager.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tn.fst.exam_manager.domain.DepartmentTestSamples.*;
 import static tn.fst.exam_manager.domain.ExamSessionTestSamples.*;
-import static tn.fst.exam_manager.domain.ExamTestSamples.*;
-import static tn.fst.exam_manager.domain.ReportTestSamples.*;
 import static tn.fst.exam_manager.domain.SessionTypeTestSamples.*;
 
 import java.util.HashSet;
@@ -56,29 +54,5 @@ class ExamSessionTest {
 
         examSession.setDepartments(new HashSet<>());
         assertThat(examSession.getDepartments()).doesNotContain(departmentBack);
-    }
-
-    @Test
-    void examTest() {
-        ExamSession examSession = getExamSessionRandomSampleGenerator();
-        Exam examBack = getExamRandomSampleGenerator();
-
-        examSession.setExam(examBack);
-        assertThat(examSession.getExam()).isEqualTo(examBack);
-
-        examSession.exam(null);
-        assertThat(examSession.getExam()).isNull();
-    }
-
-    @Test
-    void reportTest() {
-        ExamSession examSession = getExamSessionRandomSampleGenerator();
-        Report reportBack = getReportRandomSampleGenerator();
-
-        examSession.setReport(reportBack);
-        assertThat(examSession.getReport()).isEqualTo(reportBack);
-
-        examSession.report(null);
-        assertThat(examSession.getReport()).isNull();
     }
 }

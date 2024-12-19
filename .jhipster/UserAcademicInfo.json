@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20241219183259"
+  },
+  "dto": "mapstruct",
+  "fields": [],
+  "jpaMetamodelFiltering": false,
+  "name": "UserAcademicInfo",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "id": false,
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "userAcademicInfo",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": ["required"]
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "department",
+      "otherEntityRelationshipName": "users",
+      "relationshipName": "department",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "institute",
+      "otherEntityRelationshipName": "users",
+      "relationshipName": "institute",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

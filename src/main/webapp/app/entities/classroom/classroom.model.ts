@@ -1,12 +1,10 @@
-import { IExam } from 'app/entities/exam/exam.model';
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
+import { IDepartment } from 'app/entities/department/department.model';
 
 export interface IClassroom {
   id: number;
   name?: string | null;
   capacity?: number | null;
-  exam?: Pick<IExam, 'id'> | null;
-  teachingSession?: Pick<ITeachingSession, 'id'> | null;
+  department?: Pick<IDepartment, 'id'> | null;
 }
 
 export type NewClassroom = Omit<IClassroom, 'id'> & { id: null };

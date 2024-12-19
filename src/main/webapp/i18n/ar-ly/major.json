@@ -19,8 +19,7 @@
       },
       "id": "ID",
       "name": "Name",
-      "department": "Department",
-      "studentClass": "Student Class"
+      "department": "Department"
     }
   }
 }

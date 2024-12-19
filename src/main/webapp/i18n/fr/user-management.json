@@ -15,7 +15,7 @@
     "detail": {
       "title": "Utilisateur"
     },
-    "login": "Numéro de carte d'identité",
+    "login": "Login",
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",

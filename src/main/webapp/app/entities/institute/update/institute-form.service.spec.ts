@@ -26,8 +26,6 @@ describe('Institute Form Service', () => {
             phone: expect.any(Object),
             email: expect.any(Object),
             website: expect.any(Object),
-            department: expect.any(Object),
-            report: expect.any(Object),
           }),
         );
       });
@@ -44,8 +42,6 @@ describe('Institute Form Service', () => {
             phone: expect.any(Object),
             email: expect.any(Object),
             website: expect.any(Object),
-            department: expect.any(Object),
-            report: expect.any(Object),
           }),
         );
       });

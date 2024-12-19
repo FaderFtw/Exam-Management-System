@@ -97,18 +97,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="exam.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.examSession.exam">Exam</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="report.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.examSession.report">Report</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -129,20 +117,6 @@
                 @if (examSession.sessionType) {
                   <div>
                     <a [routerLink]="['/session-type', examSession.sessionType.id, 'view']">{{ examSession.sessionType.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (examSession.exam) {
-                  <div>
-                    <a [routerLink]="['/exam', examSession.exam.id, 'view']">{{ examSession.exam.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (examSession.report) {
-                  <div>
-                    <a [routerLink]="['/report', examSession.report.id, 'view']">{{ examSession.report.id }}</a>
                   </div>
                 }
               </td>

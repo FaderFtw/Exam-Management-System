@@ -21,7 +21,7 @@ describe('Major Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
-            studentClass: expect.any(Object),
+            department: expect.any(Object),
           }),
         );
       });
@@ -33,7 +33,7 @@ describe('Major Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
-            studentClass: expect.any(Object),
+            department: expect.any(Object),
           }),
         );
       });

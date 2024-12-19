@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
-import { TeachingSessionService } from 'app/entities/teaching-session/service/teaching-session.service';
+import { IProfessorDetails } from 'app/entities/professor-details/professor-details.model';
+import { ProfessorDetailsService } from 'app/entities/professor-details/service/professor-details.service';
 import { ITimetable } from '../timetable.model';
 import { TimetableService } from '../service/timetable.service';
 import { TimetableFormGroup, TimetableFormService } from './timetable-form.service';
@@ -23,18 +23,18 @@ export class TimetableUpdateComponent implements OnInit {
   isSaving = false;
   timetable: ITimetable | null = null;
 
-  teachingSessionsSharedCollection: ITeachingSession[] = [];
+  professorDetailsSharedCollection: IProfessorDetails[] = [];
 
   protected timetableService = inject(TimetableService);
   protected timetableFormService = inject(TimetableFormService);
-  protected teachingSessionService = inject(TeachingSessionService);
+  protected professorDetailsService = inject(ProfessorDetailsService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: TimetableFormGroup = this.timetableFormService.createTimetableFormGroup();
 
-  compareTeachingSession = (o1: ITeachingSession | null, o2: ITeachingSession | null): boolean =>
-    this.teachingSessionService.compareTeachingSession(o1, o2);
+  compareProfessorDetails = (o1: IProfessorDetails | null, o2: IProfessorDetails | null): boolean =>
+    this.professorDetailsService.compareProfessorDetails(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ timetable }) => {
@@ -84,24 +84,24 @@ export class TimetableUpdateComponent implements OnInit {
     this.timetable = timetable;
     this.timetableFormService.resetForm(this.editForm, timetable);
 
-    this.teachingSessionsSharedCollection = this.teachingSessionService.addTeachingSessionToCollectionIfMissing<ITeachingSession>(
-      this.teachingSessionsSharedCollection,
-      timetable.teachingSession,
+    this.professorDetailsSharedCollection = this.professorDetailsService.addProfessorDetailsToCollectionIfMissing<IProfessorDetails>(
+      this.professorDetailsSharedCollection,
+      timetable.professor,
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.teachingSessionService
+    this.professorDetailsService
       .query()
-      .pipe(map((res: HttpResponse<ITeachingSession[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IProfessorDetails[]>) => res.body ?? []))
       .pipe(
-        map((teachingSessions: ITeachingSession[]) =>
-          this.teachingSessionService.addTeachingSessionToCollectionIfMissing<ITeachingSession>(
-            teachingSessions,
-            this.timetable?.teachingSession,
+        map((professorDetails: IProfessorDetails[]) =>
+          this.professorDetailsService.addProfessorDetailsToCollectionIfMissing<IProfessorDetails>(
+            professorDetails,
+            this.timetable?.professor,
           ),
         ),
       )
-      .subscribe((teachingSessions: ITeachingSession[]) => (this.teachingSessionsSharedCollection = teachingSessions));
+      .subscribe((professorDetails: IProfessorDetails[]) => (this.professorDetailsSharedCollection = professorDetails));
   }
 }

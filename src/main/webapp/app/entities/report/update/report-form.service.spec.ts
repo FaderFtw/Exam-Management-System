@@ -23,6 +23,10 @@ describe('Report Form Service', () => {
             name: expect.any(Object),
             createdDate: expect.any(Object),
             content: expect.any(Object),
+            professor: expect.any(Object),
+            examSession: expect.any(Object),
+            department: expect.any(Object),
+            institute: expect.any(Object),
           }),
         );
       });
@@ -36,6 +40,10 @@ describe('Report Form Service', () => {
             name: expect.any(Object),
             createdDate: expect.any(Object),
             content: expect.any(Object),
+            professor: expect.any(Object),
+            examSession: expect.any(Object),
+            department: expect.any(Object),
+            institute: expect.any(Object),
           }),
         );
       });

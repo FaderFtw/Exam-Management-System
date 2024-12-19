@@ -19,6 +19,9 @@ type ExamFormDefaults = Pick<NewExam, 'id' | 'supervisors'>;
 type ExamFormGroupContent = {
   id: FormControl<IExam['id'] | NewExam['id']>;
   name: FormControl<IExam['name']>;
+  classroom: FormControl<IExam['classroom']>;
+  studentClass: FormControl<IExam['studentClass']>;
+  session: FormControl<IExam['session']>;
   supervisors: FormControl<IExam['supervisors']>;
 };
 
@@ -42,6 +45,9 @@ export class ExamFormService {
       name: new FormControl(examRawValue.name, {
         validators: [Validators.required],
       }),
+      classroom: new FormControl(examRawValue.classroom),
+      studentClass: new FormControl(examRawValue.studentClass),
+      session: new FormControl(examRawValue.session),
       supervisors: new FormControl(examRawValue.supervisors ?? []),
     });
   }

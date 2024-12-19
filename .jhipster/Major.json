@@ -18,7 +18,7 @@
       "otherEntityName": "department",
       "relationshipName": "department",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

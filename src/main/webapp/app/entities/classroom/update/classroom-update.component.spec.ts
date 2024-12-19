@@ -4,12 +4,10 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, of } from 'rxjs';
 
-import { IExam } from 'app/entities/exam/exam.model';
-import { ExamService } from 'app/entities/exam/service/exam.service';
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
-import { TeachingSessionService } from 'app/entities/teaching-session/service/teaching-session.service';
-import { IClassroom } from '../classroom.model';
+import { IDepartment } from 'app/entities/department/department.model';
+import { DepartmentService } from 'app/entities/department/service/department.service';
 import { ClassroomService } from '../service/classroom.service';
+import { IClassroom } from '../classroom.model';
 import { ClassroomFormService } from './classroom-form.service';
 
 import { ClassroomUpdateComponent } from './classroom-update.component';
@@ -20,8 +18,7 @@ describe('Classroom Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let classroomFormService: ClassroomFormService;
   let classroomService: ClassroomService;
-  let examService: ExamService;
-  let teachingSessionService: TeachingSessionService;
+  let departmentService: DepartmentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,69 +41,43 @@ describe('Classroom Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     classroomFormService = TestBed.inject(ClassroomFormService);
     classroomService = TestBed.inject(ClassroomService);
-    examService = TestBed.inject(ExamService);
-    teachingSessionService = TestBed.inject(TeachingSessionService);
+    departmentService = TestBed.inject(DepartmentService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Exam query and add missing value', () => {
+    it('Should call Department query and add missing value', () => {
       const classroom: IClassroom = { id: 456 };
-      const exam: IExam = { id: 9507 };
-      classroom.exam = exam;
+      const department: IDepartment = { id: 29589 };
+      classroom.department = department;
 
-      const examCollection: IExam[] = [{ id: 27762 }];
-      jest.spyOn(examService, 'query').mockReturnValue(of(new HttpResponse({ body: examCollection })));
-      const additionalExams = [exam];
-      const expectedCollection: IExam[] = [...additionalExams, ...examCollection];
-      jest.spyOn(examService, 'addExamToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const departmentCollection: IDepartment[] = [{ id: 31596 }];
+      jest.spyOn(departmentService, 'query').mockReturnValue(of(new HttpResponse({ body: departmentCollection })));
+      const additionalDepartments = [department];
+      const expectedCollection: IDepartment[] = [...additionalDepartments, ...departmentCollection];
+      jest.spyOn(departmentService, 'addDepartmentToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ classroom });
       comp.ngOnInit();
 
-      expect(examService.query).toHaveBeenCalled();
-      expect(examService.addExamToCollectionIfMissing).toHaveBeenCalledWith(
-        examCollection,
-        ...additionalExams.map(expect.objectContaining),
+      expect(departmentService.query).toHaveBeenCalled();
+      expect(departmentService.addDepartmentToCollectionIfMissing).toHaveBeenCalledWith(
+        departmentCollection,
+        ...additionalDepartments.map(expect.objectContaining),
       );
-      expect(comp.examsSharedCollection).toEqual(expectedCollection);
-    });
-
-    it('Should call TeachingSession query and add missing value', () => {
-      const classroom: IClassroom = { id: 456 };
-      const teachingSession: ITeachingSession = { id: 8305 };
-      classroom.teachingSession = teachingSession;
-
-      const teachingSessionCollection: ITeachingSession[] = [{ id: 1523 }];
-      jest.spyOn(teachingSessionService, 'query').mockReturnValue(of(new HttpResponse({ body: teachingSessionCollection })));
-      const additionalTeachingSessions = [teachingSession];
-      const expectedCollection: ITeachingSession[] = [...additionalTeachingSessions, ...teachingSessionCollection];
-      jest.spyOn(teachingSessionService, 'addTeachingSessionToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ classroom });
-      comp.ngOnInit();
-
-      expect(teachingSessionService.query).toHaveBeenCalled();
-      expect(teachingSessionService.addTeachingSessionToCollectionIfMissing).toHaveBeenCalledWith(
-        teachingSessionCollection,
-        ...additionalTeachingSessions.map(expect.objectContaining),
-      );
-      expect(comp.teachingSessionsSharedCollection).toEqual(expectedCollection);
+      expect(comp.departmentsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const classroom: IClassroom = { id: 456 };
-      const exam: IExam = { id: 25618 };
-      classroom.exam = exam;
-      const teachingSession: ITeachingSession = { id: 5137 };
-      classroom.teachingSession = teachingSession;
+      const department: IDepartment = { id: 23898 };
+      classroom.department = department;
 
       activatedRoute.data = of({ classroom });
       comp.ngOnInit();
 
-      expect(comp.examsSharedCollection).toContain(exam);
-      expect(comp.teachingSessionsSharedCollection).toContain(teachingSession);
+      expect(comp.departmentsSharedCollection).toContain(department);
       expect(comp.classroom).toEqual(classroom);
     });
   });
@@ -180,23 +151,13 @@ describe('Classroom Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareExam', () => {
-      it('Should forward to examService', () => {
+    describe('compareDepartment', () => {
+      it('Should forward to departmentService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(examService, 'compareExam');
-        comp.compareExam(entity, entity2);
-        expect(examService.compareExam).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareTeachingSession', () => {
-      it('Should forward to teachingSessionService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(teachingSessionService, 'compareTeachingSession');
-        comp.compareTeachingSession(entity, entity2);
-        expect(teachingSessionService.compareTeachingSession).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(departmentService, 'compareDepartment');
+        comp.compareDepartment(entity, entity2);
+        expect(departmentService.compareDepartment).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

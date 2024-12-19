@@ -1,9 +1,9 @@
-import { IStudentClass } from 'app/entities/student-class/student-class.model';
+import { IDepartment } from 'app/entities/department/department.model';
 
 export interface IMajor {
   id: number;
   name?: string | null;
-  studentClass?: Pick<IStudentClass, 'id'> | null;
+  department?: Pick<IDepartment, 'id'> | null;
 }
 
 export type NewMajor = Omit<IMajor, 'id'> & { id: null };

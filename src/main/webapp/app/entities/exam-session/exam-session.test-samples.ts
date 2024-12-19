@@ -3,31 +3,31 @@ import dayjs from 'dayjs/esm';
 import { IExamSession, NewExamSession } from './exam-session.model';
 
 export const sampleWithRequiredData: IExamSession = {
-  id: 20414,
-  name: 'venir complètement',
-  sessionCode: 'enfin secouriste dépendre',
-  startDate: dayjs('2024-11-27'),
+  id: 32391,
+  name: 'que',
+  sessionCode: 'à peine',
+  startDate: dayjs('2024-11-28'),
   endDate: dayjs('2024-11-28'),
-  allowParallelStudies: false,
-  allowOwnClassSupervision: false,
-  allowCombineClasses: false,
+  allowParallelStudies: true,
+  allowOwnClassSupervision: true,
+  allowCombineClasses: true,
 };
 
 export const sampleWithPartialData: IExamSession = {
-  id: 19088,
-  name: 'détendre',
-  sessionCode: 'commis pressentir',
+  id: 7370,
+  name: 'respirer habile au défaut de',
+  sessionCode: 'bè initier',
   startDate: dayjs('2024-11-27'),
   endDate: dayjs('2024-11-28'),
-  allowParallelStudies: true,
+  allowParallelStudies: false,
   allowOwnClassSupervision: true,
   allowCombineClasses: false,
 };
 
 export const sampleWithFullData: IExamSession = {
-  id: 6346,
-  name: "d'après",
-  sessionCode: 'surveiller collègue hors',
+  id: 2884,
+  name: 'au prix de aussitôt que quelquefois',
+  sessionCode: 'tchou tchouu',
   startDate: dayjs('2024-11-28'),
   endDate: dayjs('2024-11-28'),
   allowParallelStudies: true,
@@ -36,11 +36,11 @@ export const sampleWithFullData: IExamSession = {
 };
 
 export const sampleWithNewData: NewExamSession = {
-  name: 'membre à vie à travers',
-  sessionCode: 'cot cot',
+  name: 'par suite de membre de l’équipe',
+  sessionCode: 'au point que',
   startDate: dayjs('2024-11-27'),
-  endDate: dayjs('2024-11-28'),
-  allowParallelStudies: false,
+  endDate: dayjs('2024-11-27'),
+  allowParallelStudies: true,
   allowOwnClassSupervision: true,
   allowCombineClasses: true,
   id: null,

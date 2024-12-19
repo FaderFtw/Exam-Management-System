@@ -56,15 +56,9 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="exam.id">
+            <th scope="col" jhiSortBy="department.id">
               <div class="d-flex">
-                <span jhiTranslate="examManagerApp.classroom.exam">Exam</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="teachingSession.id">
-              <div class="d-flex">
-                <span jhiTranslate="examManagerApp.classroom.teachingSession">Teaching Session</span>
+                <span jhiTranslate="examManagerApp.classroom.department">Department</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -80,16 +74,9 @@
               <td>{{ classroom.name }}</td>
               <td>{{ classroom.capacity }}</td>
               <td>
-                @if (classroom.exam) {
+                @if (classroom.department) {
                   <div>
-                    <a [routerLink]="['/exam', classroom.exam.id, 'view']">{{ classroom.exam.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (classroom.teachingSession) {
-                  <div>
-                    <a [routerLink]="['/teaching-session', classroom.teachingSession.id, 'view']">{{ classroom.teachingSession.id }}</a>
+                    <a [routerLink]="['/department', classroom.department.id, 'view']">{{ classroom.department.id }}</a>
                   </div>
                 }
               </td>

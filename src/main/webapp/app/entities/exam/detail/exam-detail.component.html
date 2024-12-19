@@ -19,6 +19,30 @@
           <dd>
             <span>{{ examRef.name }}</span>
           </dd>
+          <dt><span jhiTranslate="examManagerApp.exam.classroom">Classroom</span></dt>
+          <dd>
+            @if (exam()!.classroom) {
+              <div>
+                <a [routerLink]="['/classroom', exam()!.classroom?.id, 'view']">{{ examRef.classroom?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.exam.studentClass">Student Class</span></dt>
+          <dd>
+            @if (exam()!.studentClass) {
+              <div>
+                <a [routerLink]="['/student-class', exam()!.studentClass?.id, 'view']">{{ examRef.studentClass?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.exam.session">Session</span></dt>
+          <dd>
+            @if (exam()!.session) {
+              <div>
+                <a [routerLink]="['/exam-session', exam()!.session?.id, 'view']">{{ examRef.session?.id }}</a>
+              </div>
+            }
+          </dd>
           <dt><span jhiTranslate="examManagerApp.exam.supervisors">Supervisors</span></dt>
           <dd>
             @for (supervisors of examRef.supervisors; track $index; let last = $last) {

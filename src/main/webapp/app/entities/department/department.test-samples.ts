@@ -1,23 +1,24 @@
 import { IDepartment, NewDepartment } from './department.model';
 
 export const sampleWithRequiredData: IDepartment = {
-  id: 13750,
-  name: 'intervenir',
+  id: 19139,
+  name: 'prout lâche',
 };
 
 export const sampleWithPartialData: IDepartment = {
-  id: 15353,
-  name: 'échanger bof',
+  id: 15112,
+  name: 'sage à cause de hi',
+  email: 'Absalon_Robin7@hotmail.fr',
 };
 
 export const sampleWithFullData: IDepartment = {
-  id: 30958,
-  name: 'assez envers contre',
-  email: 'Armel.Berger62@hotmail.fr',
+  id: 8143,
+  name: 'pendant magnifique',
+  email: 'Anceline.Leclercq60@gmail.com',
 };
 
 export const sampleWithNewData: NewDepartment = {
-  name: 'énergique si clientèle',
+  name: 'lorsque',
   id: null,
 };
 

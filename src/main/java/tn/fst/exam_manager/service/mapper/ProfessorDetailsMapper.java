@@ -5,13 +5,9 @@ import java.util.stream.Collectors;
 import org.mapstruct.*;
 import tn.fst.exam_manager.domain.Exam;
 import tn.fst.exam_manager.domain.ProfessorDetails;
-import tn.fst.exam_manager.domain.Report;
-import tn.fst.exam_manager.domain.Timetable;
 import tn.fst.exam_manager.domain.User;
 import tn.fst.exam_manager.service.dto.ExamDTO;
 import tn.fst.exam_manager.service.dto.ProfessorDetailsDTO;
-import tn.fst.exam_manager.service.dto.ReportDTO;
-import tn.fst.exam_manager.service.dto.TimetableDTO;
 import tn.fst.exam_manager.service.dto.UserDTO;
 
 /**
@@ -21,8 +17,6 @@ import tn.fst.exam_manager.service.dto.UserDTO;
 public interface ProfessorDetailsMapper extends EntityMapper<ProfessorDetailsDTO, ProfessorDetails> {
     @Mapping(target = "user", source = "user", qualifiedByName = "userId")
     @Mapping(target = "supervisedExams", source = "supervisedExams", qualifiedByName = "examIdSet")
-    @Mapping(target = "report", source = "report", qualifiedByName = "reportId")
-    @Mapping(target = "timetable", source = "timetable", qualifiedByName = "timetableId")
     ProfessorDetailsDTO toDto(ProfessorDetails s);
 
     @Mapping(target = "supervisedExams", ignore = true)
@@ -43,14 +37,4 @@ public interface ProfessorDetailsMapper extends EntityMapper<ProfessorDetailsDTO
     default Set<ExamDTO> toDtoExamIdSet(Set<Exam> exam) {
         return exam.stream().map(this::toDtoExamId).collect(Collectors.toSet());
     }
-
-    @Named("reportId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    ReportDTO toDtoReportId(Report report);
-
-    @Named("timetableId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    TimetableDTO toDtoTimetableId(Timetable timetable);
 }

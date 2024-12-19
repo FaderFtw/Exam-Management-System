@@ -2,11 +2,8 @@ package tn.fst.exam_manager.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tn.fst.exam_manager.domain.ProfessorDetailsTestSamples.*;
-import static tn.fst.exam_manager.domain.TeachingSessionTestSamples.*;
 import static tn.fst.exam_manager.domain.TimetableTestSamples.*;
 
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import tn.fst.exam_manager.web.rest.TestUtil;
 
@@ -31,32 +28,10 @@ class TimetableTest {
         Timetable timetable = getTimetableRandomSampleGenerator();
         ProfessorDetails professorDetailsBack = getProfessorDetailsRandomSampleGenerator();
 
-        timetable.addProfessor(professorDetailsBack);
-        assertThat(timetable.getProfessors()).containsOnly(professorDetailsBack);
-        assertThat(professorDetailsBack.getTimetable()).isEqualTo(timetable);
+        timetable.setProfessor(professorDetailsBack);
+        assertThat(timetable.getProfessor()).isEqualTo(professorDetailsBack);
 
-        timetable.removeProfessor(professorDetailsBack);
-        assertThat(timetable.getProfessors()).doesNotContain(professorDetailsBack);
-        assertThat(professorDetailsBack.getTimetable()).isNull();
-
-        timetable.professors(new HashSet<>(Set.of(professorDetailsBack)));
-        assertThat(timetable.getProfessors()).containsOnly(professorDetailsBack);
-        assertThat(professorDetailsBack.getTimetable()).isEqualTo(timetable);
-
-        timetable.setProfessors(new HashSet<>());
-        assertThat(timetable.getProfessors()).doesNotContain(professorDetailsBack);
-        assertThat(professorDetailsBack.getTimetable()).isNull();
-    }
-
-    @Test
-    void teachingSessionTest() {
-        Timetable timetable = getTimetableRandomSampleGenerator();
-        TeachingSession teachingSessionBack = getTeachingSessionRandomSampleGenerator();
-
-        timetable.setTeachingSession(teachingSessionBack);
-        assertThat(timetable.getTeachingSession()).isEqualTo(teachingSessionBack);
-
-        timetable.teachingSession(null);
-        assertThat(timetable.getTeachingSession()).isNull();
+        timetable.professor(null);
+        assertThat(timetable.getProfessor()).isNull();
     }
 }

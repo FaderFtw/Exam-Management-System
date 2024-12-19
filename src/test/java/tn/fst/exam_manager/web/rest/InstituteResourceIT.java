@@ -361,7 +361,13 @@ class InstituteResourceIT {
         Institute partialUpdatedInstitute = new Institute();
         partialUpdatedInstitute.setId(institute.getId());
 
-        partialUpdatedInstitute.phone(UPDATED_PHONE);
+        partialUpdatedInstitute
+            .name(UPDATED_NAME)
+            .location(UPDATED_LOCATION)
+            .logo(UPDATED_LOGO)
+            .logoContentType(UPDATED_LOGO_CONTENT_TYPE)
+            .email(UPDATED_EMAIL)
+            .website(UPDATED_WEBSITE);
 
         restInstituteMockMvc
             .perform(

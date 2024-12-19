@@ -3,8 +3,6 @@ package tn.fst.exam_manager.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tn.fst.exam_manager.domain.ExamTestSamples.*;
 import static tn.fst.exam_manager.domain.ProfessorDetailsTestSamples.*;
-import static tn.fst.exam_manager.domain.ReportTestSamples.*;
-import static tn.fst.exam_manager.domain.TimetableTestSamples.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,29 +45,5 @@ class ProfessorDetailsTest {
         professorDetails.setSupervisedExams(new HashSet<>());
         assertThat(professorDetails.getSupervisedExams()).doesNotContain(examBack);
         assertThat(examBack.getSupervisors()).doesNotContain(professorDetails);
-    }
-
-    @Test
-    void reportTest() {
-        ProfessorDetails professorDetails = getProfessorDetailsRandomSampleGenerator();
-        Report reportBack = getReportRandomSampleGenerator();
-
-        professorDetails.setReport(reportBack);
-        assertThat(professorDetails.getReport()).isEqualTo(reportBack);
-
-        professorDetails.report(null);
-        assertThat(professorDetails.getReport()).isNull();
-    }
-
-    @Test
-    void timetableTest() {
-        ProfessorDetails professorDetails = getProfessorDetailsRandomSampleGenerator();
-        Timetable timetableBack = getTimetableRandomSampleGenerator();
-
-        professorDetails.setTimetable(timetableBack);
-        assertThat(professorDetails.getTimetable()).isEqualTo(timetableBack);
-
-        professorDetails.timetable(null);
-        assertThat(professorDetails.getTimetable()).isNull();
     }
 }

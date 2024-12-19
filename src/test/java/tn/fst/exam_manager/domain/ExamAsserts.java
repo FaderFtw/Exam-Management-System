@@ -59,6 +59,9 @@ public class ExamAsserts {
     public static void assertExamUpdatableRelationshipsEquals(Exam expected, Exam actual) {
         assertThat(expected)
             .as("Verify Exam relationships")
+            .satisfies(e -> assertThat(e.getClassroom()).as("check classroom").isEqualTo(actual.getClassroom()))
+            .satisfies(e -> assertThat(e.getStudentClass()).as("check studentClass").isEqualTo(actual.getStudentClass()))
+            .satisfies(e -> assertThat(e.getSession()).as("check session").isEqualTo(actual.getSession()))
             .satisfies(e -> assertThat(e.getSupervisors()).as("check supervisors").isEqualTo(actual.getSupervisors()));
     }
 }

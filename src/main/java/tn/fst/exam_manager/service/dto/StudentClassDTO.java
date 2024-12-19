@@ -17,9 +17,7 @@ public class StudentClassDTO implements Serializable {
 
     private Integer studentCount;
 
-    private ExamDTO exam;
-
-    private TeachingSessionDTO teachingSession;
+    private MajorDTO major;
 
     public Long getId() {
         return id;
@@ -45,20 +43,12 @@ public class StudentClassDTO implements Serializable {
         this.studentCount = studentCount;
     }
 
-    public ExamDTO getExam() {
-        return exam;
+    public MajorDTO getMajor() {
+        return major;
     }
 
-    public void setExam(ExamDTO exam) {
-        this.exam = exam;
-    }
-
-    public TeachingSessionDTO getTeachingSession() {
-        return teachingSession;
-    }
-
-    public void setTeachingSession(TeachingSessionDTO teachingSession) {
-        this.teachingSession = teachingSession;
+    public void setMajor(MajorDTO major) {
+        this.major = major;
     }
 
     @Override
@@ -89,8 +79,7 @@ public class StudentClassDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", studentCount=" + getStudentCount() +
-            ", exam=" + getExam() +
-            ", teachingSession=" + getTeachingSession() +
+            ", major=" + getMajor() +
             "}";
     }
 }

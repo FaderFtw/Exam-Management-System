@@ -49,6 +49,24 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="classroom.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.exam.classroom">Classroom</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="studentClass.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.exam.studentClass">Student Class</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="session.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.exam.session">Session</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -59,6 +77,27 @@
                 <a [routerLink]="['/exam', exam.id, 'view']">{{ exam.id }}</a>
               </td>
               <td>{{ exam.name }}</td>
+              <td>
+                @if (exam.classroom) {
+                  <div>
+                    <a [routerLink]="['/classroom', exam.classroom.id, 'view']">{{ exam.classroom.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (exam.studentClass) {
+                  <div>
+                    <a [routerLink]="['/student-class', exam.studentClass.id, 'view']">{{ exam.studentClass.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (exam.session) {
+                  <div>
+                    <a [routerLink]="['/exam-session', exam.session.id, 'view']">{{ exam.session.id }}</a>
+                  </div>
+                }
+              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/exam', exam.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

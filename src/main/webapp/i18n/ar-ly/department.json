@@ -21,11 +21,8 @@
       "name": "Name",
       "email": "Email",
       "institute": "Institute",
-      "users": "Users",
       "examSessions": "Exam Sessions",
-      "classroom": "Classroom",
-      "major": "Major",
-      "report": "Report"
+      "users": "Users"
     }
   }
 }

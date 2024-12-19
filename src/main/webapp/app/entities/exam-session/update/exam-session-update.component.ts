@@ -11,10 +11,6 @@ import { ISessionType } from 'app/entities/session-type/session-type.model';
 import { SessionTypeService } from 'app/entities/session-type/service/session-type.service';
 import { IDepartment } from 'app/entities/department/department.model';
 import { DepartmentService } from 'app/entities/department/service/department.service';
-import { IExam } from 'app/entities/exam/exam.model';
-import { ExamService } from 'app/entities/exam/service/exam.service';
-import { IReport } from 'app/entities/report/report.model';
-import { ReportService } from 'app/entities/report/service/report.service';
 import { ExamSessionService } from '../service/exam-session.service';
 import { IExamSession } from '../exam-session.model';
 import { ExamSessionFormGroup, ExamSessionFormService } from './exam-session-form.service';
@@ -31,15 +27,11 @@ export class ExamSessionUpdateComponent implements OnInit {
 
   sessionTypesCollection: ISessionType[] = [];
   departmentsSharedCollection: IDepartment[] = [];
-  examsSharedCollection: IExam[] = [];
-  reportsSharedCollection: IReport[] = [];
 
   protected examSessionService = inject(ExamSessionService);
   protected examSessionFormService = inject(ExamSessionFormService);
   protected sessionTypeService = inject(SessionTypeService);
   protected departmentService = inject(DepartmentService);
-  protected examService = inject(ExamService);
-  protected reportService = inject(ReportService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -48,10 +40,6 @@ export class ExamSessionUpdateComponent implements OnInit {
   compareSessionType = (o1: ISessionType | null, o2: ISessionType | null): boolean => this.sessionTypeService.compareSessionType(o1, o2);
 
   compareDepartment = (o1: IDepartment | null, o2: IDepartment | null): boolean => this.departmentService.compareDepartment(o1, o2);
-
-  compareExam = (o1: IExam | null, o2: IExam | null): boolean => this.examService.compareExam(o1, o2);
-
-  compareReport = (o1: IReport | null, o2: IReport | null): boolean => this.reportService.compareReport(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ examSession }) => {
@@ -109,11 +97,6 @@ export class ExamSessionUpdateComponent implements OnInit {
       this.departmentsSharedCollection,
       ...(examSession.departments ?? []),
     );
-    this.examsSharedCollection = this.examService.addExamToCollectionIfMissing<IExam>(this.examsSharedCollection, examSession.exam);
-    this.reportsSharedCollection = this.reportService.addReportToCollectionIfMissing<IReport>(
-      this.reportsSharedCollection,
-      examSession.report,
-    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -136,17 +119,5 @@ export class ExamSessionUpdateComponent implements OnInit {
         ),
       )
       .subscribe((departments: IDepartment[]) => (this.departmentsSharedCollection = departments));
-
-    this.examService
-      .query()
-      .pipe(map((res: HttpResponse<IExam[]>) => res.body ?? []))
-      .pipe(map((exams: IExam[]) => this.examService.addExamToCollectionIfMissing<IExam>(exams, this.examSession?.exam)))
-      .subscribe((exams: IExam[]) => (this.examsSharedCollection = exams));
-
-    this.reportService
-      .query()
-      .pipe(map((res: HttpResponse<IReport[]>) => res.body ?? []))
-      .pipe(map((reports: IReport[]) => this.reportService.addReportToCollectionIfMissing<IReport>(reports, this.examSession?.report)))
-      .subscribe((reports: IReport[]) => (this.reportsSharedCollection = reports));
   }
 }

@@ -20,11 +20,8 @@ type DepartmentFormGroupContent = {
   id: FormControl<IDepartment['id'] | NewDepartment['id']>;
   name: FormControl<IDepartment['name']>;
   email: FormControl<IDepartment['email']>;
-  users: FormControl<IDepartment['users']>;
+  institute: FormControl<IDepartment['institute']>;
   examSessions: FormControl<IDepartment['examSessions']>;
-  classroom: FormControl<IDepartment['classroom']>;
-  major: FormControl<IDepartment['major']>;
-  report: FormControl<IDepartment['report']>;
 };
 
 export type DepartmentFormGroup = FormGroup<DepartmentFormGroupContent>;
@@ -48,11 +45,8 @@ export class DepartmentFormService {
         validators: [Validators.required],
       }),
       email: new FormControl(departmentRawValue.email),
-      users: new FormControl(departmentRawValue.users),
+      institute: new FormControl(departmentRawValue.institute),
       examSessions: new FormControl(departmentRawValue.examSessions ?? []),
-      classroom: new FormControl(departmentRawValue.classroom),
-      major: new FormControl(departmentRawValue.major),
-      report: new FormControl(departmentRawValue.report),
     });
   }
 

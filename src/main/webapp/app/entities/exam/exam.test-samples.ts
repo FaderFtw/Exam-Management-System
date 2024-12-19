@@ -1,22 +1,22 @@
 import { IExam, NewExam } from './exam.model';
 
 export const sampleWithRequiredData: IExam = {
-  id: 27404,
-  name: 'candide que',
+  id: 16271,
+  name: 'tendre police tic-tac',
 };
 
 export const sampleWithPartialData: IExam = {
-  id: 27803,
-  name: 'tant que',
+  id: 6970,
+  name: 'arrière',
 };
 
 export const sampleWithFullData: IExam = {
-  id: 4634,
-  name: 'vouh',
+  id: 11008,
+  name: 'au prix de',
 };
 
 export const sampleWithNewData: NewExam = {
-  name: 'avant que collègue géométrique',
+  name: 'affronter',
   id: null,
 };
 

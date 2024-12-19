@@ -20,8 +20,7 @@ type StudentClassFormGroupContent = {
   id: FormControl<IStudentClass['id'] | NewStudentClass['id']>;
   name: FormControl<IStudentClass['name']>;
   studentCount: FormControl<IStudentClass['studentCount']>;
-  exam: FormControl<IStudentClass['exam']>;
-  teachingSession: FormControl<IStudentClass['teachingSession']>;
+  major: FormControl<IStudentClass['major']>;
 };
 
 export type StudentClassFormGroup = FormGroup<StudentClassFormGroupContent>;
@@ -45,8 +44,7 @@ export class StudentClassFormService {
         validators: [Validators.required],
       }),
       studentCount: new FormControl(studentClassRawValue.studentCount),
-      exam: new FormControl(studentClassRawValue.exam),
-      teachingSession: new FormControl(studentClassRawValue.teachingSession),
+      major: new FormControl(studentClassRawValue.major),
     });
   }
 

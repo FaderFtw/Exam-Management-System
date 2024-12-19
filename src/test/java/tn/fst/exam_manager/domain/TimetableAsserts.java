@@ -61,6 +61,6 @@ public class TimetableAsserts {
     public static void assertTimetableUpdatableRelationshipsEquals(Timetable expected, Timetable actual) {
         assertThat(expected)
             .as("Verify Timetable relationships")
-            .satisfies(e -> assertThat(e.getTeachingSession()).as("check teachingSession").isEqualTo(actual.getTeachingSession()));
+            .satisfies(e -> assertThat(e.getProfessor()).as("check professor").isEqualTo(actual.getProfessor()));
     }
 }

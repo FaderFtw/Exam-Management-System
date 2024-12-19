@@ -1,0 +1,26 @@
+{
+  "examManagerApp": {
+    "userAcademicInfo": {
+      "home": {
+        "title": "User Academic Infos",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء User Academic Info جديد",
+        "createOrEditLabel": "إنشاء أو تعديل User Academic Info",
+        "notFound": "لم يتم العثور على User Academic Infos"
+      },
+      "created": "User Academic Info جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "User Academic Info تم تحديثه بالمعرف {{ param }}",
+      "deleted": "User Academic Info تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف User Academic Info {{ id }}؟"
+      },
+      "detail": {
+        "title": "User Academic Info"
+      },
+      "id": "ID",
+      "user": "User",
+      "department": "Department",
+      "institute": "Institute"
+    }
+  }
+}

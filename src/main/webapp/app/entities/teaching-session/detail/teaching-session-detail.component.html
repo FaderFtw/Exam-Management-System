@@ -33,6 +33,32 @@
           <dd>
             <span>{{ teachingSessionRef.type }}</span>
           </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.timetable">Timetable</span></dt>
+          <dd>
+            @if (teachingSession()!.timetable) {
+              <div>
+                <a [routerLink]="['/timetable', teachingSession()!.timetable?.id, 'view']">{{ teachingSessionRef.timetable?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.studentClass">Student Class</span></dt>
+          <dd>
+            @if (teachingSession()!.studentClass) {
+              <div>
+                <a [routerLink]="['/student-class', teachingSession()!.studentClass?.id, 'view']">{{
+                  teachingSessionRef.studentClass?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.classroom">Classroom</span></dt>
+          <dd>
+            @if (teachingSession()!.classroom) {
+              <div>
+                <a [routerLink]="['/classroom', teachingSession()!.classroom?.id, 'view']">{{ teachingSessionRef.classroom?.id }}</a>
+              </div>
+            }
+          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

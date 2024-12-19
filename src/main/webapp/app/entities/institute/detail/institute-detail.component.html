@@ -50,22 +50,6 @@
           <dd>
             <span>{{ instituteRef.website }}</span>
           </dd>
-          <dt><span jhiTranslate="examManagerApp.institute.department">Department</span></dt>
-          <dd>
-            @if (institute()!.department) {
-              <div>
-                <a [routerLink]="['/department', institute()!.department?.id, 'view']">{{ instituteRef.department?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.institute.report">Report</span></dt>
-          <dd>
-            @if (institute()!.report) {
-              <div>
-                <a [routerLink]="['/report', institute()!.report?.id, 'view']">{{ instituteRef.report?.id }}</a>
-              </div>
-            }
-          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

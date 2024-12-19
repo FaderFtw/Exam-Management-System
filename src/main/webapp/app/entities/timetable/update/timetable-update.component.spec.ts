@@ -4,8 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, of } from 'rxjs';
 
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
-import { TeachingSessionService } from 'app/entities/teaching-session/service/teaching-session.service';
+import { IProfessorDetails } from 'app/entities/professor-details/professor-details.model';
+import { ProfessorDetailsService } from 'app/entities/professor-details/service/professor-details.service';
 import { TimetableService } from '../service/timetable.service';
 import { ITimetable } from '../timetable.model';
 import { TimetableFormService } from './timetable-form.service';
@@ -18,7 +18,7 @@ describe('Timetable Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let timetableFormService: TimetableFormService;
   let timetableService: TimetableService;
-  let teachingSessionService: TeachingSessionService;
+  let professorDetailsService: ProfessorDetailsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,43 +41,43 @@ describe('Timetable Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     timetableFormService = TestBed.inject(TimetableFormService);
     timetableService = TestBed.inject(TimetableService);
-    teachingSessionService = TestBed.inject(TeachingSessionService);
+    professorDetailsService = TestBed.inject(ProfessorDetailsService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call TeachingSession query and add missing value', () => {
+    it('Should call ProfessorDetails query and add missing value', () => {
       const timetable: ITimetable = { id: 456 };
-      const teachingSession: ITeachingSession = { id: 4196 };
-      timetable.teachingSession = teachingSession;
+      const professor: IProfessorDetails = { id: 17418 };
+      timetable.professor = professor;
 
-      const teachingSessionCollection: ITeachingSession[] = [{ id: 25923 }];
-      jest.spyOn(teachingSessionService, 'query').mockReturnValue(of(new HttpResponse({ body: teachingSessionCollection })));
-      const additionalTeachingSessions = [teachingSession];
-      const expectedCollection: ITeachingSession[] = [...additionalTeachingSessions, ...teachingSessionCollection];
-      jest.spyOn(teachingSessionService, 'addTeachingSessionToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const professorDetailsCollection: IProfessorDetails[] = [{ id: 30362 }];
+      jest.spyOn(professorDetailsService, 'query').mockReturnValue(of(new HttpResponse({ body: professorDetailsCollection })));
+      const additionalProfessorDetails = [professor];
+      const expectedCollection: IProfessorDetails[] = [...additionalProfessorDetails, ...professorDetailsCollection];
+      jest.spyOn(professorDetailsService, 'addProfessorDetailsToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ timetable });
       comp.ngOnInit();
 
-      expect(teachingSessionService.query).toHaveBeenCalled();
-      expect(teachingSessionService.addTeachingSessionToCollectionIfMissing).toHaveBeenCalledWith(
-        teachingSessionCollection,
-        ...additionalTeachingSessions.map(expect.objectContaining),
+      expect(professorDetailsService.query).toHaveBeenCalled();
+      expect(professorDetailsService.addProfessorDetailsToCollectionIfMissing).toHaveBeenCalledWith(
+        professorDetailsCollection,
+        ...additionalProfessorDetails.map(expect.objectContaining),
       );
-      expect(comp.teachingSessionsSharedCollection).toEqual(expectedCollection);
+      expect(comp.professorDetailsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const timetable: ITimetable = { id: 456 };
-      const teachingSession: ITeachingSession = { id: 23610 };
-      timetable.teachingSession = teachingSession;
+      const professor: IProfessorDetails = { id: 17204 };
+      timetable.professor = professor;
 
       activatedRoute.data = of({ timetable });
       comp.ngOnInit();
 
-      expect(comp.teachingSessionsSharedCollection).toContain(teachingSession);
+      expect(comp.professorDetailsSharedCollection).toContain(professor);
       expect(comp.timetable).toEqual(timetable);
     });
   });
@@ -151,13 +151,13 @@ describe('Timetable Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareTeachingSession', () => {
-      it('Should forward to teachingSessionService', () => {
+    describe('compareProfessorDetails', () => {
+      it('Should forward to professorDetailsService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(teachingSessionService, 'compareTeachingSession');
-        comp.compareTeachingSession(entity, entity2);
-        expect(teachingSessionService.compareTeachingSession).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(professorDetailsService, 'compareProfessorDetails');
+        comp.compareProfessorDetails(entity, entity2);
+        expect(professorDetailsService.compareProfessorDetails).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

@@ -66,6 +66,11 @@ const routes: Routes = [
     data: { pageTitle: 'examManagerApp.timetable.home.title' },
     loadChildren: () => import('./timetable/timetable.routes'),
   },
+  {
+    path: 'user-academic-info',
+    data: { pageTitle: 'examManagerApp.userAcademicInfo.home.title' },
+    loadChildren: () => import('./user-academic-info/user-academic-info.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 

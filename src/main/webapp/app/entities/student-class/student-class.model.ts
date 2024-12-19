@@ -1,12 +1,10 @@
-import { IExam } from 'app/entities/exam/exam.model';
-import { ITeachingSession } from 'app/entities/teaching-session/teaching-session.model';
+import { IMajor } from 'app/entities/major/major.model';
 
 export interface IStudentClass {
   id: number;
   name?: string | null;
   studentCount?: number | null;
-  exam?: Pick<IExam, 'id'> | null;
-  teachingSession?: Pick<ITeachingSession, 'id'> | null;
+  major?: Pick<IMajor, 'id'> | null;
 }
 
 export type NewStudentClass = Omit<IStudentClass, 'id'> & { id: null };

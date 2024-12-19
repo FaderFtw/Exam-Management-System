@@ -33,19 +33,19 @@
       "otherEntityName": "timetable",
       "relationshipName": "timetable",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "studentClass",
       "relationshipName": "studentClass",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "classroom",
       "relationshipName": "classroom",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

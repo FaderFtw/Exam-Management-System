@@ -22,7 +22,7 @@ public class TimetableDTO implements Serializable {
     @NotNull
     private LocalDate endDate;
 
-    private TeachingSessionDTO teachingSession;
+    private ProfessorDetailsDTO professor;
 
     public Long getId() {
         return id;
@@ -56,12 +56,12 @@ public class TimetableDTO implements Serializable {
         this.endDate = endDate;
     }
 
-    public TeachingSessionDTO getTeachingSession() {
-        return teachingSession;
+    public ProfessorDetailsDTO getProfessor() {
+        return professor;
     }
 
-    public void setTeachingSession(TeachingSessionDTO teachingSession) {
-        this.teachingSession = teachingSession;
+    public void setProfessor(ProfessorDetailsDTO professor) {
+        this.professor = professor;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class TimetableDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
-            ", teachingSession=" + getTeachingSession() +
+            ", professor=" + getProfessor() +
             "}";
     }
 }

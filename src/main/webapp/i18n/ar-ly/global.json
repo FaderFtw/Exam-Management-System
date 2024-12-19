@@ -20,7 +20,8 @@
         "sessionType": "Session Type",
         "studentClass": "Student Class",
         "teachingSession": "Teaching Session",
-        "timetable": "Timetable"
+        "timetable": "Timetable",
+        "userAcademicInfo": "User Academic Info"
       },
       "account": {
         "main": "الحساب",
@@ -46,8 +47,8 @@
       "language": "اللغة"
     },
     "form": {
-      "username.label": "رقم بطاقة التعريف الوطنية أو البريد الإلكتروني",
-      "username.placeholder": "رقم بطاقة تعريفك الوطنية أو بريدك الإلكتروني",
+      "username.label": "اسم المستخدم",
+      "username.placeholder": "إسم المستخدم الخاص بك",
       "currentpassword.label": "Current password",
       "currentpassword.placeholder": "Current password",
       "newpassword.label": "كلمة السر الجديدة",
@@ -130,8 +131,7 @@
       "maxbytes": "هذا الحقل لا يمكن أن يكون أكثر من {{ max }} بايت.",
       "pattern": "هذا الحقل يجب أن يتبع نمط {{ pattern }}.",
       "number": "هذا الحقل يجب أن يكون رقم.",
-      "datetimelocal": "هذا الحقل يجب أن يكون تاريخ ووقت.",
-      "patternLogin": "\"يجب أن يتكون رقم بطاقة التعريف من 8 أرقام فقط.\""
+      "datetimelocal": "هذا الحقل يجب أن يكون تاريخ ووقت."
     },
     "filters": {
       "set": "Following filters are set",

@@ -36,6 +36,9 @@ type TeachingSessionFormGroupContent = {
   startHour: FormControl<TeachingSessionFormRawValue['startHour']>;
   endHour: FormControl<TeachingSessionFormRawValue['endHour']>;
   type: FormControl<TeachingSessionFormRawValue['type']>;
+  timetable: FormControl<TeachingSessionFormRawValue['timetable']>;
+  studentClass: FormControl<TeachingSessionFormRawValue['studentClass']>;
+  classroom: FormControl<TeachingSessionFormRawValue['classroom']>;
 };
 
 export type TeachingSessionFormGroup = FormGroup<TeachingSessionFormGroupContent>;
@@ -67,6 +70,9 @@ export class TeachingSessionFormService {
       type: new FormControl(teachingSessionRawValue.type, {
         validators: [Validators.required],
       }),
+      timetable: new FormControl(teachingSessionRawValue.timetable),
+      studentClass: new FormControl(teachingSessionRawValue.studentClass),
+      classroom: new FormControl(teachingSessionRawValue.classroom),
     });
   }
 

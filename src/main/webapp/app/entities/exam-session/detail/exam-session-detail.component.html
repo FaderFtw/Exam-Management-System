@@ -60,22 +60,6 @@
               </span>
             }
           </dd>
-          <dt><span jhiTranslate="examManagerApp.examSession.exam">Exam</span></dt>
-          <dd>
-            @if (examSession()!.exam) {
-              <div>
-                <a [routerLink]="['/exam', examSession()!.exam?.id, 'view']">{{ examSessionRef.exam?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="examManagerApp.examSession.report">Report</span></dt>
-          <dd>
-            @if (examSession()!.report) {
-              <div>
-                <a [routerLink]="['/report', examSession()!.report?.id, 'view']">{{ examSessionRef.report?.id }}</a>
-              </div>
-            }
-          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

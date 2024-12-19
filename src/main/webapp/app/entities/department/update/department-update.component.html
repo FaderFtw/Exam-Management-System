@@ -38,11 +38,18 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_users" jhiTranslate="examManagerApp.department.users">Users</label>
-          <select class="form-control" id="field_users" data-cy="users" name="users" formControlName="users" [compareWith]="compareUser">
+          <label class="form-label" for="field_institute" jhiTranslate="examManagerApp.department.institute">Institute</label>
+          <select
+            class="form-control"
+            id="field_institute"
+            data-cy="institute"
+            name="institute"
+            formControlName="institute"
+            [compareWith]="compareInstitute"
+          >
             <option [ngValue]="null"></option>
-            @for (userOption of usersSharedCollection; track $index) {
-              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            @for (instituteOption of institutesSharedCollection; track $index) {
+              <option [ngValue]="instituteOption">{{ instituteOption.id }}</option>
             }
           </select>
         </div>
@@ -60,50 +67,6 @@
           >
             @for (examSessionOption of examSessionsSharedCollection; track $index) {
               <option [ngValue]="examSessionOption">{{ examSessionOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_classroom" jhiTranslate="examManagerApp.department.classroom">Classroom</label>
-          <select
-            class="form-control"
-            id="field_classroom"
-            data-cy="classroom"
-            name="classroom"
-            formControlName="classroom"
-            [compareWith]="compareClassroom"
-          >
-            <option [ngValue]="null"></option>
-            @for (classroomOption of classroomsSharedCollection; track $index) {
-              <option [ngValue]="classroomOption">{{ classroomOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_major" jhiTranslate="examManagerApp.department.major">Major</label>
-          <select class="form-control" id="field_major" data-cy="major" name="major" formControlName="major" [compareWith]="compareMajor">
-            <option [ngValue]="null"></option>
-            @for (majorOption of majorsSharedCollection; track $index) {
-              <option [ngValue]="majorOption">{{ majorOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_report" jhiTranslate="examManagerApp.department.report">Report</label>
-          <select
-            class="form-control"
-            id="field_report"
-            data-cy="report"
-            name="report"
-            formControlName="report"
-            [compareWith]="compareReport"
-          >
-            <option [ngValue]="null"></option>
-            @for (reportOption of reportsSharedCollection; track $index) {
-              <option [ngValue]="reportOption">{{ reportOption.id }}</option>
             }
           </select>
         </div>

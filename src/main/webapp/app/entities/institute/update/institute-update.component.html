@@ -98,40 +98,6 @@
           <label class="form-label" for="field_website" jhiTranslate="examManagerApp.institute.website">Website</label>
           <input type="text" class="form-control" name="website" id="field_website" data-cy="website" formControlName="website" />
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_department" jhiTranslate="examManagerApp.institute.department">Department</label>
-          <select
-            class="form-control"
-            id="field_department"
-            data-cy="department"
-            name="department"
-            formControlName="department"
-            [compareWith]="compareDepartment"
-          >
-            <option [ngValue]="null"></option>
-            @for (departmentOption of departmentsSharedCollection; track $index) {
-              <option [ngValue]="departmentOption">{{ departmentOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_report" jhiTranslate="examManagerApp.institute.report">Report</label>
-          <select
-            class="form-control"
-            id="field_report"
-            data-cy="report"
-            name="report"
-            formControlName="report"
-            [compareWith]="compareReport"
-          >
-            <option [ngValue]="null"></option>
-            @for (reportOption of reportsSharedCollection; track $index) {
-              <option [ngValue]="reportOption">{{ reportOption.id }}</option>
-            }
-          </select>
-        </div>
       </div>
 
       <div>

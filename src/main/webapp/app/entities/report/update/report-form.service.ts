@@ -34,6 +34,10 @@ type ReportFormGroupContent = {
   name: FormControl<ReportFormRawValue['name']>;
   createdDate: FormControl<ReportFormRawValue['createdDate']>;
   content: FormControl<ReportFormRawValue['content']>;
+  professor: FormControl<ReportFormRawValue['professor']>;
+  examSession: FormControl<ReportFormRawValue['examSession']>;
+  department: FormControl<ReportFormRawValue['department']>;
+  institute: FormControl<ReportFormRawValue['institute']>;
 };
 
 export type ReportFormGroup = FormGroup<ReportFormGroupContent>;
@@ -60,6 +64,10 @@ export class ReportFormService {
         validators: [Validators.required],
       }),
       content: new FormControl(reportRawValue.content),
+      professor: new FormControl(reportRawValue.professor),
+      examSession: new FormControl(reportRawValue.examSession),
+      department: new FormControl(reportRawValue.department),
+      institute: new FormControl(reportRawValue.institute),
     });
   }
 

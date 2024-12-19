@@ -20,9 +20,7 @@
       "id": "ID",
       "name": "Name",
       "studentCount": "Student Count",
-      "major": "Major",
-      "exam": "Exam",
-      "teachingSession": "Teaching Session"
+      "major": "Major"
     }
   }
 }

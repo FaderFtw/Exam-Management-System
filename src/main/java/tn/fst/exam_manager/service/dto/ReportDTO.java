@@ -23,6 +23,14 @@ public class ReportDTO implements Serializable {
     @Lob
     private String content;
 
+    private ProfessorDetailsDTO professor;
+
+    private ExamSessionDTO examSession;
+
+    private DepartmentDTO department;
+
+    private InstituteDTO institute;
+
     public Long getId() {
         return id;
     }
@@ -55,6 +63,38 @@ public class ReportDTO implements Serializable {
         this.content = content;
     }
 
+    public ProfessorDetailsDTO getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(ProfessorDetailsDTO professor) {
+        this.professor = professor;
+    }
+
+    public ExamSessionDTO getExamSession() {
+        return examSession;
+    }
+
+    public void setExamSession(ExamSessionDTO examSession) {
+        this.examSession = examSession;
+    }
+
+    public DepartmentDTO getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentDTO department) {
+        this.department = department;
+    }
+
+    public InstituteDTO getInstitute() {
+        return institute;
+    }
+
+    public void setInstitute(InstituteDTO institute) {
+        this.institute = institute;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -84,6 +124,10 @@ public class ReportDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", content='" + getContent() + "'" +
+            ", professor=" + getProfessor() +
+            ", examSession=" + getExamSession() +
+            ", department=" + getDepartment() +
+            ", institute=" + getInstitute() +
             "}";
     }
 }

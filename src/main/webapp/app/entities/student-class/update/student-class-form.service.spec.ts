@@ -22,8 +22,7 @@ describe('StudentClass Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             studentCount: expect.any(Object),
-            exam: expect.any(Object),
-            teachingSession: expect.any(Object),
+            major: expect.any(Object),
           }),
         );
       });
@@ -36,8 +35,7 @@ describe('StudentClass Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             studentCount: expect.any(Object),
-            exam: expect.any(Object),
-            teachingSession: expect.any(Object),
+            major: expect.any(Object),
           }),
         );
       });

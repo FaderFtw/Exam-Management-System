@@ -60,6 +60,10 @@ public class TeachingSessionAsserts {
      * @param actual the actual entity
      */
     public static void assertTeachingSessionUpdatableRelationshipsEquals(TeachingSession expected, TeachingSession actual) {
-        // empty method
+        assertThat(expected)
+            .as("Verify TeachingSession relationships")
+            .satisfies(e -> assertThat(e.getTimetable()).as("check timetable").isEqualTo(actual.getTimetable()))
+            .satisfies(e -> assertThat(e.getStudentClass()).as("check studentClass").isEqualTo(actual.getStudentClass()))
+            .satisfies(e -> assertThat(e.getClassroom()).as("check classroom").isEqualTo(actual.getClassroom()));
     }
 }

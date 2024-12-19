@@ -1,22 +1,22 @@
 import { IProfessorDetails, NewProfessorDetails } from './professor-details.model';
 
 export const sampleWithRequiredData: IProfessorDetails = {
-  id: 20193,
-  rank: 'CONTRACTUEL',
-};
-
-export const sampleWithPartialData: IProfessorDetails = {
-  id: 18392,
-  rank: 'EXPERT',
-};
-
-export const sampleWithFullData: IProfessorDetails = {
-  id: 32043,
+  id: 18654,
   rank: 'MAITRE_ASSISTANT',
 };
 
+export const sampleWithPartialData: IProfessorDetails = {
+  id: 18884,
+  rank: 'MAITRE_CONF',
+};
+
+export const sampleWithFullData: IProfessorDetails = {
+  id: 3149,
+  rank: 'ASSISTANT',
+};
+
 export const sampleWithNewData: NewProfessorDetails = {
-  rank: 'PES',
+  rank: 'MAITRE_ASSISTANT',
   id: null,
 };
 

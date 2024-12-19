@@ -23,8 +23,6 @@ describe('ProfessorDetails Form Service', () => {
             rank: expect.any(Object),
             user: expect.any(Object),
             supervisedExams: expect.any(Object),
-            report: expect.any(Object),
-            timetable: expect.any(Object),
           }),
         );
       });
@@ -38,8 +36,6 @@ describe('ProfessorDetails Form Service', () => {
             rank: expect.any(Object),
             user: expect.any(Object),
             supervisedExams: expect.any(Object),
-            report: expect.any(Object),
-            timetable: expect.any(Object),
           }),
         );
       });
