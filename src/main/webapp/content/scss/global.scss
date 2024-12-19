@@ -7,28 +7,20 @@
   background-color: rgba(239, 239, 239, 0.5) !important;
 }
 
-.fc-toolbar-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.fc-toolbar-chunk {
-  padding: 5px 10px;
+.fc-col-header-cell-cushion {
+  color: black;
+  text-decoration: none;
 }
 
 .fc-daygrid-day-number {
   color: black;
-  text-underline: none;
+  text-decoration: none;
 }
 
-.fc-col-header-cell {
-  color: black; /* Set the color of day names to black */
-  text-decoration: none; /* Remove underline */
-}
-
-/* Optional: Customize font style or weight */
-.fc-col-header-cell {
-  font-weight: bold; /* Make the day names bold (optional) */
+.fc-event {
+  background-color: #118df3 !important; /* Change event background color */
+  color: white !important;
+  padding-left: 5px;
 }
 
 /* ==============================================================
