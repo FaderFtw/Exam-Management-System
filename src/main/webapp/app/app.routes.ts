@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'admin',
     data: {
-      authorities: [Authority.ADMIN],
+      authorities: [Authority.SUPER],
     },
     canActivate: [UserRouteAccessService],
     loadChildren: () => import('./admin/admin.routes'),
@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      authorities: [Authority.ADMIN],
+      authorities: [Authority.SUPER],
     },
     loadChildren: () => import(`./entities/entity.routes`),
   },

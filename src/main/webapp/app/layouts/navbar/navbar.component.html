@@ -30,7 +30,7 @@
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         @if (account() !== null) {
           <li
-            *jhiHasAnyAuthority="'ROLE_ADMIN'"
+            *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'"
             ngbDropdown
             class="nav-item dropdown pointer"
             display="dynamic"
@@ -205,7 +205,7 @@
           </li>
         }
         <li
-          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+          *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
