@@ -96,6 +96,7 @@ class AccountResourceIT {
     void testGetExistingAccount() throws Exception {
         Set<String> authorities = new HashSet<>();
         authorities.add(AuthoritiesConstants.SUPER);
+        authorities.add(AuthoritiesConstants.SUPER);
 
         AdminUserDTO user = new AdminUserDTO();
         user.setLogin(TEST_USER_LOGIN);

@@ -64,6 +64,10 @@ class SecurityUtilsUnitTest {
         assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.INSTITUTE)).isFalse();
         assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.DEPARTMENT)).isFalse();
         assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.PROFESSOR)).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.SUPER)).isTrue();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.INSTITUTE)).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.DEPARTMENT)).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.PROFESSOR)).isFalse();
     }
 
     @Test
@@ -74,6 +78,12 @@ class SecurityUtilsUnitTest {
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin", authorities));
         SecurityContextHolder.setContext(securityContext);
 
+        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.SUPER)).isTrue();
+        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.INSTITUTE, AuthoritiesConstants.INSTITUTE)).isFalse();
+        assertThat(
+            SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.DEPARTMENT, AuthoritiesConstants.DEPARTMENT)
+        ).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.PROFESSOR, AuthoritiesConstants.PROFESSOR)).isFalse();
         assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.SUPER)).isTrue();
         assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.INSTITUTE, AuthoritiesConstants.INSTITUTE)).isFalse();
         assertThat(
