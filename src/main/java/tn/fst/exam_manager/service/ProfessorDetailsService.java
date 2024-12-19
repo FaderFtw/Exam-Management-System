@@ -3,6 +3,7 @@ package tn.fst.exam_manager.service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -177,6 +178,9 @@ public class ProfessorDetailsService {
         List<ProfessorDetailsDTO> professorDetailsList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            // Read and discard the header line
+            String headerLine = reader.readLine(); // This reads the header and ignores it
+
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -197,5 +201,14 @@ public class ProfessorDetailsService {
         }
 
         return professorDetailsList;
+    }
+
+    public void writeProfessorsTemplate(PrintWriter writer) throws IOException {
+        // Add CSV header
+        writer.println("ID,Role,Login,Email");
+
+        // Optionally add example rows
+        writer.println("101,ASSISTANT,12121212,johndoe@example.com");
+        writer.println("102,VACATAIRE,13131313,janedoe@example.com");
     }
 }

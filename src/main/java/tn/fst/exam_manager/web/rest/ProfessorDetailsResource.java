@@ -4,8 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -197,6 +200,18 @@ public class ProfessorDetailsResource {
         } catch (Exception e) {
             // Log the exception here (using a logger)
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping(value = "/download-template", produces = "text/csv")
+    public void downloadTemplate(HttpServletResponse response) throws IOException {
+        // Set response headers
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"professors-template.csv\"");
+
+        // Write the CSV content to the response
+        try (PrintWriter writer = response.getWriter()) {
+            professorDetailsService.writeProfessorsTemplate(writer);
         }
     }
 }
