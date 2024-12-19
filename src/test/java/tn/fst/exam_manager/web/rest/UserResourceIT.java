@@ -34,7 +34,7 @@ import tn.fst.exam_manager.service.mapper.UserMapper;
  * Integration tests for the {@link UserResource} REST controller.
  */
 @AutoConfigureMockMvc
-@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
+@WithMockUser(authorities = AuthoritiesConstants.SUPER)
 @IntegrationTest
 class UserResourceIT {
 
@@ -162,11 +162,11 @@ class UserResourceIT {
         userDTO.setActivated(true);
         userDTO.setImageUrl(DEFAULT_IMAGEURL);
         userDTO.setLangKey(DEFAULT_LANGKEY);
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         var returnedUserDTO = om.readValue(
             restUserMockMvc
-                .perform(post("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+                .perform(post("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse()
@@ -198,11 +198,11 @@ class UserResourceIT {
         userDTO.setActivated(true);
         userDTO.setImageUrl(DEFAULT_IMAGEURL);
         userDTO.setLangKey(DEFAULT_LANGKEY);
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc
-            .perform(post("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(post("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
@@ -224,11 +224,11 @@ class UserResourceIT {
         userDTO.setActivated(true);
         userDTO.setImageUrl(DEFAULT_IMAGEURL);
         userDTO.setLangKey(DEFAULT_LANGKEY);
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         // Create the User
         restUserMockMvc
-            .perform(post("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(post("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
@@ -250,11 +250,11 @@ class UserResourceIT {
         userDTO.setActivated(true);
         userDTO.setImageUrl(DEFAULT_IMAGEURL);
         userDTO.setLangKey(DEFAULT_LANGKEY);
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         // Create the User
         restUserMockMvc
-            .perform(post("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(post("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
@@ -269,7 +269,7 @@ class UserResourceIT {
 
         // Get all the users
         restUserMockMvc
-            .perform(get("/api/admin/users?sort=id,desc").accept(MediaType.APPLICATION_JSON))
+            .perform(get("/api/super-admin/users?sort=id,desc").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN)))
@@ -290,7 +290,7 @@ class UserResourceIT {
 
         // Get the user
         restUserMockMvc
-            .perform(get("/api/admin/users/{login}", user.getLogin()))
+            .perform(get("/api/super-admin/users/{login}", user.getLogin()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.login").value(user.getLogin()))
@@ -306,7 +306,7 @@ class UserResourceIT {
     @Test
     @Transactional
     void getNonExistingUser() throws Exception {
-        restUserMockMvc.perform(get("/api/admin/users/99999999")).andExpect(status().isNotFound());
+        restUserMockMvc.perform(get("/api/super-admin/users/99999999")).andExpect(status().isNotFound());
     }
 
     @Test
@@ -332,10 +332,10 @@ class UserResourceIT {
         userDTO.setCreatedDate(updatedUser.getCreatedDate());
         userDTO.setLastModifiedBy(updatedUser.getLastModifiedBy());
         userDTO.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         restUserMockMvc
-            .perform(put("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(put("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isOk());
 
         // Validate the User in the database
@@ -373,10 +373,10 @@ class UserResourceIT {
         userDTO.setCreatedDate(updatedUser.getCreatedDate());
         userDTO.setLastModifiedBy(updatedUser.getLastModifiedBy());
         userDTO.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         restUserMockMvc
-            .perform(put("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(put("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isOk());
 
         // Validate the User in the database
@@ -425,10 +425,10 @@ class UserResourceIT {
         userDTO.setCreatedDate(updatedUser.getCreatedDate());
         userDTO.setLastModifiedBy(updatedUser.getLastModifiedBy());
         userDTO.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         restUserMockMvc
-            .perform(put("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(put("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isBadRequest());
     }
 
@@ -465,10 +465,10 @@ class UserResourceIT {
         userDTO.setCreatedDate(updatedUser.getCreatedDate());
         userDTO.setLastModifiedBy(updatedUser.getLastModifiedBy());
         userDTO.setLastModifiedDate(updatedUser.getLastModifiedDate());
-        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
+        userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.INSTITUTE));
 
         restUserMockMvc
-            .perform(put("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
+            .perform(put("/api/super-admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isBadRequest());
     }
 
@@ -481,7 +481,7 @@ class UserResourceIT {
 
         // Delete the user
         restUserMockMvc
-            .perform(delete("/api/admin/users/{login}", user.getLogin()).accept(MediaType.APPLICATION_JSON))
+            .perform(delete("/api/super-admin/users/{login}", user.getLogin()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         assertThat(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNull();

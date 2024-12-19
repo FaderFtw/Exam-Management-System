@@ -28,7 +28,7 @@ class SecurityUtilsUnitTest {
     @Test
     void testGetCurrentUserCin() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "admin"));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin"));
         SecurityContextHolder.setContext(securityContext);
         Optional<String> cin = SecurityUtils.getCurrentUserLogin();
         assertThat(cin).contains("12345678");
@@ -46,55 +46,52 @@ class SecurityUtilsUnitTest {
     @Test
     void testIsAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "admin"));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin"));
         SecurityContextHolder.setContext(securityContext);
         boolean isAuthenticated = SecurityUtils.isAuthenticated();
         assertThat(isAuthenticated).isTrue();
     }
 
     @Test
-    void testAnonymousIsNotAuthenticated() {
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("anonymous", "anonymous", authorities));
-        SecurityContextHolder.setContext(securityContext);
-        boolean isAuthenticated = SecurityUtils.isAuthenticated();
-        assertThat(isAuthenticated).isFalse();
-    }
-
-    @Test
     void testHasCurrentUserThisAuthority() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "user", authorities));
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.SUPER));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin", authorities));
         SecurityContextHolder.setContext(securityContext);
 
-        assertThat(SecurityUtils.hasCurrentUserThisAuthority("ROLE_USER")).isTrue();
-        assertThat(SecurityUtils.hasCurrentUserThisAuthority("ROLE_ADMIN")).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.SUPER)).isTrue();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.INSTITUTE)).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.DEPARTMENT)).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.PROFESSOR)).isFalse();
     }
 
     @Test
     void testHasCurrentUserAnyOfAuthorities() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "user", authorities));
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.SUPER));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin", authorities));
         SecurityContextHolder.setContext(securityContext);
 
-        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities("ROLE_USER", "ROLE_ADMIN")).isTrue();
-        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities("ROLE_ANONYMOUS", "ROLE_ADMIN")).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.SUPER)).isTrue();
+        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.INSTITUTE, AuthoritiesConstants.INSTITUTE)).isFalse();
+        assertThat(
+            SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.DEPARTMENT, AuthoritiesConstants.DEPARTMENT)
+        ).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.PROFESSOR, AuthoritiesConstants.PROFESSOR)).isFalse();
     }
 
     @Test
     void testHasCurrentUserNoneOfAuthorities() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "user", authorities));
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.SUPER));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("12345678", "super-admin", authorities));
         SecurityContextHolder.setContext(securityContext);
 
+        assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.INSTITUTE)).isFalse();
+        assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.DEPARTMENT)).isFalse();
         assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_USER", "ROLE_ADMIN")).isFalse();
         assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_ANONYMOUS", "ROLE_ADMIN")).isTrue();
     }
@@ -107,4 +104,6 @@ class SecurityUtilsUnitTest {
         boolean isAuthenticated = SecurityUtils.isAuthenticated();
         assertThat(isAuthenticated).isFalse();
     }
+    
+    
 }

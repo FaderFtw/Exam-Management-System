@@ -48,7 +48,7 @@ public class JwtAuthenticationTestUtils {
             .issuedAt(now)
             .expiresAt(now.plusSeconds(60))
             .subject(user)
-            .claims(customClaim -> customClaim.put(AUTHORITIES_KEY, Collections.singletonList("ROLE_ADMIN")))
+            .claims(customClaim -> customClaim.put(AUTHORITIES_KEY, Collections.singletonList("ROLE_SUPER_ADMIN")))
             .build();
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();

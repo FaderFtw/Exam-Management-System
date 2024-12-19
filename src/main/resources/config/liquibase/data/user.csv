@@ -1,5 +1,5 @@
 id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;last_modified_by
-1;12345678;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;SuperAdmin;SuperAdmin;super-admin@localhost;;true;fr;system;system
-2;12995679;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;InstituteAdmin;InstituteAdmin;institute-admin@localhost;;true;fr;system;system
-2;13995679;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;DepartmentAdmin;DepartmentAdmin;department-admin@localhost;;true;fr;system;system
-2;14995679;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Professor;Professor;professor@localhost;;true;fr;system;system
+1;12345678;$2a$10$Wd.kBFKVgVWn7xrMMJkD1OXE0kJ1MOBzs1JSe.q7erF9Y/IyPnJca;SuperAdmin;SuperAdmin;super-admin@localhost;;true;fr;system;system
+2;12995679;$2a$10$tc3DdDMTfO6UzwMQcVWOsOiQ.UOCtWx8EBqDL31eES8YLlUpLMJ3K;InstituteAdmin;InstituteAdmin;institute-admin@localhost;;true;fr;system;system
+3;13995679;$2a$10$NWaDvTRNawGh9oJWxySb6erFdZVMta6PmvyWjgbxKgs31K9mvAeY2;DepartmentAdmin;DepartmentAdmin;department-admin@localhost;;true;fr;system;system
+4;14995679;$2a$10$O0WeIL6y.bQJTIEUmgI0VuRJwSP9ertlDvPDe196OWroM1Z7OFxnm;Professor;Professor;professor@localhost;;true;fr;system;system
