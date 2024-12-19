@@ -38,6 +38,7 @@ export class CalendarComponent implements OnInit {
 
   setupCalendarOptions(): void {
     this.calendarOptions = {
+      eventColor: '#F4C584',
       plugins: [dayGridPlugin], // Register the plugin here
       initialView: 'dayGridMonth',
       events: this.events,
