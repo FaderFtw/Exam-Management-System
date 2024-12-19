@@ -1,5 +1,10 @@
 package tn.fst.exam_manager.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,10 +12,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import tn.fst.exam_manager.domain.ProfessorDetails;
+import tn.fst.exam_manager.domain.User;
+import tn.fst.exam_manager.domain.enumeration.Rank;
 import tn.fst.exam_manager.repository.ProfessorDetailsRepository;
+import tn.fst.exam_manager.repository.UserRepository;
+import tn.fst.exam_manager.service.dto.AdminUserDTO;
 import tn.fst.exam_manager.service.dto.ProfessorDetailsDTO;
+import tn.fst.exam_manager.service.dto.UserDTO;
 import tn.fst.exam_manager.service.mapper.ProfessorDetailsMapper;
+import tn.fst.exam_manager.service.mapper.UserMapper;
 
 /**
  * Service Implementation for managing {@link tn.fst.exam_manager.domain.ProfessorDetails}.
@@ -25,9 +37,24 @@ public class ProfessorDetailsService {
 
     private final ProfessorDetailsMapper professorDetailsMapper;
 
-    public ProfessorDetailsService(ProfessorDetailsRepository professorDetailsRepository, ProfessorDetailsMapper professorDetailsMapper) {
+    private final UserRepository userRepository;
+
+    private final UserMapper userMapper;
+
+    private final UserService userService;
+
+    public ProfessorDetailsService(
+        ProfessorDetailsRepository professorDetailsRepository,
+        ProfessorDetailsMapper professorDetailsMapper,
+        UserRepository userRepository,
+        UserMapper userMapper,
+        UserService userService
+    ) {
         this.professorDetailsRepository = professorDetailsRepository;
         this.professorDetailsMapper = professorDetailsMapper;
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.userService = userService;
     }
 
     /**
@@ -108,5 +135,67 @@ public class ProfessorDetailsService {
     public void delete(Long id) {
         LOG.debug("Request to delete ProfessorDetails : {}", id);
         professorDetailsRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void importProfessors(MultipartFile file) throws IOException {
+        List<ProfessorDetailsDTO> professorDetailsList = parseCsv(file);
+
+        for (ProfessorDetailsDTO professorDetail : professorDetailsList) {
+            LOG.debug("DTO Inserting: {}", professorDetailsList);
+            String login = professorDetail.getUser().getLogin();
+            String email = professorDetail.getUser().getEmail();
+
+            // Check if the user already exists
+            Optional<User> existingUser = userRepository.findOneByLogin(login);
+            User user;
+
+            if (existingUser.isEmpty()) {
+                LOG.debug("User doesnt exist");
+                // Use registerUser to create and save a new user
+                AdminUserDTO newUserDTO = new AdminUserDTO();
+                newUserDTO.setLogin(login);
+                newUserDTO.setEmail(email);
+                newUserDTO.setActivated(true);
+
+                // Generate a secure default password (hashing is handled in registerUser)
+                String defaultPassword = "defaultPassword";
+                user = userService.registerUser(newUserDTO, defaultPassword);
+                // Save the professor details
+                UserDTO UserDTO = userMapper.userToUserDTO(user);
+                professorDetail.setUser(UserDTO);
+                professorDetailsRepository.save(professorDetailsMapper.toEntity(professorDetail));
+            } else {
+                LOG.debug("User does exist");
+            }
+        }
+
+        LOG.debug("Successfully imported professor details from CSV: {}", professorDetailsList);
+    }
+
+    private List<ProfessorDetailsDTO> parseCsv(MultipartFile file) throws IOException {
+        List<ProfessorDetailsDTO> professorDetailsList = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+
+                // Map CSV data to DTO fields
+                ProfessorDetailsDTO professorDetail = new ProfessorDetailsDTO();
+                professorDetail.setRank(Rank.valueOf(data[1].trim()));
+
+                UserDTO userDTO = new UserDTO();
+                userDTO.setLogin(data[2].trim());
+                userDTO.setEmail(data[3].trim());
+
+                professorDetail.setUser(userDTO);
+
+                professorDetailsList.add(professorDetail);
+                LOG.debug("professorDetailsList Line: {}", (Object) professorDetailsList);
+            }
+        }
+
+        return professorDetailsList;
     }
 }

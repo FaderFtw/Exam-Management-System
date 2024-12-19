@@ -26,6 +26,8 @@ public class ProfessorDetailsDTO implements Serializable {
 
     private TimetableDTO timetable;
 
+    private String email;
+
     public Long getId() {
         return id;
     }
@@ -72,6 +74,14 @@ public class ProfessorDetailsDTO implements Serializable {
 
     public void setTimetable(TimetableDTO timetable) {
         this.timetable = timetable;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

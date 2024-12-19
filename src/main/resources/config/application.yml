@@ -17,6 +17,11 @@
 ---
 # Conditionally disable springdoc on missing api-docs profile
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   config:
     activate:
       on-profile: '!api-docs'
@@ -116,6 +121,7 @@ spring:
       repositories:
         bootstrap-mode: deferred
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     properties:
       hibernate.jdbc.time_zone: UTC
