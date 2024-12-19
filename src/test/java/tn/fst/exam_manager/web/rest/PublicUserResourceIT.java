@@ -104,7 +104,7 @@ class PublicUserResourceIT {
     }
 
     // Helper method to generate a unique 8-digit login
-    private String generateUniqueLogin() {
+    public static String generateUniqueLogin() {
         long randomLogin = (long) (Math.random() * 90000000) + 10000000; // Ensure it's always 8 digits
         return String.valueOf(randomLogin);
     }

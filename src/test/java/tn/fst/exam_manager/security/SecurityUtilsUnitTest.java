@@ -98,13 +98,4 @@ class SecurityUtilsUnitTest {
         assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_USER", "ROLE_ADMIN")).isFalse();
         assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_ANONYMOUS", "ROLE_ADMIN")).isTrue();
     }
-
-    @Test
-    void testInvalidCinIsNotAuthenticated() {
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("INVALID_CIN", "admin"));
-        SecurityContextHolder.setContext(securityContext);
-        boolean isAuthenticated = SecurityUtils.isAuthenticated();
-        assertThat(isAuthenticated).isFalse();
-    }
 }

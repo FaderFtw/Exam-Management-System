@@ -88,7 +88,8 @@ class UserAcademicInfoResourceIT {
     public static UserAcademicInfo createEntity(EntityManager em) {
         UserAcademicInfo userAcademicInfo = new UserAcademicInfo();
         // Add required entity
-        User user = UserResourceIT.createEntity();
+        String uniqueLogin = PublicUserResourceIT.generateUniqueLogin();
+        User user = UserResourceIT.initTestUserWithCustomLogin(uniqueLogin);
         em.persist(user);
         em.flush();
         userAcademicInfo.setUser(user);
