@@ -35,7 +35,6 @@ import tn.fst.exam_manager.service.mapper.UserMapper;
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.SUPER)
-@WithMockUser(authorities = AuthoritiesConstants.SUPER)
 @IntegrationTest
 class UserResourceIT {
 
