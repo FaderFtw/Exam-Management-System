@@ -203,22 +203,22 @@ describe('Account Service', () => {
   describe('hasAnyAuthority', () => {
     describe('hasAnyAuthority string parameter', () => {
       it('should return false if user is not logged', () => {
-        const hasAuthority = service.hasAnyAuthority(Authority.USER);
+        const hasAuthority = service.hasAnyAuthority([Authority.PROFESSOR, Authority.DEPARTMENT, Authority.INSTITUTE, Authority.SUPER]);
         expect(hasAuthority).toBe(false);
       });
 
       it('should return false if user is logged and has not authority', () => {
-        service.authenticate(accountWithAuthorities([Authority.USER]));
+        service.authenticate(accountWithAuthorities([Authority.PROFESSOR]));
 
-        const hasAuthority = service.hasAnyAuthority(Authority.ADMIN);
+        const hasAuthority = service.hasAnyAuthority(Authority.SUPER);
 
         expect(hasAuthority).toBe(false);
       });
 
       it('should return true if user is logged and has authority', () => {
-        service.authenticate(accountWithAuthorities([Authority.USER]));
+        service.authenticate(accountWithAuthorities([Authority.INSTITUTE]));
 
-        const hasAuthority = service.hasAnyAuthority(Authority.USER);
+        const hasAuthority = service.hasAnyAuthority(Authority.INSTITUTE);
 
         expect(hasAuthority).toBe(true);
       });
@@ -226,22 +226,22 @@ describe('Account Service', () => {
 
     describe('hasAnyAuthority array parameter', () => {
       it('should return false if user is not logged', () => {
-        const hasAuthority = service.hasAnyAuthority([Authority.USER]);
+        const hasAuthority = service.hasAnyAuthority([Authority.SUPER]);
         expect(hasAuthority).toBeFalsy();
       });
 
       it('should return false if user is logged and has not authority', () => {
-        service.authenticate(accountWithAuthorities([Authority.USER]));
+        service.authenticate(accountWithAuthorities([Authority.PROFESSOR]));
 
-        const hasAuthority = service.hasAnyAuthority([Authority.ADMIN]);
+        const hasAuthority = service.hasAnyAuthority([Authority.SUPER]);
 
         expect(hasAuthority).toBe(false);
       });
 
       it('should return true if user is logged and has authority', () => {
-        service.authenticate(accountWithAuthorities([Authority.USER]));
+        service.authenticate(accountWithAuthorities([Authority.DEPARTMENT]));
 
-        const hasAuthority = service.hasAnyAuthority([Authority.USER, Authority.ADMIN]);
+        const hasAuthority = service.hasAnyAuthority([Authority.PROFESSOR, Authority.DEPARTMENT, Authority.INSTITUTE, Authority.SUPER]);
 
         expect(hasAuthority).toBe(true);
       });

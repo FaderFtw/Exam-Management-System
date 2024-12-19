@@ -27,7 +27,7 @@ describe('User Management Detail Component', () => {
                     email: 'first@last.com',
                     activated: true,
                     langKey: 'en',
-                    authorities: [Authority.USER],
+                    authorities: [Authority.INSTITUTE],
                     createdBy: 'admin',
                   }),
               },
@@ -57,7 +57,7 @@ describe('User Management Detail Component', () => {
           email: 'first@last.com',
           activated: true,
           langKey: 'en',
-          authorities: [Authority.USER],
+          authorities: [Authority.INSTITUTE],
           createdBy: 'admin',
         }),
       );

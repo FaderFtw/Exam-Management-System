@@ -11,7 +11,7 @@ import { Account } from 'app/core/auth/account.model';
 import HasAnyAuthorityDirective from './has-any-authority.directive';
 
 @Component({
-  template: ` <div *jhiHasAnyAuthority="'ROLE_ADMIN'" #content></div> `,
+  template: ` <div *jhiHasAnyAuthority="'ROLE_SUPER_ADMIN'" #content></div> `,
 })
 class TestHasAnyAuthorityDirectiveComponent {
   content = viewChild<ElementRef>('content');
