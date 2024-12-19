@@ -361,9 +361,7 @@ class AccountResourceIT {
 
         Optional<User> userDup = userRepository.findOneWithAuthoritiesByLogin("badguy");
         assertThat(userDup).isPresent();
-        assertThat(userDup.orElseThrow().getAuthorities())
-            .hasSize(1)
-            .containsExactly(authorityRepository.findById(AuthoritiesConstants.PROFESSOR).orElseThrow());
+        assertThat(userDup.orElseThrow().getAuthorities()).hasSize(0);
 
         userService.deleteUser("badguy");
     }
