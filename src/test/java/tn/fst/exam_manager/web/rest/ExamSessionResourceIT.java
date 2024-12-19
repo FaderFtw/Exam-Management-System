@@ -321,9 +321,9 @@ class ExamSessionResourceIT {
             .andExpect(jsonPath("$.[*].sessionCode").value(hasItem(DEFAULT_SESSION_CODE)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
-            .andExpect(jsonPath("$.[*].allowParallelStudies").value(hasItem(DEFAULT_ALLOW_PARALLEL_STUDIES.booleanValue())))
-            .andExpect(jsonPath("$.[*].allowOwnClassSupervision").value(hasItem(DEFAULT_ALLOW_OWN_CLASS_SUPERVISION.booleanValue())))
-            .andExpect(jsonPath("$.[*].allowCombineClasses").value(hasItem(DEFAULT_ALLOW_COMBINE_CLASSES.booleanValue())));
+            .andExpect(jsonPath("$.[*].allowParallelStudies").value(hasItem(DEFAULT_ALLOW_PARALLEL_STUDIES)))
+            .andExpect(jsonPath("$.[*].allowOwnClassSupervision").value(hasItem(DEFAULT_ALLOW_OWN_CLASS_SUPERVISION)))
+            .andExpect(jsonPath("$.[*].allowCombineClasses").value(hasItem(DEFAULT_ALLOW_COMBINE_CLASSES)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -359,9 +359,9 @@ class ExamSessionResourceIT {
             .andExpect(jsonPath("$.sessionCode").value(DEFAULT_SESSION_CODE))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
-            .andExpect(jsonPath("$.allowParallelStudies").value(DEFAULT_ALLOW_PARALLEL_STUDIES.booleanValue()))
-            .andExpect(jsonPath("$.allowOwnClassSupervision").value(DEFAULT_ALLOW_OWN_CLASS_SUPERVISION.booleanValue()))
-            .andExpect(jsonPath("$.allowCombineClasses").value(DEFAULT_ALLOW_COMBINE_CLASSES.booleanValue()));
+            .andExpect(jsonPath("$.allowParallelStudies").value(DEFAULT_ALLOW_PARALLEL_STUDIES))
+            .andExpect(jsonPath("$.allowOwnClassSupervision").value(DEFAULT_ALLOW_OWN_CLASS_SUPERVISION))
+            .andExpect(jsonPath("$.allowCombineClasses").value(DEFAULT_ALLOW_COMBINE_CLASSES));
     }
 
     @Test

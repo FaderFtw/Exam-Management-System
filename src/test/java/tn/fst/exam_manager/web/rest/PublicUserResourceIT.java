@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,7 +106,8 @@ class PublicUserResourceIT {
 
     // Helper method to generate a unique 8-digit login
     public static String generateUniqueLogin() {
-        long randomLogin = (long) (Math.random() * 90000000) + 10000000; // Ensure it's always 8 digits
+        Random random = new Random();
+        long randomLogin = Math.abs(random.nextLong() % 90000000L) + 10000000L; // Ensure it's always 8 digits
         return String.valueOf(randomLogin);
     }
 }

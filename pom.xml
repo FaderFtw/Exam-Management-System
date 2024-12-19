@@ -608,7 +608,6 @@
                     <version>${spotless-maven-plugin.version}</version>
                     <configuration>
                         <java>
-                            <!-- <removeUnusedImports/> -->
                         </java>
                     </configuration>
                     <executions>
