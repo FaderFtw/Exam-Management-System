@@ -9,11 +9,13 @@ import TranslateDirective from './language/translate.directive';
 import { AlertComponent } from './alert/alert.component';
 import { AlertErrorComponent } from './alert/alert-error.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendar module
+
 /**
  * Application wide Module
  */
 @NgModule({
-  imports: [AlertComponent, AlertErrorComponent, FindLanguageFromKeyPipe, TranslateDirective],
+  imports: [AlertComponent, AlertErrorComponent, FindLanguageFromKeyPipe, TranslateDirective, FullCalendarModule],
   exports: [
     CommonModule,
     NgbModule,
