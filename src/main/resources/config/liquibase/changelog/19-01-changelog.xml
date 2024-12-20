@@ -366,4 +366,18 @@
     <modifyDataType columnName="login" newDataType="VARCHAR(8)" tableName="jhi_user"/>
   </changeSet>
 
+  <changeSet author="Fady (generated)" id="1734735228307-3">
+    <createIndex indexName="IX_rel_exam_session__departmentsPK" tableName="rel_exam_session__departments" unique="true">
+      <column name="exam_session_id"/>
+      <column name="departments_id"/>
+    </createIndex>
+  </changeSet>
+
+  <changeSet author="Fady (generated)" id="1734735228307-1">
+    <dropPrimaryKey tableName="rel_exam_session__departments"/>
+  </changeSet>
+
+  <changeSet author="Fady (generated)" id="1734735228307-2">
+    <addPrimaryKey columnNames="exam_session_id, departments_id" constraintName="rel_exam_session__departmentsPK" tableName="rel_exam_session__departments"/>
+  </changeSet>
 </databaseChangeLog>
