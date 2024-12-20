@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.fst.exam_manager.domain.Classroom;
@@ -13,10 +15,12 @@ import tn.fst.exam_manager.service.dto.ClassroomDTO;
 import tn.fst.exam_manager.service.mapper.ClassroomMapper;
 
 /**
- * Service Implementation for managing {@link tn.fst.exam_manager.domain.Classroom}.
+ * Service Implementation for managing
+ * {@link tn.fst.exam_manager.domain.Classroom}.
  */
 @Service
 @Transactional
+@PostAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_INSTITUTE_ADMIN') and @securityService.isInSameInstituteFromDepartment(#id)")
 public class ClassroomService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassroomService.class);

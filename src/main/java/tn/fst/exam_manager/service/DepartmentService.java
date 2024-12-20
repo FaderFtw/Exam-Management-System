@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.fst.exam_manager.domain.Department;
@@ -13,10 +15,15 @@ import tn.fst.exam_manager.service.dto.DepartmentDTO;
 import tn.fst.exam_manager.service.mapper.DepartmentMapper;
 
 /**
- * Service Implementation for managing {@link tn.fst.exam_manager.domain.Department}.
+ * Service Implementation for managing
+ * {@link tn.fst.exam_manager.domain.Department}.
  */
 @Service
 @Transactional
+// TODO: Department Admin can only view his department, requires modification if
+// department admin can view all departments in his institute
+// @PostAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_INSTITUTE_ADMIN') and @securityService.isInSameInstitute(#institute) or hasRole('ROLE_DEPARTMENT_ADMIN') and @securityService.isInSameDepartment(#id)")
+@PostAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_DEPARTMENT_ADMIN') and @securityService.isInSameDepartment(#id)")
 public class DepartmentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DepartmentService.class);

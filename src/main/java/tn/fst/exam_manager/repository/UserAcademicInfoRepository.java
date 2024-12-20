@@ -41,4 +41,8 @@ public interface UserAcademicInfoRepository extends JpaRepository<UserAcademicIn
         "select userAcademicInfo from UserAcademicInfo userAcademicInfo left join fetch userAcademicInfo.user left join fetch userAcademicInfo.department left join fetch userAcademicInfo.institute where userAcademicInfo.id =:id"
     )
     Optional<UserAcademicInfo> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Optional<UserAcademicInfo> findByUserId(Long id);
+
+    Optional<UserAcademicInfo> findByUserLogin(String login);
 }
