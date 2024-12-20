@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (report(); as reportRef) {
+      <div>
+        <h2 data-cy="reportDetailsHeading"><span jhiTranslate="examManagerApp.report.detail.title">Report</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ reportRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.name">Name</span></dt>
+          <dd>
+            <span>{{ reportRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ reportRef.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.content">Content</span></dt>
+          <dd>
+            <span>{{ reportRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.professor">Professor</span></dt>
+          <dd>
+            @if (report()!.professor) {
+              <div>
+                <a [routerLink]="['/professor-details', report()!.professor?.id, 'view']">{{ reportRef.professor?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.examSession">Exam Session</span></dt>
+          <dd>
+            @if (report()!.examSession) {
+              <div>
+                <a [routerLink]="['/exam-session', report()!.examSession?.id, 'view']">{{ reportRef.examSession?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.department">Department</span></dt>
+          <dd>
+            @if (report()!.department) {
+              <div>
+                <a [routerLink]="['/department', report()!.department?.id, 'view']">{{ reportRef.department?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.report.institute">Institute</span></dt>
+          <dd>
+            @if (report()!.institute) {
+              <div>
+                <a [routerLink]="['/institute', report()!.institute?.id, 'view']">{{ reportRef.institute?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/report', reportRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

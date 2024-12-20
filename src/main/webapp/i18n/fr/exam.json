@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "exam": {
+      "home": {
+        "title": "Exams",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Exam",
+        "createOrEditLabel": "Créer ou éditer un Exam",
+        "notFound": "Aucun Exam trouvé"
+      },
+      "created": "Un nouveau Exam a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Exam avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Exam avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Exam {{ id }} ?"
+      },
+      "detail": {
+        "title": "Exam"
+      },
+      "id": "ID",
+      "name": "Name",
+      "classroom": "Classroom",
+      "studentClass": "Student Class",
+      "session": "Session",
+      "supervisors": "Supervisors"
+    }
+  }
+}

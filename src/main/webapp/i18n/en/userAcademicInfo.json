@@ -1,0 +1,26 @@
+{
+  "examManagerApp": {
+    "userAcademicInfo": {
+      "home": {
+        "title": "User Academic Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new User Academic Info",
+        "createOrEditLabel": "Create or edit a User Academic Info",
+        "notFound": "No User Academic Infos found"
+      },
+      "created": "A new User Academic Info is created with identifier {{ param }}",
+      "updated": "A User Academic Info is updated with identifier {{ param }}",
+      "deleted": "A User Academic Info is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete User Academic Info {{ id }}?"
+      },
+      "detail": {
+        "title": "User Academic Info"
+      },
+      "id": "ID",
+      "user": "User",
+      "department": "Department",
+      "institute": "Institute"
+    }
+  }
+}

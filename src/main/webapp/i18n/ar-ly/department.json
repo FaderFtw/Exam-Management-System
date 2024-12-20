@@ -1,0 +1,29 @@
+{
+  "examManagerApp": {
+    "department": {
+      "home": {
+        "title": "Departments",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Department جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Department",
+        "notFound": "لم يتم العثور على Departments"
+      },
+      "created": "Department جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Department تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Department تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Department {{ id }}؟"
+      },
+      "detail": {
+        "title": "Department"
+      },
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "institute": "Institute",
+      "examSessions": "Exam Sessions",
+      "users": "Users",
+      "actions": "Actions"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="ProfessorDetailsHeading">
+    <span jhiTranslate="examManagerApp.professorDetails.home.title">ProfessorDetails</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="examManagerApp.professorDetails.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-professor-details"
+        [routerLink]="['/professor-details/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="examManagerApp.professorDetails.home.createLabel">Créer un nouveau Professor Details</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (professorDetails?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="examManagerApp.professorDetails.home.notFound">Aucun Professor Details trouvé</span>
+    </div>
+  }
+
+  @if (professorDetails && professorDetails.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="rank">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.professorDetails.rank">Rank</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="user.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.professorDetails.user">User</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (professorDetails of professorDetails; track trackId(professorDetails)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/professor-details', professorDetails.id, 'view']">{{ professorDetails.id }}</a>
+              </td>
+              <td [jhiTranslate]="'examManagerApp.Rank.' + (professorDetails.rank ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    MAITRE_ASSISTANT: 'MAITRE_ASSISTANT',
+                    ASSISTANT: 'ASSISTANT',
+                    VACATAIRE: 'VACATAIRE',
+                    MAITRE_CONF: 'MAITRE_CONF',
+                    PROFESSEUR: 'PROFESSEUR',
+                    EXPERT: 'EXPERT',
+                    PES: 'PES',
+                    CONTRACTUEL: 'CONTRACTUEL',
+                  }[professorDetails.rank ?? 'null']
+                }}
+              </td>
+              <td>
+                {{ professorDetails.user?.id }}
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/professor-details', professorDetails.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/professor-details', professorDetails.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(professorDetails)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (professorDetails && professorDetails.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,176 @@
+<div>
+  <h2 id="page-heading" data-cy="TeachingSessionHeading">
+    <span jhiTranslate="examManagerApp.teachingSession.home.title">TeachingSessions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="examManagerApp.teachingSession.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-teaching-session"
+        [routerLink]="['/teaching-session/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="examManagerApp.teachingSession.home.createLabel">Créer un nouveau Teaching Session</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (teachingSessions?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="examManagerApp.teachingSession.home.notFound">Aucun Teaching Session trouvé</span>
+    </div>
+  }
+
+  @if (teachingSessions && teachingSessions.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="startHour">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.startHour">Start Hour</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endHour">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.endHour">End Hour</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="type">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.type">Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="timetable.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.timetable">Timetable</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="studentClass.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.studentClass">Student Class</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="classroom.id">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.teachingSession.classroom">Classroom</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (teachingSession of teachingSessions; track trackId(teachingSession)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/teaching-session', teachingSession.id, 'view']">{{ teachingSession.id }}</a>
+              </td>
+              <td>{{ teachingSession.name }}</td>
+              <td>{{ teachingSession.startHour | formatMediumDatetime }}</td>
+              <td>{{ teachingSession.endHour | formatMediumDatetime }}</td>
+              <td>{{ teachingSession.type }}</td>
+              <td>
+                @if (teachingSession.timetable) {
+                  <div>
+                    <a [routerLink]="['/timetable', teachingSession.timetable.id, 'view']">{{ teachingSession.timetable.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (teachingSession.studentClass) {
+                  <div>
+                    <a [routerLink]="['/student-class', teachingSession.studentClass.id, 'view']">{{ teachingSession.studentClass.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (teachingSession.classroom) {
+                  <div>
+                    <a [routerLink]="['/classroom', teachingSession.classroom.id, 'view']">{{ teachingSession.classroom.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/teaching-session', teachingSession.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/teaching-session', teachingSession.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(teachingSession)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (teachingSessions && teachingSessions.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

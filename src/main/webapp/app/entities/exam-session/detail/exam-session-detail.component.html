@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (examSession(); as examSessionRef) {
+      <div>
+        <h2 data-cy="examSessionDetailsHeading"><span jhiTranslate="examManagerApp.examSession.detail.title">Exam Session</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ examSessionRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.name">Name</span></dt>
+          <dd>
+            <span>{{ examSessionRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.sessionCode">Session Code</span></dt>
+          <dd>
+            <span>{{ examSessionRef.sessionCode }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.startDate">Start Date</span></dt>
+          <dd>
+            <span>{{ examSessionRef.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.endDate">End Date</span></dt>
+          <dd>
+            <span>{{ examSessionRef.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.allowParallelStudies">Allow Parallel Studies</span></dt>
+          <dd>
+            <span>{{ examSessionRef.allowParallelStudies }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.allowOwnClassSupervision">Allow Own Class Supervision</span></dt>
+          <dd>
+            <span>{{ examSessionRef.allowOwnClassSupervision }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.allowCombineClasses">Allow Combine Classes</span></dt>
+          <dd>
+            <span>{{ examSessionRef.allowCombineClasses }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.sessionType">Session Type</span></dt>
+          <dd>
+            @if (examSession()!.sessionType) {
+              <div>
+                <a [routerLink]="['/session-type', examSession()!.sessionType?.id, 'view']">{{ examSessionRef.sessionType?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.examSession.departments">Departments</span></dt>
+          <dd>
+            @for (departments of examSessionRef.departments; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/department', departments.id, 'view']">{{ departments?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/exam-session', examSessionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

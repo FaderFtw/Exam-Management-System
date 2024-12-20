@@ -1,0 +1,45 @@
+{
+  "annotations": {
+    "changelogDate": "20241128173242"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Exam",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "classroom",
+      "relationshipName": "classroom",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "studentClass",
+      "relationshipName": "studentClass",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "examSession",
+      "relationshipName": "session",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "professorDetails",
+      "otherEntityRelationshipName": "supervisedExams",
+      "relationshipName": "supervisors",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

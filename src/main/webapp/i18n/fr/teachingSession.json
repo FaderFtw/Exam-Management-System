@@ -1,0 +1,30 @@
+{
+  "examManagerApp": {
+    "teachingSession": {
+      "home": {
+        "title": "TeachingSessions",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Teaching Session",
+        "createOrEditLabel": "Créer ou éditer un Teaching Session",
+        "notFound": "Aucun Teaching Session trouvé"
+      },
+      "created": "Un nouveau Teaching Session a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Teaching Session avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Teaching Session avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Teaching Session {{ id }} ?"
+      },
+      "detail": {
+        "title": "Teaching Session"
+      },
+      "id": "ID",
+      "name": "Name",
+      "startHour": "Start Hour",
+      "endHour": "End Hour",
+      "type": "Type",
+      "timetable": "Timetable",
+      "studentClass": "Student Class",
+      "classroom": "Classroom"
+    }
+  }
+}

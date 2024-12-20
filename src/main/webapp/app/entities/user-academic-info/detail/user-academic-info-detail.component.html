@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (userAcademicInfo(); as userAcademicInfoRef) {
+      <div>
+        <h2 data-cy="userAcademicInfoDetailsHeading">
+          <span jhiTranslate="examManagerApp.userAcademicInfo.detail.title">User Academic Info</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ userAcademicInfoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.userAcademicInfo.user">User</span></dt>
+          <dd>
+            <span>{{ userAcademicInfoRef.user?.login }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.userAcademicInfo.department">Department</span></dt>
+          <dd>
+            @if (userAcademicInfo()!.department) {
+              <div>
+                <a [routerLink]="['/department', userAcademicInfo()!.department?.id, 'view']">{{ userAcademicInfoRef.department?.name }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.userAcademicInfo.institute">Institute</span></dt>
+          <dd>
+            @if (userAcademicInfo()!.institute) {
+              <div>
+                <a [routerLink]="['/institute', userAcademicInfo()!.institute?.id, 'view']">{{ userAcademicInfoRef.institute?.name }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/user-academic-info', userAcademicInfoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

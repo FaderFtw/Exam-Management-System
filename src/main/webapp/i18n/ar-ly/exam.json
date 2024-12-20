@@ -1,0 +1,28 @@
+{
+  "examManagerApp": {
+    "exam": {
+      "home": {
+        "title": "Exams",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Exam جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Exam",
+        "notFound": "لم يتم العثور على Exams"
+      },
+      "created": "Exam جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Exam تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Exam تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Exam {{ id }}؟"
+      },
+      "detail": {
+        "title": "Exam"
+      },
+      "id": "ID",
+      "name": "Name",
+      "classroom": "Classroom",
+      "studentClass": "Student Class",
+      "session": "Session",
+      "supervisors": "Supervisors"
+    }
+  }
+}

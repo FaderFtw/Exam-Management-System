@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "changelogDate": "20241128173245"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Major",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "department",
+      "relationshipName": "department",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

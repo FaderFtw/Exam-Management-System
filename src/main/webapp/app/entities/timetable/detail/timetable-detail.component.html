@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (timetable(); as timetableRef) {
+      <div>
+        <h2 data-cy="timetableDetailsHeading"><span jhiTranslate="examManagerApp.timetable.detail.title">Timetable</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ timetableRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.timetable.name">Name</span></dt>
+          <dd>
+            <span>{{ timetableRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.timetable.startDate">Start Date</span></dt>
+          <dd>
+            <span>{{ timetableRef.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.timetable.endDate">End Date</span></dt>
+          <dd>
+            <span>{{ timetableRef.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.timetable.professor">Professor</span></dt>
+          <dd>
+            @if (timetable()!.professor) {
+              <div>
+                <a [routerLink]="['/professor-details', timetable()!.professor?.id, 'view']">{{ timetableRef.professor?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/timetable', timetableRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

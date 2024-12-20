@@ -1,0 +1,26 @@
+{
+  "examManagerApp": {
+    "classroom": {
+      "home": {
+        "title": "Classrooms",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Classroom",
+        "createOrEditLabel": "Créer ou éditer un Classroom",
+        "notFound": "Aucun Classroom trouvé"
+      },
+      "created": "Un nouveau Classroom a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Classroom avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Classroom avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Classroom {{ id }} ?"
+      },
+      "detail": {
+        "title": "Classroom"
+      },
+      "id": "ID",
+      "name": "Name",
+      "capacity": "Capacity",
+      "department": "Department"
+    }
+  }
+}

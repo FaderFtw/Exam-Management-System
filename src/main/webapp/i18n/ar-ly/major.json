@@ -1,0 +1,25 @@
+{
+  "examManagerApp": {
+    "major": {
+      "home": {
+        "title": "Majors",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Major جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Major",
+        "notFound": "لم يتم العثور على Majors"
+      },
+      "created": "Major جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Major تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Major تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Major {{ id }}؟"
+      },
+      "detail": {
+        "title": "Major"
+      },
+      "id": "ID",
+      "name": "Name",
+      "department": "Department"
+    }
+  }
+}

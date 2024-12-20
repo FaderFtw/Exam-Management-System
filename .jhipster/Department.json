@@ -1,0 +1,37 @@
+{
+  "annotations": {
+    "changelogDate": "20241128173241"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Department",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "institute",
+      "relationshipName": "institute",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "examSession",
+      "otherEntityRelationshipName": "departments",
+      "relationshipName": "examSessions",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

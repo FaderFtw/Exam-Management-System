@@ -1,0 +1,29 @@
+{
+  "examManagerApp": {
+    "department": {
+      "home": {
+        "title": "Departments",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
+        "createOrEditLabel": "Créer ou éditer un Department",
+        "notFound": "Aucun Department trouvé"
+      },
+      "created": "Un nouveau Department a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Department avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Department avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Department {{ id }} ?"
+      },
+      "detail": {
+        "title": "Department"
+      },
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "institute": "Institute",
+      "examSessions": "Exam Sessions",
+      "users": "Users",
+      "actions": "Actions"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "examManagerApp": {
+    "examSession": {
+      "home": {
+        "title": "Exam Sessions",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Exam Session جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Exam Session",
+        "notFound": "لم يتم العثور على Exam Sessions"
+      },
+      "created": "Exam Session جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Exam Session تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Exam Session تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Exam Session {{ id }}؟"
+      },
+      "detail": {
+        "title": "Exam Session"
+      },
+      "id": "ID",
+      "name": "Name",
+      "sessionCode": "Session Code",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "allowParallelStudies": "Allow Parallel Studies",
+      "allowOwnClassSupervision": "Allow Own Class Supervision",
+      "allowCombineClasses": "Allow Combine Classes",
+      "sessionType": "Session Type",
+      "departments": "Departments"
+    }
+  }
+}

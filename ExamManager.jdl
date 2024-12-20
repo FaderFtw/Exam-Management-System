@@ -1,0 +1,153 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName ExamManager
+    buildTool maven
+    cacheProvider ehcache
+    clientFramework angular
+    clientTheme flatly
+    clientThemeVariant primary
+    creationTimestamp 1732813222891
+    databaseType sql
+    devDatabaseType postgresql
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhipsterVersion "8.7.3"
+    jwtSecretKey "YjdjMDliYmIyYWYzOGY3MzQwMjJhMjFkYjNkMDU4ZmIzYjQzOThlNDE0ZTA4NTRlOTA5ODM0N2E0YjI1NmQxN2EwOWZmMjQ0MmYxMTM4NTFjMDUyZTMxODI3ZmZjMWY4NDY0OTJkMTlhNmY4OGVmNmRmOGQxZjM5MzcxYWRjN2M="
+    languages [fr, ar-ly, en]
+    microfrontends []
+    nativeLanguage fr
+    packageName tn.fst.exam_manager
+    prodDatabaseType postgresql
+    reactive false
+    searchEngine false
+    serviceDiscoveryType false
+    testFrameworks []
+    websocket false
+    withAdminUi true
+  }
+
+  entities Classroom, Department, Exam, ExamSession, Institute, Major, ProfessorDetails, Report, SessionType, StudentClass, TeachingSession, Timetable, UserAcademicInfo
+}
+
+@ChangelogDate("20241128173240")
+entity Classroom {
+  name String required
+  capacity Integer required
+}
+@ChangelogDate("20241128173241")
+entity Department {
+  name String required
+  email String
+}
+@ChangelogDate("20241128173242")
+entity Exam {
+  name String required
+}
+@ChangelogDate("20241128173243")
+entity ExamSession {
+  name String required
+  sessionCode String required
+  startDate LocalDate required
+  endDate LocalDate required
+  allowParallelStudies Boolean required
+  allowOwnClassSupervision Boolean required
+  allowCombineClasses Boolean required
+}
+@ChangelogDate("20241128173244")
+entity Institute {
+  name String required
+  location String required
+  logo ImageBlob required
+  phone String
+  email String
+  website String
+}
+@ChangelogDate("20241128173245")
+entity Major {
+  name String required
+}
+@ChangelogDate("20241128173246")
+entity ProfessorDetails {
+  rank Rank required
+}
+@ChangelogDate("20241128173247")
+entity Report {
+  name String required
+  createdDate Instant required
+  content TextBlob
+}
+@ChangelogDate("20241128173248")
+entity SessionType {
+  name String required
+}
+@ChangelogDate("20241128173249")
+entity StudentClass {
+  name String required
+  studentCount Integer
+}
+@ChangelogDate("20241128173250")
+entity TeachingSession {
+  name String required
+  startHour Instant required
+  endHour Instant required
+  type String required
+}
+@ChangelogDate("20241128173251")
+entity Timetable {
+  name String required
+  startDate LocalDate required
+  endDate LocalDate required
+}
+@ChangelogDate("20241219183259")
+entity UserAcademicInfo
+
+
+enum Rank {
+  MAITRE_ASSISTANT,
+  ASSISTANT,
+  VACATAIRE,
+  MAITRE_CONF,
+  PROFESSEUR,
+  EXPERT,
+  PES,
+  CONTRACTUEL
+}
+
+relationship OneToOne {
+  ExamSession{sessionType} to SessionType
+  ProfessorDetails{user} to User with builtInEntity
+  UserAcademicInfo{user} to User with builtInEntity
+}
+
+relationship ManyToOne {
+  Classroom{department} to Department
+  Department{institute} to Institute
+  Exam{classroom} to Classroom
+  Exam{studentClass} to StudentClass
+  Exam{session} to ExamSession
+  Major{department} to Department
+  Report{professor} to ProfessorDetails
+  Report{examSession} to ExamSession
+  Report{department} to Department
+  Report{institute} to Institute
+  StudentClass{major} to Major
+  TeachingSession{timetable} to Timetable
+  TeachingSession{studentClass} to StudentClass
+  TeachingSession{classroom} to Classroom
+  Timetable{professor} to ProfessorDetails
+  UserAcademicInfo{department(name)} to Department
+  UserAcademicInfo{institute(name)} to Institute
+}
+
+relationship ManyToMany {
+  Exam{supervisors} to ProfessorDetails{supervisedExams}
+  ExamSession{departments} to Department{examSessions}
+}
+
+dto Classroom, Department, Exam, ExamSession, Institute, Major, ProfessorDetails, Report, SessionType, StudentClass, TeachingSession, Timetable, UserAcademicInfo with mapstruct
+paginate Classroom, Department, Exam, ExamSession, Institute, Major, ProfessorDetails, Report, StudentClass, TeachingSession, Timetable, UserAcademicInfo with pagination
+service Classroom, Department, Exam, ExamSession, Institute, Major, ProfessorDetails, Report, SessionType, StudentClass, TeachingSession, Timetable, UserAcademicInfo with serviceClass
+search Classroom, Department, Exam, ExamSession, Institute, Major, ProfessorDetails, Report, SessionType, StudentClass, TeachingSession, Timetable, UserAcademicInfo with no

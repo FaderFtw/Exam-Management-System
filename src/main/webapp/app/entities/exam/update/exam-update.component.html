@@ -1,0 +1,117 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-exam-heading" data-cy="ExamCreateUpdateHeading" jhiTranslate="examManagerApp.exam.home.createOrEditLabel">
+        Créer ou éditer un Exam
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.exam.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.exam.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_classroom" jhiTranslate="examManagerApp.exam.classroom">Classroom</label>
+          <select
+            class="form-control"
+            id="field_classroom"
+            data-cy="classroom"
+            name="classroom"
+            formControlName="classroom"
+            [compareWith]="compareClassroom"
+          >
+            <option [ngValue]="null"></option>
+            @for (classroomOption of classroomsSharedCollection; track $index) {
+              <option [ngValue]="classroomOption">{{ classroomOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_studentClass" jhiTranslate="examManagerApp.exam.studentClass">Student Class</label>
+          <select
+            class="form-control"
+            id="field_studentClass"
+            data-cy="studentClass"
+            name="studentClass"
+            formControlName="studentClass"
+            [compareWith]="compareStudentClass"
+          >
+            <option [ngValue]="null"></option>
+            @for (studentClassOption of studentClassesSharedCollection; track $index) {
+              <option [ngValue]="studentClassOption">{{ studentClassOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_session" jhiTranslate="examManagerApp.exam.session">Session</label>
+          <select
+            class="form-control"
+            id="field_session"
+            data-cy="session"
+            name="session"
+            formControlName="session"
+            [compareWith]="compareExamSession"
+          >
+            <option [ngValue]="null"></option>
+            @for (examSessionOption of examSessionsSharedCollection; track $index) {
+              <option [ngValue]="examSessionOption">{{ examSessionOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_supervisors" jhiTranslate="examManagerApp.exam.supervisors">Supervisors</label>
+          <select
+            class="form-control"
+            id="field_supervisors"
+            data-cy="supervisors"
+            multiple
+            name="supervisors"
+            formControlName="supervisors"
+            [compareWith]="compareProfessorDetails"
+          >
+            @for (professorDetailsOption of professorDetailsSharedCollection; track $index) {
+              <option [ngValue]="professorDetailsOption">{{ professorDetailsOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

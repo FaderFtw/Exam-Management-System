@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (major(); as majorRef) {
+      <div>
+        <h2 data-cy="majorDetailsHeading"><span jhiTranslate="examManagerApp.major.detail.title">Major</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ majorRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.major.name">Name</span></dt>
+          <dd>
+            <span>{{ majorRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.major.department">Department</span></dt>
+          <dd>
+            @if (major()!.department) {
+              <div>
+                <a [routerLink]="['/department', major()!.department?.id, 'view']">{{ majorRef.department?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/major', majorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

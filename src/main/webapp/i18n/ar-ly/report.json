@@ -1,0 +1,30 @@
+{
+  "examManagerApp": {
+    "report": {
+      "home": {
+        "title": "Reports",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Report جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Report",
+        "notFound": "لم يتم العثور على Reports"
+      },
+      "created": "Report جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Report تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Report تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Report {{ id }}؟"
+      },
+      "detail": {
+        "title": "Report"
+      },
+      "id": "ID",
+      "name": "Name",
+      "createdDate": "Created Date",
+      "content": "Content",
+      "professor": "Professor",
+      "examSession": "Exam Session",
+      "department": "Department",
+      "institute": "Institute"
+    }
+  }
+}

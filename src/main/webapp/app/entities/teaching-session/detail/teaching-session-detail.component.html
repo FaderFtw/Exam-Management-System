@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (teachingSession(); as teachingSessionRef) {
+      <div>
+        <h2 data-cy="teachingSessionDetailsHeading">
+          <span jhiTranslate="examManagerApp.teachingSession.detail.title">Teaching Session</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ teachingSessionRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.name">Name</span></dt>
+          <dd>
+            <span>{{ teachingSessionRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.startHour">Start Hour</span></dt>
+          <dd>
+            <span>{{ teachingSessionRef.startHour | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.endHour">End Hour</span></dt>
+          <dd>
+            <span>{{ teachingSessionRef.endHour | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.type">Type</span></dt>
+          <dd>
+            <span>{{ teachingSessionRef.type }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.timetable">Timetable</span></dt>
+          <dd>
+            @if (teachingSession()!.timetable) {
+              <div>
+                <a [routerLink]="['/timetable', teachingSession()!.timetable?.id, 'view']">{{ teachingSessionRef.timetable?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.studentClass">Student Class</span></dt>
+          <dd>
+            @if (teachingSession()!.studentClass) {
+              <div>
+                <a [routerLink]="['/student-class', teachingSession()!.studentClass?.id, 'view']">{{
+                  teachingSessionRef.studentClass?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.teachingSession.classroom">Classroom</span></dt>
+          <dd>
+            @if (teachingSession()!.classroom) {
+              <div>
+                <a [routerLink]="['/classroom', teachingSession()!.classroom?.id, 'view']">{{ teachingSessionRef.classroom?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/teaching-session', teachingSessionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

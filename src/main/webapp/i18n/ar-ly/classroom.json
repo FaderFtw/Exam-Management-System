@@ -1,0 +1,26 @@
+{
+  "examManagerApp": {
+    "classroom": {
+      "home": {
+        "title": "Classrooms",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Classroom جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Classroom",
+        "notFound": "لم يتم العثور على Classrooms"
+      },
+      "created": "Classroom جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Classroom تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Classroom تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Classroom {{ id }}؟"
+      },
+      "detail": {
+        "title": "Classroom"
+      },
+      "id": "ID",
+      "name": "Name",
+      "capacity": "Capacity",
+      "department": "Department"
+    }
+  }
+}

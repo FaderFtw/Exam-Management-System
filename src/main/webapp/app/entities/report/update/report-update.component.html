@@ -1,0 +1,151 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-report-heading" data-cy="ReportCreateUpdateHeading" jhiTranslate="examManagerApp.report.home.createOrEditLabel">
+        Créer ou éditer un Report
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.report.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.report.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let createdDateRef = editForm.get('createdDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_createdDate" jhiTranslate="examManagerApp.report.createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (createdDateRef.invalid && (createdDateRef.dirty || createdDateRef.touched)) {
+            <div>
+              @if (editForm.get('createdDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('createdDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_content" jhiTranslate="examManagerApp.report.content">Content</label>
+          <textarea class="form-control" name="content" id="field_content" data-cy="content" formControlName="content"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_professor" jhiTranslate="examManagerApp.report.professor">Professor</label>
+          <select
+            class="form-control"
+            id="field_professor"
+            data-cy="professor"
+            name="professor"
+            formControlName="professor"
+            [compareWith]="compareProfessorDetails"
+          >
+            <option [ngValue]="null"></option>
+            @for (professorDetailsOption of professorDetailsSharedCollection; track $index) {
+              <option [ngValue]="professorDetailsOption">{{ professorDetailsOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_examSession" jhiTranslate="examManagerApp.report.examSession">Exam Session</label>
+          <select
+            class="form-control"
+            id="field_examSession"
+            data-cy="examSession"
+            name="examSession"
+            formControlName="examSession"
+            [compareWith]="compareExamSession"
+          >
+            <option [ngValue]="null"></option>
+            @for (examSessionOption of examSessionsSharedCollection; track $index) {
+              <option [ngValue]="examSessionOption">{{ examSessionOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_department" jhiTranslate="examManagerApp.report.department">Department</label>
+          <select
+            class="form-control"
+            id="field_department"
+            data-cy="department"
+            name="department"
+            formControlName="department"
+            [compareWith]="compareDepartment"
+          >
+            <option [ngValue]="null"></option>
+            @for (departmentOption of departmentsSharedCollection; track $index) {
+              <option [ngValue]="departmentOption">{{ departmentOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_institute" jhiTranslate="examManagerApp.report.institute">Institute</label>
+          <select
+            class="form-control"
+            id="field_institute"
+            data-cy="institute"
+            name="institute"
+            formControlName="institute"
+            [compareWith]="compareInstitute"
+          >
+            <option [ngValue]="null"></option>
+            @for (instituteOption of institutesSharedCollection; track $index) {
+              <option [ngValue]="instituteOption">{{ instituteOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

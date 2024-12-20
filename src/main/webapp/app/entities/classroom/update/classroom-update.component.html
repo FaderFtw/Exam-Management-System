@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-classroom-heading" data-cy="ClassroomCreateUpdateHeading" jhiTranslate="examManagerApp.classroom.home.createOrEditLabel">
+        Créer ou éditer un Classroom
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.classroom.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.classroom.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let capacityRef = editForm.get('capacity')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_capacity" jhiTranslate="examManagerApp.classroom.capacity">Capacity</label>
+          <input type="number" class="form-control" name="capacity" id="field_capacity" data-cy="capacity" formControlName="capacity" />
+          @if (capacityRef.invalid && (capacityRef.dirty || capacityRef.touched)) {
+            <div>
+              @if (editForm.get('capacity')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('capacity')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_department" jhiTranslate="examManagerApp.classroom.department">Department</label>
+          <select
+            class="form-control"
+            id="field_department"
+            data-cy="department"
+            name="department"
+            formControlName="department"
+            [compareWith]="compareDepartment"
+          >
+            <option [ngValue]="null"></option>
+            @for (departmentOption of departmentsSharedCollection; track $index) {
+              <option [ngValue]="departmentOption">{{ departmentOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

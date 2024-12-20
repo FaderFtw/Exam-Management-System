@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+  objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+  <changeSet id="1734634570720-3" author="Fady (generated)">
+    <createTable tableName="classroom">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_classroom"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="capacity" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="department_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-4" author="Fady (generated)">
+    <createTable tableName="department">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_department"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="email" type="VARCHAR(255)"/>
+      <column name="institute_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-5" author="Fady (generated)">
+    <createTable tableName="exam">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exam"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="classroom_id" type="BIGINT"/>
+      <column name="student_class_id" type="BIGINT"/>
+      <column name="session_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-6" author="Fady (generated)">
+    <createTable tableName="exam_session">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exam_session"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="session_code" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="start_date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="end_date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="allow_parallel_studies" type="BOOLEAN">
+        <constraints nullable="false"/>
+      </column>
+      <column name="allow_own_class_supervision" type="BOOLEAN">
+        <constraints nullable="false"/>
+      </column>
+      <column name="allow_combine_classes" type="BOOLEAN">
+        <constraints nullable="false"/>
+      </column>
+      <column name="session_type_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-7" author="Fady (generated)">
+    <createTable tableName="institute">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_institute"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="location" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="logo" type="BLOB">
+        <constraints nullable="false"/>
+      </column>
+      <column name="logo_content_type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="phone" type="VARCHAR(255)"/>
+      <column name="email" type="VARCHAR(255)"/>
+      <column name="website" type="VARCHAR(255)"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-8" author="Fady (generated)">
+    <createTable tableName="major">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_major"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="department_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-9" author="Fady (generated)">
+    <createTable tableName="professor_details">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_professor_details"/>
+      </column>
+      <column name="rank" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-10" author="Fady (generated)">
+    <createTable tableName="rel_exam__supervisors">
+      <column name="exam_id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_rel_exam__supervisors"/>
+      </column>
+      <column name="supervisors_id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_rel_exam__supervisors"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-11" author="Fady (generated)">
+    <createTable tableName="rel_exam_session__departments">
+      <column name="departments_id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_rel_exam_session__departments"/>
+      </column>
+      <column name="exam_session_id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_rel_exam_session__departments"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-12" author="Fady (generated)">
+    <createTable tableName="report">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_report"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_date" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="content" type="oid"/>
+      <column name="professor_id" type="BIGINT"/>
+      <column name="exam_session_id" type="BIGINT"/>
+      <column name="department_id" type="BIGINT"/>
+      <column name="institute_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-13" author="Fady (generated)">
+    <createTable tableName="session_type">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_session_type"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-14" author="Fady (generated)">
+    <createTable tableName="student_class">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_student_class"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="student_count" type="INT"/>
+      <column name="major_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-15" author="Fady (generated)">
+    <createTable tableName="teaching_session">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_teaching_session"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="start_hour" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="end_hour" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="type" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="timetable_id" type="BIGINT"/>
+      <column name="student_class_id" type="BIGINT"/>
+      <column name="classroom_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-16" author="Fady (generated)">
+    <createTable tableName="timetable">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_timetable"/>
+      </column>
+      <column name="name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="start_date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="end_date" type="DATE">
+        <constraints nullable="false"/>
+      </column>
+      <column name="professor_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-17" author="Fady (generated)">
+    <createTable tableName="user_academic_info">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_academic_info"/>
+      </column>
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="department_id" type="BIGINT"/>
+      <column name="institute_id" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="1734634570720-18" author="Fady (generated)">
+    <addUniqueConstraint columnNames="session_type_id" constraintName="uc_exam_session_session_type"
+                         tableName="exam_session"/>
+  </changeSet>
+  <changeSet id="1734634570720-19" author="Fady (generated)">
+    <addUniqueConstraint columnNames="user_id" constraintName="uc_professor_details_user"
+                         tableName="professor_details"/>
+  </changeSet>
+  <changeSet id="1734634570720-20" author="Fady (generated)">
+    <addUniqueConstraint columnNames="user_id" constraintName="uc_user_academic_info_user"
+                         tableName="user_academic_info"/>
+  </changeSet>
+  <changeSet id="1734634570720-21" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="classroom"
+                             constraintName="FK_CLASSROOM_ON_DEPARTMENT" referencedColumnNames="id"
+                             referencedTableName="department"/>
+  </changeSet>
+  <changeSet id="1734634570720-22" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="institute_id" baseTableName="department"
+                             constraintName="FK_DEPARTMENT_ON_INSTITUTE" referencedColumnNames="id"
+                             referencedTableName="institute"/>
+  </changeSet>
+  <changeSet id="1734634570720-23" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="classroom_id" baseTableName="exam"
+                             constraintName="FK_EXAM_ON_CLASSROOM" referencedColumnNames="id"
+                             referencedTableName="classroom"/>
+  </changeSet>
+  <changeSet id="1734634570720-24" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="session_id" baseTableName="exam" constraintName="FK_EXAM_ON_SESSION"
+                             referencedColumnNames="id" referencedTableName="exam_session"/>
+  </changeSet>
+  <changeSet id="1734634570720-25" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="student_class_id" baseTableName="exam"
+                             constraintName="FK_EXAM_ON_STUDENT_CLASS" referencedColumnNames="id"
+                             referencedTableName="student_class"/>
+  </changeSet>
+  <changeSet id="1734634570720-26" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="session_type_id" baseTableName="exam_session"
+                             constraintName="FK_EXAM_SESSION_ON_SESSION_TYPE" referencedColumnNames="id"
+                             referencedTableName="session_type"/>
+  </changeSet>
+  <changeSet id="1734634570720-27" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="major"
+                             constraintName="FK_MAJOR_ON_DEPARTMENT" referencedColumnNames="id"
+                             referencedTableName="department"/>
+  </changeSet>
+  <changeSet id="1734634570720-28" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="professor_details"
+                             constraintName="FK_PROFESSOR_DETAILS_ON_USER" referencedColumnNames="id"
+                             referencedTableName="jhi_user"/>
+  </changeSet>
+  <changeSet id="1734634570720-29" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="report"
+                             constraintName="FK_REPORT_ON_DEPARTMENT" referencedColumnNames="id"
+                             referencedTableName="department"/>
+  </changeSet>
+  <changeSet id="1734634570720-30" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="exam_session_id" baseTableName="report"
+                             constraintName="FK_REPORT_ON_EXAM_SESSION" referencedColumnNames="id"
+                             referencedTableName="exam_session"/>
+  </changeSet>
+  <changeSet id="1734634570720-31" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="institute_id" baseTableName="report"
+                             constraintName="FK_REPORT_ON_INSTITUTE" referencedColumnNames="id"
+                             referencedTableName="institute"/>
+  </changeSet>
+  <changeSet id="1734634570720-32" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="professor_id" baseTableName="report"
+                             constraintName="FK_REPORT_ON_PROFESSOR" referencedColumnNames="id"
+                             referencedTableName="professor_details"/>
+  </changeSet>
+  <changeSet id="1734634570720-33" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="major_id" baseTableName="student_class"
+                             constraintName="FK_STUDENT_CLASS_ON_MAJOR" referencedColumnNames="id"
+                             referencedTableName="major"/>
+  </changeSet>
+  <changeSet id="1734634570720-34" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="classroom_id" baseTableName="teaching_session"
+                             constraintName="FK_TEACHING_SESSION_ON_CLASSROOM" referencedColumnNames="id"
+                             referencedTableName="classroom"/>
+  </changeSet>
+  <changeSet id="1734634570720-35" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="student_class_id" baseTableName="teaching_session"
+                             constraintName="FK_TEACHING_SESSION_ON_STUDENT_CLASS" referencedColumnNames="id"
+                             referencedTableName="student_class"/>
+  </changeSet>
+  <changeSet id="1734634570720-36" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="timetable_id" baseTableName="teaching_session"
+                             constraintName="FK_TEACHING_SESSION_ON_TIMETABLE" referencedColumnNames="id"
+                             referencedTableName="timetable"/>
+  </changeSet>
+  <changeSet id="1734634570720-37" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="professor_id" baseTableName="timetable"
+                             constraintName="FK_TIMETABLE_ON_PROFESSOR" referencedColumnNames="id"
+                             referencedTableName="professor_details"/>
+  </changeSet>
+  <changeSet id="1734634570720-38" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="user_academic_info"
+                             constraintName="FK_USER_ACADEMIC_INFO_ON_DEPARTMENT" referencedColumnNames="id"
+                             referencedTableName="department"/>
+  </changeSet>
+  <changeSet id="1734634570720-39" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="institute_id" baseTableName="user_academic_info"
+                             constraintName="FK_USER_ACADEMIC_INFO_ON_INSTITUTE" referencedColumnNames="id"
+                             referencedTableName="institute"/>
+  </changeSet>
+  <changeSet id="1734634570720-40" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_academic_info"
+                             constraintName="FK_USER_ACADEMIC_INFO_ON_USER" referencedColumnNames="id"
+                             referencedTableName="jhi_user"/>
+  </changeSet>
+  <changeSet id="1734634570720-41" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="departments_id" baseTableName="rel_exam_session__departments"
+                             constraintName="fk_relexasesdep_on_department" referencedColumnNames="id"
+                             referencedTableName="department"/>
+  </changeSet>
+  <changeSet id="1734634570720-42" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="exam_session_id" baseTableName="rel_exam_session__departments"
+                             constraintName="fk_relexasesdep_on_exam_session" referencedColumnNames="id"
+                             referencedTableName="exam_session"/>
+  </changeSet>
+  <changeSet id="1734634570720-43" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="exam_id" baseTableName="rel_exam__supervisors"
+                             constraintName="fk_relexasup_on_exam" referencedColumnNames="id"
+                             referencedTableName="exam"/>
+  </changeSet>
+  <changeSet id="1734634570720-44" author="Fady (generated)">
+    <addForeignKeyConstraint baseColumnNames="supervisors_id" baseTableName="rel_exam__supervisors"
+                             constraintName="fk_relexasup_on_professor_details" referencedColumnNames="id"
+                             referencedTableName="professor_details"/>
+  </changeSet>
+  <changeSet id="1734634570720-1" author="Fady (generated)">
+    <modifyDataType columnName="email" newDataType="VARCHAR(254)" tableName="jhi_user"/>
+  </changeSet>
+  <changeSet id="1734634570720-2" author="Fady (generated)">
+    <modifyDataType columnName="login" newDataType="VARCHAR(8)" tableName="jhi_user"/>
+  </changeSet>
+
+</databaseChangeLog>

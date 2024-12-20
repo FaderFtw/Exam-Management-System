@@ -1,0 +1,65 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (institute(); as instituteRef) {
+      <div>
+        <h2 data-cy="instituteDetailsHeading"><span jhiTranslate="examManagerApp.institute.detail.title">Institute</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ instituteRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.institute.name">Name</span></dt>
+          <dd>
+            <span>{{ instituteRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.institute.location">Location</span></dt>
+          <dd>
+            <span>{{ instituteRef.location }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.institute.logo">Logo</span></dt>
+          <dd>
+            @if (instituteRef.logo) {
+              <div>
+                <a (click)="openFile(instituteRef.logo, instituteRef.logoContentType)">
+                  <img
+                    [src]="'data:' + instituteRef.logoContentType + ';base64,' + instituteRef.logo"
+                    style="max-width: 100%"
+                    alt="institute"
+                  />
+                </a>
+                {{ instituteRef.logoContentType }}, {{ byteSize(instituteRef.logo) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.institute.phone">Phone</span></dt>
+          <dd>
+            <span>{{ instituteRef.phone }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.institute.email">Email</span></dt>
+          <dd>
+            <span>{{ instituteRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.institute.website">Website</span></dt>
+          <dd>
+            <span>{{ instituteRef.website }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/institute', instituteRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

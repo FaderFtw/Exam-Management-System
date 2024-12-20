@@ -1,0 +1,25 @@
+{
+  "examManagerApp": {
+    "sessionType": {
+      "home": {
+        "title": "Session Types",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Session Type جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Session Type",
+        "notFound": "لم يتم العثور على Session Types"
+      },
+      "created": "Session Type جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Session Type تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Session Type تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Session Type {{ id }}؟"
+      },
+      "detail": {
+        "title": "Session Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "examSession": "Exam Session"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "examManagerApp": {
+    "teachingSession": {
+      "home": {
+        "title": "Teaching Sessions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Teaching Session",
+        "createOrEditLabel": "Create or edit a Teaching Session",
+        "notFound": "No Teaching Sessions found"
+      },
+      "created": "A new Teaching Session is created with identifier {{ param }}",
+      "updated": "A Teaching Session is updated with identifier {{ param }}",
+      "deleted": "A Teaching Session is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Teaching Session {{ id }}?"
+      },
+      "detail": {
+        "title": "Teaching Session"
+      },
+      "id": "ID",
+      "name": "Name",
+      "startHour": "Start Hour",
+      "endHour": "End Hour",
+      "type": "Type",
+      "timetable": "Timetable",
+      "studentClass": "Student Class",
+      "classroom": "Classroom"
+    }
+  }
+}

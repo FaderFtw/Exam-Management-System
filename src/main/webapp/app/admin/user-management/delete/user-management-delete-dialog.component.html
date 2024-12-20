@@ -1,0 +1,25 @@
+@if (user) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(user.login!)">
+    <div class="modal-header">
+      <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirmation de suppression</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error></jhi-alert-error>
+
+      <p jhiTranslate="userManagement.delete.question" [translateValues]="{ login: user.login }">
+        Etes-vous certain de vouloir supprimer l&apos;utilisateur {{ user.login }} ?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+      </button>
+
+      <button type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Supprimer</span>
+      </button>
+    </div>
+  </form>
+}

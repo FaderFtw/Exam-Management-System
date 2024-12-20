@@ -1,0 +1,177 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-teaching-session-heading"
+        data-cy="TeachingSessionCreateUpdateHeading"
+        jhiTranslate="examManagerApp.teachingSession.home.createOrEditLabel"
+      >
+        Créer ou éditer un Teaching Session
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="examManagerApp.teachingSession.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="examManagerApp.teachingSession.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let startHourRef = editForm.get('startHour')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_startHour" jhiTranslate="examManagerApp.teachingSession.startHour">Start Hour</label>
+          <div class="d-flex">
+            <input
+              id="field_startHour"
+              data-cy="startHour"
+              type="datetime-local"
+              class="form-control"
+              name="startHour"
+              formControlName="startHour"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (startHourRef.invalid && (startHourRef.dirty || startHourRef.touched)) {
+            <div>
+              @if (editForm.get('startHour')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('startHour')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let endHourRef = editForm.get('endHour')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_endHour" jhiTranslate="examManagerApp.teachingSession.endHour">End Hour</label>
+          <div class="d-flex">
+            <input
+              id="field_endHour"
+              data-cy="endHour"
+              type="datetime-local"
+              class="form-control"
+              name="endHour"
+              formControlName="endHour"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (endHourRef.invalid && (endHourRef.dirty || endHourRef.touched)) {
+            <div>
+              @if (editForm.get('endHour')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('endHour')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let typeRef = editForm.get('type')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_type" jhiTranslate="examManagerApp.teachingSession.type">Type</label>
+          <input type="text" class="form-control" name="type" id="field_type" data-cy="type" formControlName="type" />
+          @if (typeRef.invalid && (typeRef.dirty || typeRef.touched)) {
+            <div>
+              @if (editForm.get('type')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_timetable" jhiTranslate="examManagerApp.teachingSession.timetable">Timetable</label>
+          <select
+            class="form-control"
+            id="field_timetable"
+            data-cy="timetable"
+            name="timetable"
+            formControlName="timetable"
+            [compareWith]="compareTimetable"
+          >
+            <option [ngValue]="null"></option>
+            @for (timetableOption of timetablesSharedCollection; track $index) {
+              <option [ngValue]="timetableOption">{{ timetableOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_studentClass" jhiTranslate="examManagerApp.teachingSession.studentClass"
+            >Student Class</label
+          >
+          <select
+            class="form-control"
+            id="field_studentClass"
+            data-cy="studentClass"
+            name="studentClass"
+            formControlName="studentClass"
+            [compareWith]="compareStudentClass"
+          >
+            <option [ngValue]="null"></option>
+            @for (studentClassOption of studentClassesSharedCollection; track $index) {
+              <option [ngValue]="studentClassOption">{{ studentClassOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_classroom" jhiTranslate="examManagerApp.teachingSession.classroom">Classroom</label>
+          <select
+            class="form-control"
+            id="field_classroom"
+            data-cy="classroom"
+            name="classroom"
+            formControlName="classroom"
+            [compareWith]="compareClassroom"
+          >
+            <option [ngValue]="null"></option>
+            @for (classroomOption of classroomsSharedCollection; track $index) {
+              <option [ngValue]="classroomOption">{{ classroomOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
