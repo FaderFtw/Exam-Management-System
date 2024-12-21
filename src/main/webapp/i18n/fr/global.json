@@ -4,24 +4,24 @@
     "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
     "menu": {
       "home": "Accueil",
-      "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "jhipster-needle-menu-add-element": "JHipster ajoutera des éléments de menu supplémentaires ici (ne pas traduire !)",
       "entities": {
         "main": "Entités",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authorities",
-        "classroom": "Classroom",
-        "department": "Department",
-        "exam": "Exam",
-        "examSession": "Exam Session",
-        "institute": "Institute",
-        "major": "Major",
-        "professorDetails": "Professor Details",
-        "report": "Report",
-        "sessionType": "Session Type",
-        "studentClass": "Student Class",
-        "teachingSession": "Teaching Session",
-        "timetable": "Timetable",
-        "userAcademicInfo": "User Academic Info"
+        "jhipster-needle-menu-add-entry": "JHipster ajoutera des entités supplémentaires ici (ne pas traduire !)",
+        "adminAuthority": "Rôle",
+        "classroom": "Salle",
+        "department": "Département",
+        "exam": "Examen",
+        "examSession": "Session d'examen",
+        "institute": "Institut",
+        "major": "Section",
+        "professorDetails": "Détails du professeur",
+        "report": "Rapport",
+        "sessionType": "Type de session",
+        "studentClass": "Classe d'étudiants",
+        "teachingSession": "Session d'enseignement",
+        "timetable": "Emploi du temps",
+        "userAcademicInfo": "Informations académiques des utilisateurs"
       },
       "account": {
         "main": "Compte",
@@ -47,8 +47,8 @@
       "language": "Langue"
     },
     "form": {
-      "username.label": "Nom d'utilisateur",
-      "username.placeholder": "Votre nom d'utilisateur",
+      "username.label": "Le numéro de carte d'identité ou Email",
+      "username.placeholder": "Votre numéro de votre carte d'identité ou email",
       "currentpassword.label": "Mot de passe actuel",
       "currentpassword.placeholder": "Mot de passe actuel",
       "newpassword.label": "Nouveau mot de passe",
@@ -99,7 +99,7 @@
     "ribbon": {
       "dev": "Développement"
     },
-    "item-count": "Affichage {{first}} - {{second}} de {{total}} items."
+    "item-count": "Affichage {{first}} - {{second}} de {{total}} éléments."
   },
   "entity": {
     "action": {
@@ -107,12 +107,12 @@
       "addimage": "Ajouter image",
       "back": "Retour",
       "cancel": "Annuler",
-      "edit": "Editer",
+      "edit": "Éditer",
       "delete": "Supprimer",
       "open": "Ouvrir",
       "save": "Sauvegarder",
       "view": "Voir",
-      "show": "Show {{otherEntity}}"
+      "show": "Afficher {{otherEntity}}"
     },
     "detail": {
       "field": "Champs",
@@ -132,12 +132,12 @@
       "pattern": "Ce champ doit suivre l'expression régulière {{pattern}}.",
       "number": "Ce champ doit être un nombre.",
       "datetimelocal": "Ce champ doit être une date et une heure.",
-      "patternLogin": "Ce champ ne peut contenir que des lettres, des chiffres ou des adresses e-mail."
+      "patternLogin": "Le numéro de carte d'identité doit contenir exactement 8 chiffres."
     },
     "filters": {
-      "set": "Following filters are set",
-      "clear": "Clear filter",
-      "clearAll": "Clear all filters"
+      "set": "Les filtres suivants sont définis",
+      "clear": "Effacer le filtre",
+      "clearAll": "Effacer tous les filtres"
     }
   },
   "error": {
@@ -146,15 +146,15 @@
     "url.not.found": "Non trouvé",
     "NotNull": "Le champ {{fieldName}} ne peut pas être vide !",
     "Size": "Le champ {{fieldName}} ne respecte pas les critères minimum et maximum !",
-    "userexists": "Login déjà utilisé !",
+    "userexists": "Numéro de carte d'identité déjà utilisé !",
     "emailexists": "Email déjà utilisé !",
     "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'identifiant !",
     "idnull": "Identifiant invalide",
-    "idinvalid": "Invalid Id",
-    "idnotfound": "ID cannot be found",
+    "idinvalid": "Identifiant invalide",
+    "idnotfound": "ID non trouvé",
     "file": {
       "could.not.extract": "Impossible d'extraire le fichier",
-      "not.image": "Le fichier doit être une image et non du type \"{{ fileType }}\""
+      "not.image": "Le fichier doit être une image et non du type \"{{fileType}}\""
     }
   },
   "footer": "Ceci est votre pied de page"

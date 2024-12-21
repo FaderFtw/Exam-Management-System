@@ -47,8 +47,8 @@
       "language": "Language"
     },
     "form": {
-      "username.label": "Username",
-      "username.placeholder": "Your username",
+      "username.label": "CIN or Email",
+      "username.placeholder": "Your CIN or email",
       "currentpassword.label": "Current password",
       "currentpassword.placeholder": "Current password",
       "newpassword.label": "New password",
@@ -132,7 +132,7 @@
       "pattern": "This field should follow pattern for {{ pattern }}.",
       "number": "This field should be a number.",
       "datetimelocal": "This field should be a date and time.",
-      "patternLogin": "This field can only contain letters, digits and e-mail addresses."
+      "patternLogin": "The CIN must be exactly 8 digits."
     },
     "filters": {
       "set": "Following filters are set",
@@ -146,7 +146,7 @@
     "url.not.found": "Not found",
     "NotNull": "Field {{ fieldName }} cannot be empty!",
     "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
-    "userexists": "Login name already used!",
+    "userexists": "CIN already used!",
     "emailexists": "Email is already in use!",
     "idexists": "A new {{ entityName }} cannot already have an ID",
     "idnull": "Invalid ID",

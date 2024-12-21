@@ -3,8 +3,8 @@
     "userAcademicInfo": {
       "home": {
         "title": "UserAcademicInfos",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau User Academic Info",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
         "createOrEditLabel": "Créer ou éditer un User Academic Info",
         "notFound": "Aucun User Academic Info trouvé"
       },

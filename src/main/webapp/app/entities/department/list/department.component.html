@@ -36,25 +36,25 @@
         <thead>
           <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
             <th scope="col" jhiSortBy="id" class="centered-header">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex">
                 <span jhiTranslate="global.field.id">ID</span>
                 <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="name" class="centered-header">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex">
                 <span jhiTranslate="examManagerApp.department.name">Name</span>
                 <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="email" class="centered-header">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex">
                 <span jhiTranslate="examManagerApp.department.email">Email</span>
                 <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="institute.id" class="centered-header">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex">
                 <span jhiTranslate="examManagerApp.department.institute">Institute</span>
                 <fa-icon class="p-1" icon="sort" style="color: white"></fa-icon>
               </div>
@@ -86,15 +86,15 @@
               <td class="text-end">
                 <div class="d-flex justify-content-center gap-2">
                   <a [routerLink]="['/department', department.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                    <mat-icon>visibility</mat-icon>
+                    <mat-icon class="d-flex align-items-center">visibility</mat-icon>
                   </a>
 
                   <a [routerLink]="['/department', department.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon class="d-flex align-items-center">edit</mat-icon>
                   </a>
 
                   <button type="submit" (click)="delete(department)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                    <mat-icon>delete_forever</mat-icon>
+                    <mat-icon class="d-flex align-items-center">delete_forever</mat-icon>
                   </button>
                 </div>
               </td>

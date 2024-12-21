@@ -3,8 +3,8 @@
     "exam": {
       "home": {
         "title": "Exams",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Exam",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
         "createOrEditLabel": "Créer ou éditer un Exam",
         "notFound": "Aucun Exam trouvé"
       },

@@ -3,8 +3,8 @@
     "examSession": {
       "home": {
         "title": "ExamSessions",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Exam Session",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
         "createOrEditLabel": "Créer ou éditer un Exam Session",
         "notFound": "Aucun Exam Session trouvé"
       },

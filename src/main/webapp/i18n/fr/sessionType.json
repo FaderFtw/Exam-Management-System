@@ -3,8 +3,8 @@
     "sessionType": {
       "home": {
         "title": "SessionTypes",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Session Type",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
         "createOrEditLabel": "Créer ou éditer un Session Type",
         "notFound": "Aucun Session Type trouvé"
       },

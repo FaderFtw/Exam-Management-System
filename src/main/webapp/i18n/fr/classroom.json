@@ -3,8 +3,8 @@
     "classroom": {
       "home": {
         "title": "Classrooms",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Classroom",
+        "refreshListLabel": "ACTUALISER",
+        "createLabel": "AJOUTER",
         "createOrEditLabel": "Créer ou éditer un Classroom",
         "notFound": "Aucun Classroom trouvé"
       },
