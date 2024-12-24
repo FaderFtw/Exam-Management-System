@@ -45,6 +45,9 @@ import tn.fst.exam_manager.service.mapper.UserAcademicInfoMapper;
 @WithMockUser
 class UserAcademicInfoResourceIT {
 
+    private static final String DEFAULT_PHONE = "07314053";
+    private static final String UPDATED_PHONE = "38597040";
+
     private static final String ENTITY_API_URL = "/api/user-academic-infos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -86,7 +89,7 @@ class UserAcademicInfoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserAcademicInfo createEntity(EntityManager em) {
-        UserAcademicInfo userAcademicInfo = new UserAcademicInfo();
+        UserAcademicInfo userAcademicInfo = new UserAcademicInfo().phone(DEFAULT_PHONE);
         // Add required entity
         String uniqueLogin = PublicUserResourceIT.generateUniqueLogin();
         User user = UserResourceIT.initTestUserWithCustomLogin(uniqueLogin);
@@ -103,7 +106,7 @@ class UserAcademicInfoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserAcademicInfo createUpdatedEntity(EntityManager em) {
-        UserAcademicInfo updatedUserAcademicInfo = new UserAcademicInfo();
+        UserAcademicInfo updatedUserAcademicInfo = new UserAcademicInfo().phone(UPDATED_PHONE);
         // Add required entity
         User user = UserResourceIT.createEntity();
         em.persist(user);
@@ -178,7 +181,8 @@ class UserAcademicInfoResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(userAcademicInfo.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(userAcademicInfo.getId().intValue())))
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -209,7 +213,8 @@ class UserAcademicInfoResourceIT {
             .perform(get(ENTITY_API_URL_ID, userAcademicInfo.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(userAcademicInfo.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(userAcademicInfo.getId().intValue()))
+            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE));
     }
 
     @Test
@@ -231,6 +236,7 @@ class UserAcademicInfoResourceIT {
         UserAcademicInfo updatedUserAcademicInfo = userAcademicInfoRepository.findById(userAcademicInfo.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedUserAcademicInfo are not directly saved in db
         em.detach(updatedUserAcademicInfo);
+        updatedUserAcademicInfo.phone(UPDATED_PHONE);
         UserAcademicInfoDTO userAcademicInfoDTO = userAcademicInfoMapper.toDto(updatedUserAcademicInfo);
 
         restUserAcademicInfoMockMvc
@@ -320,6 +326,8 @@ class UserAcademicInfoResourceIT {
         UserAcademicInfo partialUpdatedUserAcademicInfo = new UserAcademicInfo();
         partialUpdatedUserAcademicInfo.setId(userAcademicInfo.getId());
 
+        partialUpdatedUserAcademicInfo.phone(UPDATED_PHONE);
+
         restUserAcademicInfoMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedUserAcademicInfo.getId())
@@ -348,6 +356,8 @@ class UserAcademicInfoResourceIT {
         // Update the userAcademicInfo using partial update
         UserAcademicInfo partialUpdatedUserAcademicInfo = new UserAcademicInfo();
         partialUpdatedUserAcademicInfo.setId(userAcademicInfo.getId());
+
+        partialUpdatedUserAcademicInfo.phone(UPDATED_PHONE);
 
         restUserAcademicInfoMockMvc
             .perform(

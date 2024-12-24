@@ -3,8 +3,8 @@
     "teachingSession": {
       "home": {
         "title": "TeachingSessions",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Teaching Session",
         "createOrEditLabel": "Créer ou éditer un Teaching Session",
         "notFound": "Aucun Teaching Session trouvé"
       },

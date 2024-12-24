@@ -3,8 +3,8 @@
     "studentClass": {
       "home": {
         "title": "StudentClasses",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Student Class",
         "createOrEditLabel": "Créer ou éditer un Student Class",
         "notFound": "Aucun Student Class trouvé"
       },

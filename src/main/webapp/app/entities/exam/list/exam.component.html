@@ -49,6 +49,27 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="numberOfStudents">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.exam.numberOfStudents">Number Of Students</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="startTime">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.exam.startTime">Start Time</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endTime">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.exam.endTime">End Time</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="classroom.id">
               <div class="d-flex">
                 <span jhiTranslate="examManagerApp.exam.classroom">Classroom</span>
@@ -77,6 +98,9 @@
                 <a [routerLink]="['/exam', exam.id, 'view']">{{ exam.id }}</a>
               </td>
               <td>{{ exam.name }}</td>
+              <td>{{ exam.numberOfStudents }}</td>
+              <td>{{ exam.startTime | formatMediumDatetime }}</td>
+              <td>{{ exam.endTime | formatMediumDatetime }}</td>
               <td>
                 @if (exam.classroom) {
                   <div>

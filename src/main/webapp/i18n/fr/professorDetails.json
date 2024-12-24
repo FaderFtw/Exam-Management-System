@@ -3,8 +3,8 @@
     "professorDetails": {
       "home": {
         "title": "ProfessorDetails",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Professor Details",
         "createOrEditLabel": "Créer ou éditer un Professor Details",
         "notFound": "Aucun Professor Details trouvé"
       },

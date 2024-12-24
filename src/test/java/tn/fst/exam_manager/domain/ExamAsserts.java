@@ -47,7 +47,10 @@ public class ExamAsserts {
     public static void assertExamUpdatableFieldsEquals(Exam expected, Exam actual) {
         assertThat(expected)
             .as("Verify Exam relevant properties")
-            .satisfies(e -> assertThat(e.getName()).as("check name").isEqualTo(actual.getName()));
+            .satisfies(e -> assertThat(e.getName()).as("check name").isEqualTo(actual.getName()))
+            .satisfies(e -> assertThat(e.getNumberOfStudents()).as("check numberOfStudents").isEqualTo(actual.getNumberOfStudents()))
+            .satisfies(e -> assertThat(e.getStartTime()).as("check startTime").isEqualTo(actual.getStartTime()))
+            .satisfies(e -> assertThat(e.getEndTime()).as("check endTime").isEqualTo(actual.getEndTime()));
     }
 
     /**

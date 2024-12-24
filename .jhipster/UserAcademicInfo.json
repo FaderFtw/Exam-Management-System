@@ -3,7 +3,14 @@
     "changelogDate": "20241219183259"
   },
   "dto": "mapstruct",
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "phone",
+      "fieldType": "String",
+      "fieldValidateRules": ["pattern"],
+      "fieldValidateRulesPattern": "^\\d{8}$"
+    }
+  ],
   "jpaMetamodelFiltering": false,
   "name": "UserAcademicInfo",
   "pagination": "pagination",

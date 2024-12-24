@@ -4,6 +4,7 @@ import { IInstitute } from 'app/entities/institute/institute.model';
 
 export interface IUserAcademicInfo {
   id: number;
+  phone?: string | null;
   user?: Pick<IUser, 'id' | 'login'> | null;
   department?: Pick<IDepartment, 'id' | 'name'> | null;
   institute?: Pick<IInstitute, 'id' | 'name'> | null;

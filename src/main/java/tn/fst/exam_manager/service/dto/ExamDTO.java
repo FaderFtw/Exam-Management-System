@@ -2,6 +2,7 @@ package tn.fst.exam_manager.service.dto;
 
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +17,15 @@ public class ExamDTO implements Serializable {
 
     @NotNull
     private String name;
+
+    @NotNull
+    private Integer numberOfStudents;
+
+    @NotNull
+    private Instant startTime;
+
+    @NotNull
+    private Instant endTime;
 
     private ClassroomDTO classroom;
 
@@ -39,6 +49,30 @@ public class ExamDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
+    public void setNumberOfStudents(Integer numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public Instant getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Instant startTime) {
+        this.startTime = startTime;
+    }
+
+    public Instant getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Instant endTime) {
+        this.endTime = endTime;
     }
 
     public ClassroomDTO getClassroom() {
@@ -100,6 +134,9 @@ public class ExamDTO implements Serializable {
         return "ExamDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", numberOfStudents=" + getNumberOfStudents() +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
             ", classroom=" + getClassroom() +
             ", studentClass=" + getStudentClass() +
             ", session=" + getSession() +

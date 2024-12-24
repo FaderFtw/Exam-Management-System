@@ -3,8 +3,8 @@
     "timetable": {
       "home": {
         "title": "Timetables",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Timetable",
         "createOrEditLabel": "Créer ou éditer un Timetable",
         "notFound": "Aucun Timetable trouvé"
       },

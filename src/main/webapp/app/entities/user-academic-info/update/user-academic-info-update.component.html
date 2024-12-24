@@ -19,6 +19,21 @@
           </div>
         }
 
+        @let phoneRef = editForm.get('phone')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_phone" jhiTranslate="examManagerApp.userAcademicInfo.phone">Phone</label>
+          <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
+          @if (phoneRef.invalid && (phoneRef.dirty || phoneRef.touched)) {
+            <div>
+              @if (editForm.get('phone')?.errors?.pattern) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Phone' }"
+                  >Ce champ doit suivre l&apos;expression régulière Phone.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
         <div class="mb-3">
           <label class="form-label" for="field_user" jhiTranslate="examManagerApp.userAcademicInfo.user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">

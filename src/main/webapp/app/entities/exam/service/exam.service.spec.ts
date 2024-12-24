@@ -5,10 +5,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { IExam } from '../exam.model';
 import { sampleWithFullData, sampleWithNewData, sampleWithPartialData, sampleWithRequiredData } from '../exam.test-samples';
 
-import { ExamService } from './exam.service';
+import { ExamService, RestExam } from './exam.service';
 
-const requireRestSample: IExam = {
+const requireRestSample: RestExam = {
   ...sampleWithRequiredData,
+  startTime: sampleWithRequiredData.startTime?.toJSON(),
+  endTime: sampleWithRequiredData.endTime?.toJSON(),
 };
 
 describe('Exam Service', () => {

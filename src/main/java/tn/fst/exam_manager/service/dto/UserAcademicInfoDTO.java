@@ -12,6 +12,9 @@ public class UserAcademicInfoDTO implements Serializable {
 
     private Long id;
 
+    @Pattern(regexp = "^\\d{8}$")
+    private String phone;
+
     @NotNull
     private UserDTO user;
 
@@ -25,6 +28,14 @@ public class UserAcademicInfoDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public UserDTO getUser() {
@@ -77,6 +88,7 @@ public class UserAcademicInfoDTO implements Serializable {
     public String toString() {
         return "UserAcademicInfoDTO{" +
             "id=" + getId() +
+            ", phone='" + getPhone() + "'" +
             ", user=" + getUser() +
             ", department=" + getDepartment() +
             ", institute=" + getInstitute() +

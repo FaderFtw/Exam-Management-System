@@ -45,8 +45,9 @@ public class UserAcademicInfoAsserts {
      * @param actual the actual entity
      */
     public static void assertUserAcademicInfoUpdatableFieldsEquals(UserAcademicInfo expected, UserAcademicInfo actual) {
-        // empty method
-
+        assertThat(expected)
+            .as("Verify UserAcademicInfo relevant properties")
+            .satisfies(e -> assertThat(e.getPhone()).as("check phone").isEqualTo(actual.getPhone()));
     }
 
     /**
