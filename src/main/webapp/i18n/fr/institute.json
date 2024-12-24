@@ -3,8 +3,8 @@
     "institute": {
       "home": {
         "title": "Institutes",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Institute",
         "createOrEditLabel": "Créer ou éditer un Institute",
         "notFound": "Aucun Institute trouvé"
       },

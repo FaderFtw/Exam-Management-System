@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Report.
+    -->
+    <changeSet id="20241128173247-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="professor_id"
+                                 baseTableName="report"
+                                 constraintName="fk_report__professor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="professor_details"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="exam_session_id"
+                                 baseTableName="report"
+                                 constraintName="fk_report__exam_session_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam_session"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="department_id"
+                                 baseTableName="report"
+                                 constraintName="fk_report__department_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="institute_id"
+                                 baseTableName="report"
+                                 constraintName="fk_report__institute_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="institute"
+                                 />
+    </changeSet>
+</databaseChangeLog>

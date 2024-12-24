@@ -3,8 +3,8 @@
     "exam": {
       "home": {
         "title": "Exams",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Exam",
         "createOrEditLabel": "Créer ou éditer un Exam",
         "notFound": "Aucun Exam trouvé"
       },
@@ -19,6 +19,9 @@
       },
       "id": "ID",
       "name": "Name",
+      "numberOfStudents": "Number Of Students",
+      "startTime": "Start Time",
+      "endTime": "End Time",
       "classroom": "Classroom",
       "studentClass": "Student Class",
       "session": "Session",

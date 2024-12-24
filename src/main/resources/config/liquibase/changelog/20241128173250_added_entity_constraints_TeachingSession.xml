@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity TeachingSession.
+    -->
+    <changeSet id="20241128173250-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="timetable_id"
+                                 baseTableName="teaching_session"
+                                 constraintName="fk_teaching_session__timetable_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="timetable"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="student_class_id"
+                                 baseTableName="teaching_session"
+                                 constraintName="fk_teaching_session__student_class_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="student_class"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="classroom_id"
+                                 baseTableName="teaching_session"
+                                 constraintName="fk_teaching_session__classroom_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="classroom"
+                                 />
+    </changeSet>
+</databaseChangeLog>

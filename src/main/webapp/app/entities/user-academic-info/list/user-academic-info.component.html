@@ -42,6 +42,13 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="phone">
+              <div class="d-flex">
+                <span jhiTranslate="examManagerApp.userAcademicInfo.phone">Phone</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="user.login">
               <div class="d-flex">
                 <span jhiTranslate="examManagerApp.userAcademicInfo.user">User</span>
@@ -69,6 +76,7 @@
               <td>
                 <a [routerLink]="['/user-academic-info', userAcademicInfo.id, 'view']">{{ userAcademicInfo.id }}</a>
               </td>
+              <td>{{ userAcademicInfo.phone }}</td>
               <td>
                 {{ userAcademicInfo.user?.login }}
               </td>

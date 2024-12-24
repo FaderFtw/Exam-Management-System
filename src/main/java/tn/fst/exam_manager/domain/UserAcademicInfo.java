@@ -24,6 +24,10 @@ public class UserAcademicInfo implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Pattern(regexp = "^\\d{8}$")
+    @Column(name = "phone")
+    private String phone;
+
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @NotNull
     @JoinColumn(unique = true)
@@ -50,6 +54,19 @@ public class UserAcademicInfo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public UserAcademicInfo phone(String phone) {
+        this.setPhone(phone);
+        return this;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public User getUser() {
@@ -115,6 +132,7 @@ public class UserAcademicInfo implements Serializable {
     public String toString() {
         return "UserAcademicInfo{" +
             "id=" + getId() +
+            ", phone='" + getPhone() + "'" +
             "}";
     }
 }

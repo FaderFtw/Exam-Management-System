@@ -3,8 +3,8 @@
     "report": {
       "home": {
         "title": "Reports",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Report",
         "createOrEditLabel": "Créer ou éditer un Report",
         "notFound": "Aucun Report trouvé"
       },

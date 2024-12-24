@@ -97,6 +97,12 @@ public class CacheConfiguration {
             createCache(cm, tn.fst.exam_manager.domain.Department.class.getName() + SUFFIX_USERS);
             createCache(cm, tn.fst.exam_manager.domain.Institute.class.getName() + SUFFIX_USERS);
             createCache(cm, tn.fst.exam_manager.domain.UserAcademicInfo.class.getName());
+            createCache(cm, tn.fst.exam_manager.domain.Department.class.getName() + ".examSessions");
+            createCache(cm, tn.fst.exam_manager.domain.Department.class.getName() + ".users");
+            createCache(cm, tn.fst.exam_manager.domain.Exam.class.getName() + ".supervisors");
+            createCache(cm, tn.fst.exam_manager.domain.ExamSession.class.getName() + ".departments");
+            createCache(cm, tn.fst.exam_manager.domain.Institute.class.getName() + ".users");
+            createCache(cm, tn.fst.exam_manager.domain.ProfessorDetails.class.getName() + ".supervisedExams");
             // jhipster-needle-ehcache-add-entry
         };
     }

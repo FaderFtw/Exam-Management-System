@@ -18,6 +18,7 @@
         "title": "User Academic Info"
       },
       "id": "ID",
+      "phone": "Phone",
       "user": "User",
       "department": "Department",
       "institute": "Institute"

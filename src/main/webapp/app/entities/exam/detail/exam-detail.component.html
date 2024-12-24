@@ -19,6 +19,18 @@
           <dd>
             <span>{{ examRef.name }}</span>
           </dd>
+          <dt><span jhiTranslate="examManagerApp.exam.numberOfStudents">Number Of Students</span></dt>
+          <dd>
+            <span>{{ examRef.numberOfStudents }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.exam.startTime">Start Time</span></dt>
+          <dd>
+            <span>{{ examRef.startTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="examManagerApp.exam.endTime">End Time</span></dt>
+          <dd>
+            <span>{{ examRef.endTime | formatMediumDatetime }}</span>
+          </dd>
           <dt><span jhiTranslate="examManagerApp.exam.classroom">Classroom</span></dt>
           <dd>
             @if (exam()!.classroom) {

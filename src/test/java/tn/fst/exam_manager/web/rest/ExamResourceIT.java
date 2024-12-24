@@ -10,6 +10,8 @@ import static tn.fst.exam_manager.web.rest.TestUtil.createUpdateProxyForBean;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -45,6 +47,15 @@ class ExamResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_NUMBER_OF_STUDENTS = 1;
+    private static final Integer UPDATED_NUMBER_OF_STUDENTS = 2;
+
+    private static final Instant DEFAULT_START_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_START_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_END_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_END_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String ENTITY_API_URL = "/api/exams";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -84,7 +95,11 @@ class ExamResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Exam createEntity() {
-        return new Exam().name(DEFAULT_NAME);
+        return new Exam()
+            .name(DEFAULT_NAME)
+            .numberOfStudents(DEFAULT_NUMBER_OF_STUDENTS)
+            .startTime(DEFAULT_START_TIME)
+            .endTime(DEFAULT_END_TIME);
     }
 
     /**
@@ -94,7 +109,11 @@ class ExamResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Exam createUpdatedEntity() {
-        return new Exam().name(UPDATED_NAME);
+        return new Exam()
+            .name(UPDATED_NAME)
+            .numberOfStudents(UPDATED_NUMBER_OF_STUDENTS)
+            .startTime(UPDATED_START_TIME)
+            .endTime(UPDATED_END_TIME);
     }
 
     @BeforeEach
@@ -171,6 +190,57 @@ class ExamResourceIT {
 
     @Test
     @Transactional
+    void checkNumberOfStudentsIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        exam.setNumberOfStudents(null);
+
+        // Create the Exam, which fails.
+        ExamDTO examDTO = examMapper.toDto(exam);
+
+        restExamMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(examDTO)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkStartTimeIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        exam.setStartTime(null);
+
+        // Create the Exam, which fails.
+        ExamDTO examDTO = examMapper.toDto(exam);
+
+        restExamMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(examDTO)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkEndTimeIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        exam.setEndTime(null);
+
+        // Create the Exam, which fails.
+        ExamDTO examDTO = examMapper.toDto(exam);
+
+        restExamMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(examDTO)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllExams() throws Exception {
         // Initialize the database
         insertedExam = examRepository.saveAndFlush(exam);
@@ -181,7 +251,10 @@ class ExamResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(exam.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].numberOfStudents").value(hasItem(DEFAULT_NUMBER_OF_STUDENTS)))
+            .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME.toString())))
+            .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME.toString())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -213,7 +286,10 @@ class ExamResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(exam.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.numberOfStudents").value(DEFAULT_NUMBER_OF_STUDENTS))
+            .andExpect(jsonPath("$.startTime").value(DEFAULT_START_TIME.toString()))
+            .andExpect(jsonPath("$.endTime").value(DEFAULT_END_TIME.toString()));
     }
 
     @Test
@@ -235,7 +311,7 @@ class ExamResourceIT {
         Exam updatedExam = examRepository.findById(exam.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedExam are not directly saved in db
         em.detach(updatedExam);
-        updatedExam.name(UPDATED_NAME);
+        updatedExam.name(UPDATED_NAME).numberOfStudents(UPDATED_NUMBER_OF_STUDENTS).startTime(UPDATED_START_TIME).endTime(UPDATED_END_TIME);
         ExamDTO examDTO = examMapper.toDto(updatedExam);
 
         restExamMockMvc
@@ -317,7 +393,7 @@ class ExamResourceIT {
         Exam partialUpdatedExam = new Exam();
         partialUpdatedExam.setId(exam.getId());
 
-        partialUpdatedExam.name(UPDATED_NAME);
+        partialUpdatedExam.name(UPDATED_NAME).numberOfStudents(UPDATED_NUMBER_OF_STUDENTS);
 
         restExamMockMvc
             .perform(
@@ -345,7 +421,11 @@ class ExamResourceIT {
         Exam partialUpdatedExam = new Exam();
         partialUpdatedExam.setId(exam.getId());
 
-        partialUpdatedExam.name(UPDATED_NAME);
+        partialUpdatedExam
+            .name(UPDATED_NAME)
+            .numberOfStudents(UPDATED_NUMBER_OF_STUDENTS)
+            .startTime(UPDATED_START_TIME)
+            .endTime(UPDATED_END_TIME);
 
         restExamMockMvc
             .perform(

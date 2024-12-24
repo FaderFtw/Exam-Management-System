@@ -18,6 +18,7 @@ type UserAcademicInfoFormDefaults = Pick<NewUserAcademicInfo, 'id'>;
 
 type UserAcademicInfoFormGroupContent = {
   id: FormControl<IUserAcademicInfo['id'] | NewUserAcademicInfo['id']>;
+  phone: FormControl<IUserAcademicInfo['phone']>;
   user: FormControl<IUserAcademicInfo['user']>;
   department: FormControl<IUserAcademicInfo['department']>;
   institute: FormControl<IUserAcademicInfo['institute']>;
@@ -40,6 +41,9 @@ export class UserAcademicInfoFormService {
           validators: [Validators.required],
         },
       ),
+      phone: new FormControl(userAcademicInfoRawValue.phone, {
+        validators: [Validators.pattern('^\\d{8}$')],
+      }),
       user: new FormControl(userAcademicInfoRawValue.user, {
         validators: [Validators.required],
       }),

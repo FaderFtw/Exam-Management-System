@@ -27,14 +27,14 @@
           <dd>
             @if (instituteRef.logo) {
               <div>
-                <a (click)="openFile(instituteRef.logo, instituteRef.logoContentType)">
+                <a (click)="openFile(instituteRef.logo ?? '', instituteRef.logoContentType)">
                   <img
                     [src]="'data:' + instituteRef.logoContentType + ';base64,' + instituteRef.logo"
                     style="max-width: 100%"
                     alt="institute"
                   />
                 </a>
-                {{ instituteRef.logoContentType }}, {{ byteSize(instituteRef.logo) }}
+                {{ instituteRef.logoContentType }}, {{ byteSize(instituteRef.logo ?? '') }}
               </div>
             }
           </dd>

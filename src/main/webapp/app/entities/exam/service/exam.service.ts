@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+
+import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -8,6 +10,17 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { IExam, NewExam } from '../exam.model';
 
 export type PartialUpdateExam = Partial<IExam> & Pick<IExam, 'id'>;
+
+type RestOf<T extends IExam | NewExam> = Omit<T, 'startTime' | 'endTime'> & {
+  startTime?: string | null;
+  endTime?: string | null;
+};
+
+export type RestExam = RestOf<IExam>;
+
+export type NewRestExam = RestOf<NewExam>;
+
+export type PartialUpdateRestExam = RestOf<PartialUpdateExam>;
 
 export type EntityResponseType = HttpResponse<IExam>;
 export type EntityArrayResponseType = HttpResponse<IExam[]>;
@@ -20,24 +33,35 @@ export class ExamService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/exams');
 
   create(exam: NewExam): Observable<EntityResponseType> {
-    return this.http.post<IExam>(this.resourceUrl, exam, { observe: 'response' });
+    const copy = this.convertDateFromClient(exam);
+    return this.http.post<RestExam>(this.resourceUrl, copy, { observe: 'response' }).pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   update(exam: IExam): Observable<EntityResponseType> {
-    return this.http.put<IExam>(`${this.resourceUrl}/${this.getExamIdentifier(exam)}`, exam, { observe: 'response' });
+    const copy = this.convertDateFromClient(exam);
+    return this.http
+      .put<RestExam>(`${this.resourceUrl}/${this.getExamIdentifier(exam)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   partialUpdate(exam: PartialUpdateExam): Observable<EntityResponseType> {
-    return this.http.patch<IExam>(`${this.resourceUrl}/${this.getExamIdentifier(exam)}`, exam, { observe: 'response' });
+    const copy = this.convertDateFromClient(exam);
+    return this.http
+      .patch<RestExam>(`${this.resourceUrl}/${this.getExamIdentifier(exam)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IExam>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http
+      .get<RestExam>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IExam[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http
+      .get<RestExam[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -70,5 +94,33 @@ export class ExamService {
       return [...examsToAdd, ...examCollection];
     }
     return examCollection;
+  }
+
+  protected convertDateFromClient<T extends IExam | NewExam | PartialUpdateExam>(exam: T): RestOf<T> {
+    return {
+      ...exam,
+      startTime: exam.startTime?.toJSON() ?? null,
+      endTime: exam.endTime?.toJSON() ?? null,
+    };
+  }
+
+  protected convertDateFromServer(restExam: RestExam): IExam {
+    return {
+      ...restExam,
+      startTime: restExam.startTime ? dayjs(restExam.startTime) : undefined,
+      endTime: restExam.endTime ? dayjs(restExam.endTime) : undefined,
+    };
+  }
+
+  protected convertResponseFromServer(res: HttpResponse<RestExam>): HttpResponse<IExam> {
+    return res.clone({
+      body: res.body ? this.convertDateFromServer(res.body) : null,
+    });
+  }
+
+  protected convertResponseArrayFromServer(res: HttpResponse<RestExam[]>): HttpResponse<IExam[]> {
+    return res.clone({
+      body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
+    });
   }
 }

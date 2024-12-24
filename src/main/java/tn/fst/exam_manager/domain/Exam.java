@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
@@ -29,6 +30,18 @@ public class Exam implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @NotNull
+    @Column(name = "number_of_students", nullable = false)
+    private Integer numberOfStudents;
+
+    @NotNull
+    @Column(name = "start_time", nullable = false)
+    private Instant startTime;
+
+    @NotNull
+    @Column(name = "end_time", nullable = false)
+    private Instant endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "department" }, allowSetters = true)
@@ -78,6 +91,45 @@ public class Exam implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getNumberOfStudents() {
+        return this.numberOfStudents;
+    }
+
+    public Exam numberOfStudents(Integer numberOfStudents) {
+        this.setNumberOfStudents(numberOfStudents);
+        return this;
+    }
+
+    public void setNumberOfStudents(Integer numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public Instant getStartTime() {
+        return this.startTime;
+    }
+
+    public Exam startTime(Instant startTime) {
+        this.setStartTime(startTime);
+        return this;
+    }
+
+    public void setStartTime(Instant startTime) {
+        this.startTime = startTime;
+    }
+
+    public Instant getEndTime() {
+        return this.endTime;
+    }
+
+    public Exam endTime(Instant endTime) {
+        this.setEndTime(endTime);
+        return this;
+    }
+
+    public void setEndTime(Instant endTime) {
+        this.endTime = endTime;
     }
 
     public Classroom getClassroom() {
@@ -167,6 +219,9 @@ public class Exam implements Serializable {
         return "Exam{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", numberOfStudents=" + getNumberOfStudents() +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
             "}";
     }
 }

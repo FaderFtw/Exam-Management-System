@@ -3,8 +3,8 @@
     "major": {
       "home": {
         "title": "Majors",
-        "refreshListLabel": "ACTUALISER",
-        "createLabel": "AJOUTER",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Major",
         "createOrEditLabel": "Créer ou éditer un Major",
         "notFound": "Aucun Major trouvé"
       },

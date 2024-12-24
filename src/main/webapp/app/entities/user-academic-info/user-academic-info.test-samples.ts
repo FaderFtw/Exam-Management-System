@@ -1,15 +1,16 @@
 import { IUserAcademicInfo, NewUserAcademicInfo } from './user-academic-info.model';
 
 export const sampleWithRequiredData: IUserAcademicInfo = {
-  id: 13578,
+  id: 15487,
 };
 
 export const sampleWithPartialData: IUserAcademicInfo = {
-  id: 6832,
+  id: 4799,
 };
 
 export const sampleWithFullData: IUserAcademicInfo = {
-  id: 6615,
+  id: 16833,
+  phone: '83710045',
 };
 
 export const sampleWithNewData: NewUserAcademicInfo = {

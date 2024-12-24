@@ -75,10 +75,10 @@ describe('ProfessorDetails Management Update Component', () => {
 
     it('Should call Exam query and add missing value', () => {
       const professorDetails: IProfessorDetails = { id: 456 };
-      const supervisedExams: IExam[] = [{ id: 26507 }];
+      const supervisedExams: IExam[] = [{ id: 25177 }];
       professorDetails.supervisedExams = supervisedExams;
 
-      const examCollection: IExam[] = [{ id: 31096 }];
+      const examCollection: IExam[] = [{ id: 11525 }];
       jest.spyOn(examService, 'query').mockReturnValue(of(new HttpResponse({ body: examCollection })));
       const additionalExams = [...supervisedExams];
       const expectedCollection: IExam[] = [...additionalExams, ...examCollection];
@@ -99,7 +99,7 @@ describe('ProfessorDetails Management Update Component', () => {
       const professorDetails: IProfessorDetails = { id: 456 };
       const user: IUser = { id: 18803 };
       professorDetails.user = user;
-      const supervisedExams: IExam = { id: 31571 };
+      const supervisedExams: IExam = { id: 7825 };
       professorDetails.supervisedExams = [supervisedExams];
 
       activatedRoute.data = of({ professorDetails });

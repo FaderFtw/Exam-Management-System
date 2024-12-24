@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity ExamSession.
+    -->
+    <changeSet id="20241128173243-1" author="jhipster">
+        <createTable tableName="exam_session">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="session_code" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="allow_parallel_studies" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="allow_own_class_supervision" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="allow_combine_classes" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="session_type_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_exam_session__session_type_id" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20241128173243-1-relations" author="jhipster">
+
+        <createTable tableName="rel_exam_session__departments">
+            <column name="departments_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exam_session_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="exam_session_id, departments_id" tableName="rel_exam_session__departments"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20241128173243-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/exam_session.csv"
+                  separator=";"
+                  tableName="exam_session"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="session_code" type="string"/>
+            <column name="start_date" type="date"/>
+            <column name="end_date" type="date"/>
+            <column name="allow_parallel_studies" type="boolean"/>
+            <column name="allow_own_class_supervision" type="boolean"/>
+            <column name="allow_combine_classes" type="boolean"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
