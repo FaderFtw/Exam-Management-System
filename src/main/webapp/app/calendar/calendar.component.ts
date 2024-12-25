@@ -14,7 +14,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 })
 export class CalendarComponent implements OnInit, AfterViewInit {
   events: any[] = [];
-  remainingEvents: any[] = []; // New array for external draggable events
+  remainingEvents: any[] = [];
   calendarOptions: any;
 
   constructor() {}
@@ -51,23 +51,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     ];
   }
 
-  // Initialize remaining events (external draggable events)
   initializeRemainingEvents(): void {
-    const currentYear = new Date().getFullYear();
-    const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
-
     this.remainingEvents = [
       {
         title: 'Exam A',
-        start: `${currentYear}-${currentMonth}-27 10:00:00`,
-        end: `${currentYear}-${currentMonth}-27 11:00:00`,
         description: 'Remaining Exam A description...',
         className: 'bg-primary',
       },
       {
         title: 'Exam B',
-        start: `${currentYear}-${currentMonth}-28 14:00:00`,
-        end: `${currentYear}-${currentMonth}-28 15:00:00`,
         description: 'Remaining Exam B description...',
         className: 'bg-warning',
       },
@@ -76,38 +68,31 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   setupCalendarOptions(): void {
     this.calendarOptions = {
-      editable: true, // Enables drag-and-drop
-      droppable: true, // Enables external drag-and-drop
-      eventResizableFromStart: true, // Enables resizing from the start
-
+      editable: true,
+      droppable: true,
+      eventResizableFromStart: true,
       plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
-
       initialView: 'timeGridWeek',
-      allDaySlot: false, // Hides the "all-day" section
-
-      slotDuration: '00:30:00', // Duration of each time slot (30 minutes)
-      slotMinTime: '08:00:00', // Start time of the calendar
-      slotMaxTime: '18:30:00', // End time of the calendar
+      allDaySlot: false,
+      slotDuration: '00:30:00',
+      slotMinTime: '08:00:00',
+      slotMaxTime: '18:30:00',
       events: this.events,
       eventClick: (info: any) => {
         alert(`Event: ${info.event.title}`);
       },
-
-      eventDrop: this.handleEventChange.bind(this), // Handle event drag-and-drop
-      eventResize: this.handleEventChange.bind(this), // Handle event resizing
+      eventDrop: this.handleEventChange.bind(this),
+      eventResize: this.handleEventChange.bind(this),
+      eventReceive: this.handleEventReceive.bind(this), // Add handler for receiving dropped events
     };
   }
 
-  // Event handler
   handleEventChange(info: any) {
     console.log('Event dropped:', info.event.title);
     console.log('New start date:', info.event.start);
     console.log('New end date:', info.event.end);
 
-    // Updated event object with the new start and end dates
     const updatedEvent = info.event;
-
-    // Update the event data in backend or local storage here
     const index = this.events.findIndex(event => event.title === updatedEvent.title);
     if (index > -1) {
       this.events[index].start = updatedEvent.start.toISOString();
@@ -115,18 +100,47 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Initialize external events (draggable list items)
+  // New method to handle receiving external events
+  // Removes the event from "remainingEvents" and adds them to "events"
+  handleEventReceive(info: any) {
+    const droppedEvent = info.event;
+
+    // Find and remove the event from remainingEvents
+    const remainingIndex = this.remainingEvents.findIndex(event => event.title === droppedEvent.title);
+
+    if (remainingIndex > -1) {
+      // Get the full event data from remainingEvents
+      const originalEvent = this.remainingEvents[remainingIndex];
+
+      // Create new event with combined data
+      const newEvent = {
+        ...originalEvent,
+        start: droppedEvent.start.toISOString(),
+        end: droppedEvent.end.toISOString(),
+      };
+
+      // Add to events array
+      this.events = [...this.events, newEvent];
+
+      // Remove from remainingEvents
+      this.remainingEvents.splice(remainingIndex, 1);
+    }
+  }
+
   initExternalEvents(): void {
     const externalEventElements = document.querySelectorAll('.draggable-event');
     externalEventElements.forEach((el: Element) => {
-      // Type assertion to HTMLElement
-      const element = el as HTMLElement; // Cast to HTMLElement
+      const element = el as HTMLElement;
       new Draggable(element, {
         itemSelector: '.draggable-event',
         eventData: (eventEl: HTMLElement) => {
+          const eventTitle = eventEl.getAttribute('data-event-title');
+          // Find the corresponding event data
+          const eventData = this.remainingEvents.find(event => event.title === eventTitle);
           return {
-            title: eventEl.getAttribute('data-event-title'),
-            className: eventEl.classList.toString(),
+            title: eventTitle,
+            className: eventData?.className || '',
+            duration: '01:30', // Default duration when dropped
           };
         },
       });
