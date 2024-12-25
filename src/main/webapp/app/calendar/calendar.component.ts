@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common'; // Time Grid View
-import dayGridPlugin from '@fullcalendar/daygrid';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import interactionPlugin from '@fullcalendar/interaction'; // Drag-n-Drop, Resizing
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
@@ -12,16 +12,21 @@ import timeGridPlugin from '@fullcalendar/timegrid';
   imports: [FullCalendarModule, DatePipe, CommonModule],
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
   events: any[] = [];
+  remainingEvents: any[] = []; // New array for external draggable events
   calendarOptions: any;
 
   constructor() {}
 
   ngOnInit(): void {
     this.initializeEvents();
-    console.log(this.events);
+    this.initializeRemainingEvents();
     this.setupCalendarOptions();
+  }
+
+  ngAfterViewInit() {
+    this.initExternalEvents();
   }
 
   initializeEvents(): void {
@@ -46,13 +51,35 @@ export class CalendarComponent implements OnInit {
     ];
   }
 
+  // Initialize remaining events (external draggable events)
+  initializeRemainingEvents(): void {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
+
+    this.remainingEvents = [
+      {
+        title: 'Exam A',
+        start: `${currentYear}-${currentMonth}-27 10:00:00`,
+        end: `${currentYear}-${currentMonth}-27 11:00:00`,
+        description: 'Remaining Exam A description...',
+        className: 'bg-primary',
+      },
+      {
+        title: 'Exam B',
+        start: `${currentYear}-${currentMonth}-28 14:00:00`,
+        end: `${currentYear}-${currentMonth}-28 15:00:00`,
+        description: 'Remaining Exam B description...',
+        className: 'bg-warning',
+      },
+    ];
+  }
+
   setupCalendarOptions(): void {
     this.calendarOptions = {
       editable: true, // Enables drag-and-drop
       droppable: true, // Enables external drag-and-drop
       eventResizableFromStart: true, // Enables resizing from the start
 
-      // register plugins here!
       plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
 
       initialView: 'timeGridWeek',
@@ -80,8 +107,7 @@ export class CalendarComponent implements OnInit {
     // Updated event object with the new start and end dates
     const updatedEvent = info.event;
 
-    // Update the event data in  backend or local storage here
-    // For example, update the event in the `this.events` array using the title
+    // Update the event data in backend or local storage here
     const index = this.events.findIndex(event => event.title === updatedEvent.title);
     if (index > -1) {
       this.events[index].start = updatedEvent.start.toISOString();
@@ -89,5 +115,21 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  protected readonly event = event;
+  // Initialize external events (draggable list items)
+  initExternalEvents(): void {
+    const externalEventElements = document.querySelectorAll('.draggable-event');
+    externalEventElements.forEach((el: Element) => {
+      // Type assertion to HTMLElement
+      const element = el as HTMLElement; // Cast to HTMLElement
+      new Draggable(element, {
+        itemSelector: '.draggable-event',
+        eventData: (eventEl: HTMLElement) => {
+          return {
+            title: eventEl.getAttribute('data-event-title'),
+            className: eventEl.classList.toString(),
+          };
+        },
+      });
+    });
+  }
 }

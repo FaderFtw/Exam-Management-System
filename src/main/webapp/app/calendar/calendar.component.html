@@ -2,7 +2,20 @@
   <div class="row h-100">
     <!-- Left: Event List -->
     <div class="col-md-3 p-3 overflow-auto">
-      <h2 class="h5 mb-3">Current exams</h2>
+      <!-- Remaining Exams Section -->
+      <h2 class="h5 mb-3">Remaining Exams</h2>
+      <ul class="list-group">
+        <li *ngFor="let event of remainingEvents" class="list-group-item mb-2 draggable-event" [attr.data-event-title]="event.title">
+          <div>
+            <strong>{{ event.title }}</strong>
+            <br />
+            {{ event.start | date: 'short' }} - {{ event.end | date: 'short' }}
+          </div>
+        </li>
+      </ul>
+
+      <!-- Current Exams Section -->
+      <h2 class="h5 mb-3 mt-4">Current Exams</h2>
       <ul class="list-group">
         <li *ngFor="let event of events" class="list-group-item mb-2">
           <div>
