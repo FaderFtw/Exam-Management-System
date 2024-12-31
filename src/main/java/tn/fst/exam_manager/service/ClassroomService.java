@@ -5,12 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.fst.exam_manager.domain.Classroom;
 import tn.fst.exam_manager.repository.ClassroomRepository;
+import tn.fst.exam_manager.security.SecurityUtils;
 import tn.fst.exam_manager.service.dto.ClassroomDTO;
 import tn.fst.exam_manager.service.mapper.ClassroomMapper;
 
@@ -20,7 +20,6 @@ import tn.fst.exam_manager.service.mapper.ClassroomMapper;
  */
 @Service
 @Transactional
-@PostAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_INSTITUTE_ADMIN') and @securityService.isInSameInstituteFromDepartment(#id)")
 public class ClassroomService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassroomService.class);
@@ -29,9 +28,12 @@ public class ClassroomService {
 
     private final ClassroomMapper classroomMapper;
 
-    public ClassroomService(ClassroomRepository classroomRepository, ClassroomMapper classroomMapper) {
+    private final SecurityService securityService;
+
+    public ClassroomService(ClassroomRepository classroomRepository, ClassroomMapper classroomMapper, SecurityService securityService) {
         this.classroomRepository = classroomRepository;
         this.classroomMapper = classroomMapper;
+        this.securityService = securityService;
     }
 
     /**
@@ -40,6 +42,7 @@ public class ClassroomService {
      * @param classroomDTO the entity to save.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO.id)")
     public ClassroomDTO save(ClassroomDTO classroomDTO) {
         LOG.debug("Request to save Classroom : {}", classroomDTO);
         Classroom classroom = classroomMapper.toEntity(classroomDTO);
@@ -53,6 +56,7 @@ public class ClassroomService {
      * @param classroomDTO the entity to save.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO.id)")
     public ClassroomDTO update(ClassroomDTO classroomDTO) {
         LOG.debug("Request to update Classroom : {}", classroomDTO);
         Classroom classroom = classroomMapper.toEntity(classroomDTO);
@@ -66,6 +70,7 @@ public class ClassroomService {
      * @param classroomDTO the entity to update partially.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO.id)")
     public Optional<ClassroomDTO> partialUpdate(ClassroomDTO classroomDTO) {
         LOG.debug("Request to partially update Classroom : {}", classroomDTO);
 
@@ -86,10 +91,21 @@ public class ClassroomService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_INSTITUTE_ADMIN') or hasRole('ROLE_DEPARTMENT_ADMIN')")
     @Transactional(readOnly = true)
     public Page<ClassroomDTO> findAll(Pageable pageable) {
         LOG.debug("Request to get all Classrooms");
-        return classroomRepository.findAll(pageable).map(classroomMapper::toDto);
+
+        if (SecurityUtils.isCurrentUserSuperAdmin()) {
+            return classroomRepository.findAll(pageable).map(classroomMapper::toDto);
+        }
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin() || SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            Long userInsituteId = securityService.getCurrentUserInstituteId();
+            return classroomRepository.findAllByDepartmentInstituteId(pageable, userInsituteId).map(classroomMapper::toDto);
+        }
+
+        return Page.empty();
     }
 
     /**
@@ -99,6 +115,7 @@ public class ClassroomService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToReadClassroom(#id)")
     public Optional<ClassroomDTO> findOne(Long id) {
         LOG.debug("Request to get Classroom : {}", id);
         return classroomRepository.findById(id).map(classroomMapper::toDto);
@@ -109,6 +126,7 @@ public class ClassroomService {
      *
      * @param id the id of the entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#id)")
     public void delete(Long id) {
         LOG.debug("Request to delete Classroom : {}", id);
         classroomRepository.deleteById(id);

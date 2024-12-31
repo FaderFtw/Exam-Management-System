@@ -32,7 +32,7 @@ public class Classroom implements Serializable {
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "institute", "examSessions", "users" }, allowSetters = true)
     private Department department;
 

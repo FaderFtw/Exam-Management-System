@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
-import tn.fst.exam_manager.config.Constants;
 
 /**
  * Utility class for Spring Security.
@@ -99,6 +98,22 @@ public final class SecurityUtils {
      */
     public static boolean hasCurrentUserThisAuthority(String authority) {
         return hasCurrentUserAnyOfAuthorities(authority);
+    }
+
+    public static boolean isCurrentUserSuperAdmin() {
+        return hasCurrentUserThisAuthority(AuthoritiesConstants.SUPER);
+    }
+
+    public static boolean isCurrentUserInstituteAdmin() {
+        return hasCurrentUserThisAuthority(AuthoritiesConstants.INSTITUTE);
+    }
+
+    public static boolean isCurrentUserDepartmentAdmin() {
+        return hasCurrentUserThisAuthority(AuthoritiesConstants.DEPARTMENT);
+    }
+
+    public static boolean isCurrentUserProfessor() {
+        return hasCurrentUserThisAuthority(AuthoritiesConstants.PROFESSOR);
     }
 
     private static Stream<String> getAuthorities(Authentication authentication) {

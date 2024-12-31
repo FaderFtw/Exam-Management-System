@@ -24,7 +24,7 @@ public class UserAcademicInfo implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JoinColumn(unique = true)
     private User user;

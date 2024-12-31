@@ -33,7 +33,7 @@ public class Department implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
     private Institute institute;
 
