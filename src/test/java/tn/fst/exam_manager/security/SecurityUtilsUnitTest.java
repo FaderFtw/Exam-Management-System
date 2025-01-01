@@ -93,7 +93,9 @@ class SecurityUtilsUnitTest {
 
         assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.INSTITUTE)).isFalse();
         assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities(AuthoritiesConstants.SUPER, AuthoritiesConstants.DEPARTMENT)).isFalse();
-        assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_USER", "ROLE_ADMIN")).isFalse();
-        assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_ANONYMOUS", "ROLE_ADMIN")).isTrue();
+        assertThat(SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_SUPER_ADMIN")).isFalse();
+        assertThat(
+            SecurityUtils.hasCurrentUserNoneOfAuthorities("ROLE_INSTITUTE_ADMIN", "ROLE_DEPARTMENT_ADMIN", "ROLE_PROFESSOR")
+        ).isTrue();
     }
 }
