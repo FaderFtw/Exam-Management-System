@@ -1,16 +1,17 @@
 package tn.fst.exam_manager.service;
 
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.fst.exam_manager.domain.Department;
 import tn.fst.exam_manager.repository.DepartmentRepository;
+import tn.fst.exam_manager.security.SecurityUtils;
 import tn.fst.exam_manager.service.dto.DepartmentDTO;
 import tn.fst.exam_manager.service.mapper.DepartmentMapper;
 
@@ -20,10 +21,7 @@ import tn.fst.exam_manager.service.mapper.DepartmentMapper;
  */
 @Service
 @Transactional
-// TODO: Department Admin can only view his department, requires modification if
-// department admin can view all departments in his institute
-// @PostAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_INSTITUTE_ADMIN') and @securityService.isInSameInstitute(#institute) or hasRole('ROLE_DEPARTMENT_ADMIN') and @securityService.isInSameDepartment(#id)")
-@PostAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_DEPARTMENT_ADMIN') and @securityService.isInSameDepartment(#id)")
+@AllArgsConstructor
 public class DepartmentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DepartmentService.class);
@@ -32,10 +30,7 @@ public class DepartmentService {
 
     private final DepartmentMapper departmentMapper;
 
-    public DepartmentService(DepartmentRepository departmentRepository, DepartmentMapper departmentMapper) {
-        this.departmentRepository = departmentRepository;
-        this.departmentMapper = departmentMapper;
-    }
+    private final SecurityService securityService;
 
     /**
      * Save a department.
@@ -43,6 +38,7 @@ public class DepartmentService {
      * @param departmentDTO the entity to save.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteDepartment(#departmentDTO)")
     public DepartmentDTO save(DepartmentDTO departmentDTO) {
         LOG.debug("Request to save Department : {}", departmentDTO);
         Department department = departmentMapper.toEntity(departmentDTO);
@@ -56,6 +52,7 @@ public class DepartmentService {
      * @param departmentDTO the entity to save.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteDepartment(#departmentDTO)")
     public DepartmentDTO update(DepartmentDTO departmentDTO) {
         LOG.debug("Request to update Department : {}", departmentDTO);
         Department department = departmentMapper.toEntity(departmentDTO);
@@ -69,6 +66,7 @@ public class DepartmentService {
      * @param departmentDTO the entity to update partially.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteDepartment(#departmentDTO)")
     public Optional<DepartmentDTO> partialUpdate(DepartmentDTO departmentDTO) {
         LOG.debug("Request to partially update Department : {}", departmentDTO);
 
@@ -90,9 +88,19 @@ public class DepartmentService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_INSTITUTE_ADMIN') or hasRole('ROLE_DEPARTMENT_ADMIN')")
     public Page<DepartmentDTO> findAll(Pageable pageable) {
         LOG.debug("Request to get all Departments");
-        return departmentRepository.findAll(pageable).map(departmentMapper::toDto);
+
+        if (SecurityUtils.isCurrentUserSuperAdmin()) {
+            return departmentRepository.findAll(pageable).map(departmentMapper::toDto);
+        }
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin() || SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            Long userInsituteId = securityService.getCurrentUserInstituteId();
+            return departmentRepository.findAllByInstituteId(pageable, userInsituteId).map(departmentMapper::toDto);
+        }
+        return Page.empty();
     }
 
     /**
@@ -101,6 +109,7 @@ public class DepartmentService {
      * @param id the id of the entity.
      * @return the entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToReadDepartment(#id)")
     @Transactional(readOnly = true)
     public Optional<DepartmentDTO> findOne(Long id) {
         LOG.debug("Request to get Department : {}", id);
@@ -112,6 +121,7 @@ public class DepartmentService {
      *
      * @param id the id of the entity.
      */
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToDeleteDepartment(#id)")
     public void delete(Long id) {
         LOG.debug("Request to delete Department : {}", id);
         departmentRepository.deleteById(id);

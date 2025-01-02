@@ -31,7 +31,7 @@ import tn.fst.exam_manager.service.mapper.DepartmentMapper;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = { "ROLE_SUPER_ADMIN" })
 class DepartmentResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

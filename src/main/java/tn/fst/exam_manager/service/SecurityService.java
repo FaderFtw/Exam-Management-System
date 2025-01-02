@@ -22,6 +22,8 @@ import tn.fst.exam_manager.repository.TeachingSessionRepository;
 import tn.fst.exam_manager.repository.TimetableRepository;
 import tn.fst.exam_manager.repository.UserAcademicInfoRepository;
 import tn.fst.exam_manager.security.SecurityUtils;
+import tn.fst.exam_manager.service.dto.ClassroomDTO;
+import tn.fst.exam_manager.service.dto.DepartmentDTO;
 
 @Service
 @AllArgsConstructor
@@ -96,7 +98,53 @@ public class SecurityService {
         return false;
     }
 
-    public boolean isAuthorizedToWriteClassroom(Long classroomId) {
+    public boolean isAuthorizedToWriteClassroom(ClassroomDTO classroomDTO) {
+        UserAcademicInfo userAcademicInfo = getCurrentUserAcademicInfo();
+
+        if (userAcademicInfo == null) {
+            return false;
+        }
+
+        // verify that the data in the classroomDTO is within the same
+        // institute/department as the user
+        if (SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            if (!isInSameDepartment(classroomDTO.getDepartment().getId(), userAcademicInfo)) {
+                return false;
+            }
+        }
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin()) {
+            Long classroomDepartmentId = classroomDTO.getDepartment().getId();
+            Long classroomInstituteId = departmentRepository
+                .findById(classroomDepartmentId)
+                .map(Department::getInstitute)
+                .map(Institute::getId)
+                .orElse(null);
+            if (!isInSameInstitute(classroomInstituteId, userAcademicInfo)) {
+                return false;
+            }
+        }
+
+        if (classroomDTO.getId() == null) {
+            return true;
+        }
+
+        Classroom classroom = classroomRepository
+            .findById(classroomDTO.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Classroom not found"));
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin()) {
+            return isInSameInstitute(classroom.getDepartment().getInstitute().getId(), userAcademicInfo);
+        }
+
+        if (SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            return isInSameDepartment(classroom.getDepartment().getId(), userAcademicInfo);
+        }
+
+        return false;
+    }
+
+    public boolean isAuthorizedToDeleteClassroom(Long classroomId) {
         UserAcademicInfo userAcademicInfo = getCurrentUserAcademicInfo();
 
         if (userAcademicInfo == null) {
@@ -113,6 +161,85 @@ public class SecurityService {
 
         if (SecurityUtils.isCurrentUserDepartmentAdmin()) {
             return isInSameDepartment(classroom.getDepartment().getId(), userAcademicInfo);
+        }
+
+        return false;
+    }
+
+    public boolean isAuthorizedToReadDepartment(Long departmentId) {
+        UserAcademicInfo userAcademicInfo = getCurrentUserAcademicInfo();
+
+        if (userAcademicInfo == null) {
+            return false;
+        }
+
+        Department department = departmentRepository
+            .findById(departmentId)
+            .orElseThrow(() -> new IllegalArgumentException("Department not found"));
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin() || SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            return isInSameInstitute(department.getInstitute().getId(), userAcademicInfo);
+        }
+
+        return false;
+    }
+
+    public boolean isAuthorizedToWriteDepartment(DepartmentDTO departmentDTO) {
+        UserAcademicInfo userAcademicInfo = getCurrentUserAcademicInfo();
+
+        if (userAcademicInfo == null) {
+            return false;
+        }
+
+        if (SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            if (!isInSameDepartment(departmentDTO.getId(), userAcademicInfo)) {
+                return false;
+            }
+        }
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin()) {
+            Long departmentInstituteId = departmentRepository
+                .findById(departmentDTO.getId())
+                .map(Department::getInstitute)
+                .map(Institute::getId)
+                .orElse(null);
+            if (!isInSameInstitute(departmentInstituteId, userAcademicInfo)) {
+                return false;
+            }
+        }
+
+        if (departmentDTO.getId() == null) {
+            return true;
+        }
+
+        Department department = departmentRepository
+            .findById(departmentDTO.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Department not found"));
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin()) {
+            return isInSameInstitute(department.getInstitute().getId(), userAcademicInfo);
+        }
+
+        if (SecurityUtils.isCurrentUserDepartmentAdmin()) {
+            return isInSameDepartment(department.getId(), userAcademicInfo);
+        }
+
+        return false;
+    }
+
+    public boolean isAuthorizedToDeleteDepartment(Long departmentId) {
+        UserAcademicInfo userAcademicInfo = getCurrentUserAcademicInfo();
+
+        if (userAcademicInfo == null) {
+            return false;
+        }
+
+        Department department = departmentRepository
+            .findById(departmentId)
+            .orElseThrow(() -> new IllegalArgumentException("Department not found"));
+
+        if (SecurityUtils.isCurrentUserInstituteAdmin()) {
+            return isInSameInstitute(department.getInstitute().getId(), userAcademicInfo);
         }
 
         return false;

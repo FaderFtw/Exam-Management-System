@@ -1,6 +1,7 @@
 package tn.fst.exam_manager.service;
 
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import tn.fst.exam_manager.service.mapper.ClassroomMapper;
  */
 @Service
 @Transactional
+@AllArgsConstructor
 public class ClassroomService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassroomService.class);
@@ -30,19 +32,13 @@ public class ClassroomService {
 
     private final SecurityService securityService;
 
-    public ClassroomService(ClassroomRepository classroomRepository, ClassroomMapper classroomMapper, SecurityService securityService) {
-        this.classroomRepository = classroomRepository;
-        this.classroomMapper = classroomMapper;
-        this.securityService = securityService;
-    }
-
     /**
      * Save a classroom.
      *
      * @param classroomDTO the entity to save.
      * @return the persisted entity.
      */
-    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO.id)")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO)")
     public ClassroomDTO save(ClassroomDTO classroomDTO) {
         LOG.debug("Request to save Classroom : {}", classroomDTO);
         Classroom classroom = classroomMapper.toEntity(classroomDTO);
@@ -56,7 +52,7 @@ public class ClassroomService {
      * @param classroomDTO the entity to save.
      * @return the persisted entity.
      */
-    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO.id)")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO)")
     public ClassroomDTO update(ClassroomDTO classroomDTO) {
         LOG.debug("Request to update Classroom : {}", classroomDTO);
         Classroom classroom = classroomMapper.toEntity(classroomDTO);
@@ -70,7 +66,7 @@ public class ClassroomService {
      * @param classroomDTO the entity to update partially.
      * @return the persisted entity.
      */
-    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO.id)")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#classroomDTO)")
     public Optional<ClassroomDTO> partialUpdate(ClassroomDTO classroomDTO) {
         LOG.debug("Request to partially update Classroom : {}", classroomDTO);
 
@@ -126,7 +122,7 @@ public class ClassroomService {
      *
      * @param id the id of the entity.
      */
-    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToWriteClassroom(#id)")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN') or @securityService.isAuthorizedToDeleteClassroom(#id)")
     public void delete(Long id) {
         LOG.debug("Request to delete Classroom : {}", id);
         classroomRepository.deleteById(id);
